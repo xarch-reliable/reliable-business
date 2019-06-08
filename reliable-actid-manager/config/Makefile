@@ -12,7 +12,7 @@ config:
 	cp -i ../target/$(NAME)-$(VERSION).jar $(FILE)/$(NAME)/app.jar
 
 docker:
-	docker build -t lnnupet/$(NAME):$(VERSION) .
+	docker build -t reliable8/$(NAME):$(VERSION) .
 
 run:
 	docker run --name $(NAME) \
@@ -20,11 +20,11 @@ run:
 	-v $(FILE)/$(NAME)/app.jar:/app.jar \
 	-v $(FILE)/logs/$(NAME):/reliable-logs \
 	-p $(PORT):$(PORT) \
-	-d lnnupet/$(NAME):$(VERSION)
+	-d reliable8/$(NAME):$(VERSION)
 
 restart:
 	docker restart $(NAME)
 
 remove:
 	docker stop $(NAME) && docker rm $(NAME)
-	docker rmi lnnupet/$(NAME):$(VERSION)
+	docker rmi reliable8/$(NAME):$(VERSION)
