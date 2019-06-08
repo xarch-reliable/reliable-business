@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.xarch.reliable.model.domain.reliable.ReliableActivityInfo;
 import org.xarch.reliable.service.ReliableActInfoServer;
+import org.xarch.reliable.utils.BaseResultTools;
 
 @RestController
 @RequestMapping("/activity/info")
@@ -21,7 +22,8 @@ public class ActInfoController {
 	private ReliableActInfoServer reliableActInfoServer;
 
 	@PostMapping("/set")
-	public Map<String, String> setActid2ActInfo(@RequestBody ReliableActivityInfo reliableActivityInfo) {
+	public Map<String, String> setActid2ActInfo(@RequestBody String actInfoStr) {
+		ReliableActivityInfo reliableActivityInfo = BaseResultTools.fromJSON(actInfoStr, ReliableActivityInfo.class);
 		Map<String, String> map = new HashMap<String, String>();
 		if (reliableActivityInfo.getActid() == null) {
 			map.put("error_msg", "actid为空");
