@@ -1,6 +1,6 @@
 VERSION=0.0.1
-NAME=reliable-actid-manager
-PORT=8810
+NAME=reliable-wechat-oauth-jwt
+PORT=8250
 FILE=/var/spring-project/reliable8
 
 all:config restart

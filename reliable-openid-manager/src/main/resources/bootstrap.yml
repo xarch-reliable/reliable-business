@@ -1,5 +1,5 @@
 server:
-  port: 8810
+  port: 8820
 eureka:
   instance:
     prefer-ip-address: true 
@@ -9,10 +9,10 @@ eureka:
       defaultZone: http://47.104.89.2:8000/eureka/
 spring:
   application:
-    name: reliable-actid-manager
+    name: reliable-openid-manager
   cloud:
     config:
-      name: rabbitmq-bus,async-thread,logback-all-info,redis-2-actid
+      name: rabbitmq-bus,async-thread,logback-all-info,redis-3-openid
       profile: dev
       label: master
       discovery:

@@ -1,6 +1,6 @@
 VERSION=0.0.1
-NAME=reliable-actid-manager
-PORT=8810
+NAME=reliable-openid-manager
+PORT=8820
 FILE=/var/spring-project/reliable8
 
 all:config restart
