@@ -16,7 +16,7 @@ public class ReliableActivityInfo implements Serializable {
 	@Id // [必须的传入参数，使用自动生成策略]
 	@GeneratedValue // [自动生成策略，自动编号排序]
 	private Long id;
-	
+
 	@JsonProperty("actid")
 	private String actid;
 
@@ -29,11 +29,14 @@ public class ReliableActivityInfo implements Serializable {
 	@JsonProperty("theme")
 	private String theme;
 
-	@JsonProperty("start_time")
-	private String startTime;
+	@JsonProperty("date")
+	private String date;
 
-	@JsonProperty("localtion")
-	private String localtion;
+	@JsonProperty("time")
+	private String time;
+
+	@JsonProperty("location")
+	private String location;
 
 	@JsonProperty("baozhenghb")
 	private String baozhenghb;
@@ -42,13 +45,21 @@ public class ReliableActivityInfo implements Serializable {
 	private String clearMethod;
 
 	@JsonProperty("check_method")
-	private String checkMethod;
+	private String[] checkMethod;
 
 	@JsonProperty("details")
 	private String details;
 
 	@JsonProperty("status")
 	private String status;
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
 
 	public String getActid() {
 		return actid;
@@ -82,20 +93,28 @@ public class ReliableActivityInfo implements Serializable {
 		this.theme = theme;
 	}
 
-	public String getStartTime() {
-		return startTime;
+	public String getDate() {
+		return date;
 	}
 
-	public void setStartTime(String startTime) {
-		this.startTime = startTime;
+	public void setDate(String date) {
+		this.date = date;
+	}
+
+	public String getTime() {
+		return time;
+	}
+
+	public void setTime(String time) {
+		this.time = time;
 	}
 
 	public String getLocaltion() {
-		return localtion;
+		return location;
 	}
 
-	public void setLocaltion(String localtion) {
-		this.localtion = localtion;
+	public void setLocaltion(String location) {
+		this.location = location;
 	}
 
 	public String getBaozhenghb() {
@@ -114,11 +133,11 @@ public class ReliableActivityInfo implements Serializable {
 		this.clearMethod = clearMethod;
 	}
 
-	public String getCheckMethod() {
+	public String[] getCheckMethod() {
 		return checkMethod;
 	}
 
-	public void setCheckMethod(String checkMethod) {
+	public void setCheckMethod(String[] checkMethod) {
 		this.checkMethod = checkMethod;
 	}
 

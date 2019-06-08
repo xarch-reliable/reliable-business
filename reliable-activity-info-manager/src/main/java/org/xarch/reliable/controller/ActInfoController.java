@@ -23,6 +23,10 @@ public class ActInfoController {
 	@PostMapping("/set")
 	public Map<String, String> setActid2ActInfo(@RequestBody ReliableActivityInfo reliableActivityInfo) {
 		Map<String, String> map = new HashMap<String, String>();
+		if (reliableActivityInfo.getActid() == null) {
+			map.put("error_msg", "actid为空");
+			return map;
+		}
 		if (reliableActInfoServer.setActInfo(reliableActivityInfo)) {
 			map.put("success", "存入成功");
 		} else {
