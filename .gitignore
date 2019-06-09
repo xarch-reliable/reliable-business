@@ -6,3 +6,4 @@ reliable-business-manager/reliable-logs/spring.log
 *.gz
 *.log
 *.log
+*.log

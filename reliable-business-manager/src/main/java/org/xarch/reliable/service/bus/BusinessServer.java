@@ -1,7 +1,10 @@
 package org.xarch.reliable.service.bus;
 
+import java.util.HashMap;
 import java.util.Map;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.xarch.reliable.service.feign.FeignActInfoManager;
@@ -13,6 +16,8 @@ import org.xarch.reliable.service.thread.ThreadPool;
 
 @Service
 public class BusinessServer extends BsinessManager {
+
+	private static final Logger logger = LoggerFactory.getLogger(BusinessServer.class);
 
 	@Autowired
 	private FeignActInfoManager feignActInfoManager;
@@ -28,7 +33,7 @@ public class BusinessServer extends BsinessManager {
 
 	@Autowired
 	private FeignPayManager feignPayManager;
-	
+
 	@Autowired
 	private ThreadPool threadPool;
 
@@ -38,6 +43,12 @@ public class BusinessServer extends BsinessManager {
 		String actid = openid + String.valueOf(System.currentTimeMillis());
 		Map<String, String> payIdMap = feignPayidManager.getPayid2Map(actid, openid);
 		String payid = payIdMap.get(openid);
+		logger.info("[payid]="+payid);
+		if (payid == null) {
+			Map<String, Object> map = new HashMap<String, Object>();
+			map.put("error_msg", "payID获取失败");
+			return map;
+		}
 		actInfo.put("actid", actid);
 		threadPool.StorageActInfoThread(actInfo);
 		threadPool.StorageAMThread(actid, openid);
