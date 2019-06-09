@@ -14,7 +14,7 @@ public class BusinessController {
 	@Autowired
 	private BusinessServer businessServer;
 
-	@PostMapping("/support")
+	@PostMapping("/reliable/support")
 	public Map<String, Object> Support(@RequestBody String request) {
 		return businessServer.execute(request);
 	}
