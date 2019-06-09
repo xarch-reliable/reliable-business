@@ -5,10 +5,20 @@ import java.util.Map;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+/**
+ * configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false)<br/>
+ * [方法2-注解]JsonIgnoreProperties(ignoreUnknown = true)<br/>
+ * 忽略未知字段<br/>
+ * setSerializationInclusion(Include.NON_NULL)<br/>
+ * 忽略null属性<br/>
+ * 
+ * @author Wei
+ *
+ */
 public class BaseResultTools {
 
 	private static final Logger logger = LoggerFactory.getLogger(BaseResultTools.class);
@@ -17,21 +27,32 @@ public class BaseResultTools {
 	@SuppressWarnings("unchecked")
 	public static <T> T fromJSON(String jsonlString, Class<T> clz) {
 		try {
+			oMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
 			return oMapper.readValue(jsonlString, clz);
 		} catch (Exception e) {
-			logger.error("[xml]-->[pojo]失败：" + jsonlString);
+			logger.error("[string]-->[pojo]失败：" + jsonlString);
 			e.printStackTrace();
 		}
 		return (T) new Object();
 	}
 
 	public static <T> T MapToObject(Map<String, Object> map, Class<T> clz) {
+		oMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
 		return oMapper.convertValue(map, clz);
+	}
+
+	@SuppressWarnings("unchecked")
+	public static Map<String, Object> ObjectToMap(Object object) {
+		oMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+		// oMapper.setSerializationInclusion(Include.NON_NULL);
+		return oMapper.convertValue(object, Map.class);
 	}
 
 	public static String JsonObjectToStr(Object object) {
 		try {
-			oMapper.setSerializationInclusion(Include.NON_NULL);
+		
+			oMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+			// oMapper.setSerializationInclusion(Include.NON_NULL);
 			return oMapper.writeValueAsString(object);
 		} catch (JsonProcessingException e) {
 			logger.error("[pojo]-->[JsonString]序列化失败");

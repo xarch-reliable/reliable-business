@@ -14,6 +14,8 @@ import org.xarch.reliable.model.domain.reliable.ReliableActivityInfo;
 import org.xarch.reliable.service.ReliableActInfoServer;
 import org.xarch.reliable.utils.BaseResultTools;
 
+import com.google.common.collect.Lists;
+
 @RestController
 @RequestMapping("/activity/info")
 public class ActInfoController {
@@ -38,13 +40,17 @@ public class ActInfoController {
 	}
 
 	@RequestMapping("/get/all")
-	public List<ReliableActivityInfo> getAllActInfo() {
-		return reliableActInfoServer.getAllActInfo();
+	public List<Map<String, Object>> getAllActInfo() {
+		List<Map<String, Object>> list = Lists.newArrayList();
+		for (ReliableActivityInfo actInfo : reliableActInfoServer.getAllActInfo()) {
+			list.add(BaseResultTools.ObjectToMap(actInfo));
+		}
+		return list;
 	}
 
 	@RequestMapping("/get")
-	public ReliableActivityInfo getActid2ActInfo(@RequestParam(value = "actid", required = true) String actid) {
-		return reliableActInfoServer.getActInfo(actid);
+	public Map<String, Object> getActid2ActInfo(@RequestParam(value = "actid", required = true) String actid) {
+		return BaseResultTools.ObjectToMap(reliableActInfoServer.getActInfo(actid));
 	}
 
 }
