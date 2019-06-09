@@ -4,3 +4,4 @@ reliable-activity-info-manager/reliable-logs/spring.log
 reliable-business-manager/reliable-logs/spring.log
 *.log
 *.gz
+*.log

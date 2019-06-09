@@ -819,3 +819,115 @@ java.lang.NullPointerException: Name is null
 2019-06-08 18:01:13.720  INFO 18188 --- [RMI TCP Connection(9)-127.0.0.1] com.netflix.discovery.DiscoveryClient    : Unregistering ...
 2019-06-08 18:01:13.802  INFO 18188 --- [RMI TCP Connection(9)-127.0.0.1] com.netflix.discovery.DiscoveryClient    : DiscoveryClient_RELIABLE-AVTIVITY-INFO-MANAGER/localhost:reliable-avtivity-info-manager:8850 - deregister  status: 200
 2019-06-08 18:01:13.809  INFO 18188 --- [RMI TCP Connection(9)-127.0.0.1] com.netflix.discovery.DiscoveryClient    : Completed shut down of DiscoveryClient
+2019-06-09 13:30:53.030  INFO 13040 --- [main] o.x.r.ReliableBusinessManagerApplication : No active profile set, falling back to default profiles: default
+2019-06-09 13:30:53.759  WARN 13040 --- [main] o.s.boot.actuate.endpoint.EndpointId     : Endpoint ID 'bus-env' contains invalid characters, please migrate to a valid format.
+2019-06-09 13:30:53.763  WARN 13040 --- [main] o.s.boot.actuate.endpoint.EndpointId     : Endpoint ID 'bus-refresh' contains invalid characters, please migrate to a valid format.
+2019-06-09 13:30:54.019  WARN 13040 --- [main] o.s.boot.actuate.endpoint.EndpointId     : Endpoint ID 'service-registry' contains invalid characters, please migrate to a valid format.
+2019-06-09 13:30:54.281  INFO 13040 --- [main] o.s.cloud.context.scope.GenericScope     : BeanFactory id=7ae8ab0c-659a-3b28-be53-41fd13497a3b
+2019-06-09 13:30:54.288  INFO 13040 --- [main] faultConfiguringBeanFactoryPostProcessor : No bean named 'errorChannel' has been explicitly defined. Therefore, a default PublishSubscribeChannel will be created.
+2019-06-09 13:30:54.295  INFO 13040 --- [main] faultConfiguringBeanFactoryPostProcessor : No bean named 'taskScheduler' has been explicitly defined. Therefore, a default ThreadPoolTaskScheduler will be created.
+2019-06-09 13:30:54.300  INFO 13040 --- [main] faultConfiguringBeanFactoryPostProcessor : No bean named 'integrationHeaderChannelRegistry' has been explicitly defined. Therefore, a default DefaultHeaderChannelRegistry will be created.
+2019-06-09 13:30:54.433  INFO 13040 --- [main] trationDelegate$BeanPostProcessorChecker : Bean 'integrationDisposableAutoCreatedBeans' of type [org.springframework.integration.config.annotation.Disposables] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-06-09 13:30:54.459  INFO 13040 --- [main] trationDelegate$BeanPostProcessorChecker : Bean 'org.springframework.integration.config.IntegrationManagementConfiguration' of type [org.springframework.integration.config.IntegrationManagementConfiguration$$EnhancerBySpringCGLIB$$ffaca323] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-06-09 13:30:54.466  INFO 13040 --- [main] trationDelegate$BeanPostProcessorChecker : Bean 'org.springframework.boot.autoconfigure.integration.IntegrationAutoConfiguration$IntegrationJmxConfiguration' of type [org.springframework.boot.autoconfigure.integration.IntegrationAutoConfiguration$IntegrationJmxConfiguration$$EnhancerBySpringCGLIB$$db3eae43] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-06-09 13:30:54.477  INFO 13040 --- [main] trationDelegate$BeanPostProcessorChecker : Bean 'org.springframework.boot.autoconfigure.jmx.JmxAutoConfiguration' of type [org.springframework.boot.autoconfigure.jmx.JmxAutoConfiguration$$EnhancerBySpringCGLIB$$14265710] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-06-09 13:30:54.484  INFO 13040 --- [main] trationDelegate$BeanPostProcessorChecker : Bean 'mbeanServer' of type [com.sun.jmx.mbeanserver.JmxMBeanServer] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-06-09 13:30:54.507  INFO 13040 --- [main] trationDelegate$BeanPostProcessorChecker : Bean 'org.springframework.cloud.autoconfigure.ConfigurationPropertiesRebinderAutoConfiguration' of type [org.springframework.cloud.autoconfigure.ConfigurationPropertiesRebinderAutoConfiguration$$EnhancerBySpringCGLIB$$b0d4eaf1] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-06-09 13:30:54.793  INFO 13040 --- [main] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService
+2019-06-09 13:30:54.795  INFO 13040 --- [main] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'asyncExecutor'
+2019-06-09 13:30:54.821  WARN 13040 --- [main] c.n.c.sources.URLConfigurationSource     : No URLs will be polled as dynamic configuration sources.
+2019-06-09 13:30:54.822  INFO 13040 --- [main] c.n.c.sources.URLConfigurationSource     : To enable URLs as dynamic configuration sources, define System property archaius.configurationSource.additionalUrls or make config.properties available on classpath.
+2019-06-09 13:30:54.828  WARN 13040 --- [main] c.n.c.sources.URLConfigurationSource     : No URLs will be polled as dynamic configuration sources.
+2019-06-09 13:30:54.829  INFO 13040 --- [main] c.n.c.sources.URLConfigurationSource     : To enable URLs as dynamic configuration sources, define System property archaius.configurationSource.additionalUrls or make config.properties available on classpath.
+2019-06-09 13:30:55.196 DEBUG 13040 --- [main] s.w.r.r.m.a.RequestMappingHandlerMapping : 1 mappings in 'requestMappingHandlerMapping'
+2019-06-09 13:30:55.220 DEBUG 13040 --- [main] o.s.w.r.handler.SimpleUrlHandlerMapping  : Patterns [/webjars/**, /**] in 'resourceHandlerMapping'
+2019-06-09 13:30:55.935  INFO 13040 --- [main] o.s.s.c.ThreadPoolTaskScheduler          : Initializing ExecutorService 'taskScheduler'
+2019-06-09 13:30:56.080  INFO 13040 --- [main] o.s.b.a.e.web.EndpointLinksResolver      : Exposing 2 endpoint(s) beneath base path '/actuator'
+2019-06-09 13:30:56.150 DEBUG 13040 --- [main] o.s.w.r.r.m.a.ControllerMethodResolver   : ControllerAdvice beans: none
+2019-06-09 13:30:56.216 DEBUG 13040 --- [main] o.s.w.s.adapter.HttpWebHandlerAdapter    : enableLoggingRequestDetails='false': form data and headers will be masked to prevent unsafe logging of potentially sensitive data
+2019-06-09 13:30:58.588  INFO 13040 --- [main] o.s.cloud.commons.util.InetUtils         : Cannot determine local hostname
+2019-06-09 13:31:00.195  INFO 13040 --- [main] o.s.cloud.commons.util.InetUtils         : Cannot determine local hostname
+2019-06-09 13:31:00.484  INFO 13040 --- [main] com.netflix.discovery.DiscoveryClient    : Shutting down DiscoveryClient ...
+2019-06-09 13:31:00.499  INFO 13040 --- [main] com.netflix.discovery.DiscoveryClient    : Completed shut down of DiscoveryClient
+2019-06-09 13:31:00.717  INFO 13040 --- [main] o.s.c.s.m.DirectWithAttributesChannel    : Channel 'reliable-avtivity-info-manager-1.springCloudBusInput' has 1 subscriber(s).
+2019-06-09 13:31:00.909  INFO 13040 --- [main] o.s.i.monitor.IntegrationMBeanExporter   : Registering MessageChannel springCloudBusOutput
+2019-06-09 13:31:01.024  INFO 13040 --- [main] o.s.i.monitor.IntegrationMBeanExporter   : Registering MessageChannel springCloudBusInput
+2019-06-09 13:31:01.031  INFO 13040 --- [main] o.s.i.monitor.IntegrationMBeanExporter   : Registering MessageChannel errorChannel
+2019-06-09 13:31:01.078  INFO 13040 --- [main] o.s.i.monitor.IntegrationMBeanExporter   : Registering MessageChannel nullChannel
+2019-06-09 13:31:01.099  INFO 13040 --- [main] o.s.i.monitor.IntegrationMBeanExporter   : Registering MessageHandler errorLogger
+2019-06-09 13:31:01.123  INFO 13040 --- [main] o.s.i.monitor.IntegrationMBeanExporter   : Registering MessageHandler org.springframework.cloud.stream.binding.StreamListenerMessageHandler@44492c06
+2019-06-09 13:31:01.230  INFO 13040 --- [main] o.s.i.endpoint.EventDrivenConsumer       : Adding {logging-channel-adapter:_org.springframework.integration.errorLogger} as a subscriber to the 'errorChannel' channel
+2019-06-09 13:31:01.230  INFO 13040 --- [main] o.s.i.channel.PublishSubscribeChannel    : Channel 'reliable-avtivity-info-manager-1.errorChannel' has 1 subscriber(s).
+2019-06-09 13:31:01.230  INFO 13040 --- [main] o.s.i.endpoint.EventDrivenConsumer       : started _org.springframework.integration.errorLogger
+2019-06-09 13:31:02.824  INFO 13040 --- [main] c.c.c.ConfigServicePropertySourceLocator : Fetching config from server at : http://47.92.98.17:8010/
+2019-06-09 13:31:02.825 DEBUG 13040 --- [main] o.s.web.client.RestTemplate              : HTTP GET http://47.92.98.17:8010/rabbitmq-bus,async-thread,logback-web-debug,feign/dev/master
+2019-06-09 13:31:02.830 DEBUG 13040 --- [main] o.s.web.client.RestTemplate              : Accept=[application/json, application/*+json]
+2019-06-09 13:31:04.066 DEBUG 13040 --- [main] o.s.web.client.RestTemplate              : Response 200 OK
+2019-06-09 13:31:04.068 DEBUG 13040 --- [main] o.s.web.client.RestTemplate              : Reading to [org.springframework.cloud.config.environment.Environment]
+2019-06-09 13:31:04.074  INFO 13040 --- [main] c.c.c.ConfigServicePropertySourceLocator : Located environment: name=rabbitmq-bus,async-thread,logback-web-debug,feign, profiles=[dev], label=master, version=4175bfa93268f9973d3d736385ec862c175e649b, state=null
+2019-06-09 13:31:04.075  INFO 13040 --- [main] b.c.PropertySourceBootstrapConfiguration : Located property source: CompositePropertySource {name='configService', propertySources=[MapPropertySource {name='configClient'}, MapPropertySource {name='https://github.com/xarch-reliable/reliable-config-repository/reliable-config-repo/thread-pool/async-thread.yml'}, MapPropertySource {name='https://github.com/xarch-reliable/reliable-config-repository/reliable-config-repo/logback/logback-web-debug.yml'}, MapPropertySource {name='https://github.com/xarch-reliable/reliable-config-repository/reliable-config-repo/feign/feign.yml'}, MapPropertySource {name='https://github.com/xarch-reliable/reliable-config-repository/reliable-config-repo/bus/rabbitmq-bus.yml'}]}
+2019-06-09 13:31:04.309  INFO 13040 --- [main] o.s.a.r.c.CachingConnectionFactory       : Attempting to connect to: [39.98.38.238:8310]
+2019-06-09 13:31:04.655  INFO 13040 --- [main] o.s.a.r.c.CachingConnectionFactory       : Created new connection: rabbitConnectionFactory#eaf8427:0/SimpleConnection@60a4e619 [delegate=amqp://guest@39.98.38.238:8310/, localPort= 2397]
+2019-06-09 13:31:04.828  INFO 13040 --- [main] o.s.c.s.m.DirectWithAttributesChannel    : Channel 'reliable-avtivity-info-manager-1.springCloudBusOutput' has 1 subscriber(s).
+2019-06-09 13:31:04.839  INFO 13040 --- [main] o.s.c.n.eureka.InstanceInfoFactory       : Setting initial instance status as: STARTING
+2019-06-09 13:31:04.844  INFO 13040 --- [main] com.netflix.discovery.DiscoveryClient    : Initializing Eureka in region us-east-1
+2019-06-09 13:31:04.847  INFO 13040 --- [main] c.n.d.provider.DiscoveryJerseyProvider   : Using JSON encoding codec LegacyJacksonJson
+2019-06-09 13:31:04.848  INFO 13040 --- [main] c.n.d.provider.DiscoveryJerseyProvider   : Using JSON decoding codec LegacyJacksonJson
+2019-06-09 13:31:04.848  INFO 13040 --- [main] c.n.d.provider.DiscoveryJerseyProvider   : Using XML encoding codec XStreamXml
+2019-06-09 13:31:04.848  INFO 13040 --- [main] c.n.d.provider.DiscoveryJerseyProvider   : Using XML decoding codec XStreamXml
+2019-06-09 13:31:04.951  INFO 13040 --- [main] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2019-06-09 13:31:04.953  INFO 13040 --- [main] com.netflix.discovery.DiscoveryClient    : Disable delta property : false
+2019-06-09 13:31:04.953  INFO 13040 --- [main] com.netflix.discovery.DiscoveryClient    : Single vip registry refresh property : null
+2019-06-09 13:31:04.953  INFO 13040 --- [main] com.netflix.discovery.DiscoveryClient    : Force full registry fetch : false
+2019-06-09 13:31:04.953  INFO 13040 --- [main] com.netflix.discovery.DiscoveryClient    : Application is null : false
+2019-06-09 13:31:04.954  INFO 13040 --- [main] com.netflix.discovery.DiscoveryClient    : Registered Applications size is zero : true
+2019-06-09 13:31:04.954  INFO 13040 --- [main] com.netflix.discovery.DiscoveryClient    : Application version is -1: true
+2019-06-09 13:31:04.954  INFO 13040 --- [main] com.netflix.discovery.DiscoveryClient    : Getting all instance registry info from the eureka server
+2019-06-09 13:31:05.125  INFO 13040 --- [main] com.netflix.discovery.DiscoveryClient    : The response status is 200
+2019-06-09 13:31:05.128  INFO 13040 --- [main] com.netflix.discovery.DiscoveryClient    : Starting heartbeat executor: renew interval is: 30
+2019-06-09 13:31:05.134  INFO 13040 --- [main] c.n.discovery.InstanceInfoReplicator     : InstanceInfoReplicator onDemand update allowed rate per min is 4
+2019-06-09 13:31:05.139  INFO 13040 --- [main] com.netflix.discovery.DiscoveryClient    : Discovery Client initialized at timestamp 1560058265139 with initial instances count: 13
+2019-06-09 13:31:05.146  INFO 13040 --- [main] o.s.c.n.e.s.EurekaServiceRegistry        : Registering application RELIABLE-AVTIVITY-INFO-MANAGER with eureka with status UP
+2019-06-09 13:31:05.148  INFO 13040 --- [main] com.netflix.discovery.DiscoveryClient    : Saw local status change event StatusChangeEvent [timestamp=1560058265148, current=UP, previous=STARTING]
+2019-06-09 13:31:05.154  INFO 13040 --- [DiscoveryClient-InstanceInfoReplicator-0] com.netflix.discovery.DiscoveryClient    : DiscoveryClient_RELIABLE-AVTIVITY-INFO-MANAGER/localhost:reliable-avtivity-info-manager:8888: registering service...
+2019-06-09 13:31:05.202  INFO 13040 --- [main] c.s.b.r.p.RabbitExchangeQueueProvisioner : declaring queue for inbound: springCloudBus.anonymous.O4XHzwdkQsqj6PbNnG9fZA, bound to: springCloudBus
+2019-06-09 13:31:05.251  INFO 13040 --- [DiscoveryClient-InstanceInfoReplicator-0] com.netflix.discovery.DiscoveryClient    : DiscoveryClient_RELIABLE-AVTIVITY-INFO-MANAGER/localhost:reliable-avtivity-info-manager:8888 - registration status: 204
+2019-06-09 13:31:05.415  INFO 13040 --- [main] o.s.i.monitor.IntegrationMBeanExporter   : Registering MessageChannel springCloudBus.anonymous.O4XHzwdkQsqj6PbNnG9fZA.errors
+2019-06-09 13:31:05.525  INFO 13040 --- [main] o.s.c.stream.binder.BinderErrorChannel   : Channel 'reliable-avtivity-info-manager-1.springCloudBus.anonymous.O4XHzwdkQsqj6PbNnG9fZA.errors' has 1 subscriber(s).
+2019-06-09 13:31:05.526  INFO 13040 --- [main] o.s.c.stream.binder.BinderErrorChannel   : Channel 'reliable-avtivity-info-manager-1.springCloudBus.anonymous.O4XHzwdkQsqj6PbNnG9fZA.errors' has 2 subscriber(s).
+2019-06-09 13:31:05.733  INFO 13040 --- [main] o.s.i.a.i.AmqpInboundChannelAdapter      : started inbound.springCloudBus.anonymous.O4XHzwdkQsqj6PbNnG9fZA
+2019-06-09 13:31:06.385  INFO 13040 --- [main] o.s.b.web.embedded.netty.NettyWebServer  : Netty started on port(s): 8888
+2019-06-09 13:31:06.387  INFO 13040 --- [main] .s.c.n.e.s.EurekaAutoServiceRegistration : Updating port to 8888
+2019-06-09 13:31:06.387  INFO 13040 --- [main] .s.c.n.e.s.EurekaAutoServiceRegistration : Updating port to 8888
+2019-06-09 13:31:06.389  INFO 13040 --- [main] o.x.r.ReliableBusinessManagerApplication : Started ReliableBusinessManagerApplication in 23.037 seconds (JVM running for 24.29)
+2019-06-09 13:31:34.798 DEBUG 13040 --- [reactor-http-nio-2] o.s.w.s.adapter.HttpWebHandlerAdapter    : [622ac2e3] HTTP POST "/support"
+2019-06-09 13:31:34.848 DEBUG 13040 --- [reactor-http-nio-2] s.w.r.r.m.a.RequestMappingHandlerMapping : [622ac2e3] Mapped to public java.lang.String org.xarch.reliable.controller.BusinessController.Support(java.lang.String)
+2019-06-09 13:31:34.861 DEBUG 13040 --- [reactor-http-nio-2] .s.w.r.r.m.a.RequestBodyArgumentResolver : [622ac2e3] Content-Type:text/plain;charset=UTF-8
+2019-06-09 13:31:34.861 DEBUG 13040 --- [reactor-http-nio-2] .s.w.r.r.m.a.RequestBodyArgumentResolver : [622ac2e3] 0..1 [java.lang.String]
+2019-06-09 13:31:34.890 DEBUG 13040 --- [reactor-http-nio-2] org.springframework.web.HttpLogging      : [622ac2e3] Decoded "{
+  "openid":"123",
+  "body":{"xraction":"create","data":{"theme":"集训编程","location":"xinghai","date (truncated)...
+2019-06-09 13:31:34.901 DEBUG 13040 --- [reactor-http-nio-2] o.s.w.r.r.m.a.ResponseBodyResultHandler  : Using 'text/plain;charset=UTF-8' given [*/*] and supported [text/plain;charset=UTF-8, text/event-stream, text/plain;charset=UTF-8, */*]
+2019-06-09 13:31:34.901 DEBUG 13040 --- [reactor-http-nio-2] o.s.w.r.r.m.a.ResponseBodyResultHandler  : [622ac2e3] 0..1 [java.lang.String]
+2019-06-09 13:31:34.907 DEBUG 13040 --- [reactor-http-nio-2] org.springframework.web.HttpLogging      : [622ac2e3] Writing "{"date":{"theme":"集训编程","location":"xinghai","date":"2019-06-09","time":"17:21","baozhenghb":"1000" (truncated)...
+2019-06-09 13:31:48.057 DEBUG 13040 --- [reactor-http-nio-3] o.s.w.s.adapter.HttpWebHandlerAdapter    : [b3cb21d4] HTTP POST "/support"
+2019-06-09 13:31:48.058 DEBUG 13040 --- [reactor-http-nio-3] s.w.r.r.m.a.RequestMappingHandlerMapping : [b3cb21d4] Mapped to public java.lang.String org.xarch.reliable.controller.BusinessController.Support(java.lang.String)
+2019-06-09 13:31:48.059 DEBUG 13040 --- [reactor-http-nio-3] .s.w.r.r.m.a.RequestBodyArgumentResolver : [b3cb21d4] Content-Type:text/plain;charset=UTF-8
+2019-06-09 13:31:48.059 DEBUG 13040 --- [reactor-http-nio-3] .s.w.r.r.m.a.RequestBodyArgumentResolver : [b3cb21d4] 0..1 [java.lang.String]
+2019-06-09 13:31:48.061 DEBUG 13040 --- [reactor-http-nio-3] org.springframework.web.HttpLogging      : [b3cb21d4] Decoded "{
+  "openid":"123",
+  "body":{"xraction":"share","data":{"theme":"集训编程","location":"xinghai","date" (truncated)...
+2019-06-09 13:31:48.062 DEBUG 13040 --- [reactor-http-nio-3] o.s.w.r.r.m.a.ResponseBodyResultHandler  : Using 'text/plain;charset=UTF-8' given [*/*] and supported [text/plain;charset=UTF-8, text/event-stream, text/plain;charset=UTF-8, */*]
+2019-06-09 13:31:48.062 DEBUG 13040 --- [reactor-http-nio-3] o.s.w.r.r.m.a.ResponseBodyResultHandler  : [b3cb21d4] 0..1 [java.lang.String]
+2019-06-09 13:31:48.062 DEBUG 13040 --- [reactor-http-nio-3] org.springframework.web.HttpLogging      : [b3cb21d4] Writing "{}"
+2019-06-09 13:31:49.534 DEBUG 13040 --- [reactor-http-nio-4] o.s.w.s.adapter.HttpWebHandlerAdapter    : [3d27d9e0] HTTP POST "/support"
+2019-06-09 13:31:49.537 DEBUG 13040 --- [reactor-http-nio-4] s.w.r.r.m.a.RequestMappingHandlerMapping : [3d27d9e0] Mapped to public java.lang.String org.xarch.reliable.controller.BusinessController.Support(java.lang.String)
+2019-06-09 13:31:49.537 DEBUG 13040 --- [reactor-http-nio-4] .s.w.r.r.m.a.RequestBodyArgumentResolver : [3d27d9e0] Content-Type:text/plain;charset=UTF-8
+2019-06-09 13:31:49.538 DEBUG 13040 --- [reactor-http-nio-4] .s.w.r.r.m.a.RequestBodyArgumentResolver : [3d27d9e0] 0..1 [java.lang.String]
+2019-06-09 13:31:49.541 DEBUG 13040 --- [reactor-http-nio-4] org.springframework.web.HttpLogging      : [3d27d9e0] Decoded "{
+  "openid":"123",
+  "body":{"xraction":"share","data":{"theme":"集训编程","location":"xinghai","date" (truncated)...
+2019-06-09 13:31:49.543 DEBUG 13040 --- [reactor-http-nio-4] o.s.w.r.r.m.a.ResponseBodyResultHandler  : Using 'text/plain;charset=UTF-8' given [*/*] and supported [text/plain;charset=UTF-8, text/event-stream, text/plain;charset=UTF-8, */*]
+2019-06-09 13:31:49.544 DEBUG 13040 --- [reactor-http-nio-4] o.s.w.r.r.m.a.ResponseBodyResultHandler  : [3d27d9e0] 0..1 [java.lang.String]
+2019-06-09 13:31:49.545 DEBUG 13040 --- [reactor-http-nio-4] org.springframework.web.HttpLogging      : [3d27d9e0] Writing "{}"
+2019-06-09 13:36:04.955  INFO 13040 --- [AsyncResolver-bootstrap-executor-0] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
