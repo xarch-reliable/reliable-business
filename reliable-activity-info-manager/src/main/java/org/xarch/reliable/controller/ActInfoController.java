@@ -22,29 +22,29 @@ public class ActInfoController {
 	private ReliableActInfoServer reliableActInfoServer;
 
 	@PostMapping("/set")
-	public String setActid2ActInfo(@RequestBody String actInfoStr) {
+	public Map<String, String> setActid2ActInfo(@RequestBody String actInfoStr) {
 		ReliableActivityInfo reliableActivityInfo = BaseResultTools.fromJSON(actInfoStr, ReliableActivityInfo.class);
 		Map<String, String> map = new HashMap<String, String>();
 		if (reliableActivityInfo.getActid() == null) {
 			map.put("error_msg", "actid为空");
-			return BaseResultTools.JsonObjectToStr(map);
+			return map;
 		}
 		if (reliableActInfoServer.setActInfo(reliableActivityInfo)) {
 			map.put("success", "存入成功");
 		} else {
 			map.put("error_msg", "已存在");
 		}
-		return BaseResultTools.JsonObjectToStr(map);
+		return map;
 	}
 
 	@RequestMapping("/get/all")
-	public String getAllActInfo() {
-		return BaseResultTools.JsonObjectToStr(reliableActInfoServer.getAllActInfo());
+	public List<ReliableActivityInfo> getAllActInfo() {
+		return reliableActInfoServer.getAllActInfo();
 	}
 
 	@RequestMapping("/get")
-	public String getActid2ActInfo(@RequestParam(value = "actid", required = true) String actid) {
-		return BaseResultTools.JsonObjectToStr(reliableActInfoServer.getActInfo(actid));
+	public ReliableActivityInfo getActid2ActInfo(@RequestParam(value = "actid", required = true) String actid) {
+		return reliableActInfoServer.getActInfo(actid);
 	}
 
 }

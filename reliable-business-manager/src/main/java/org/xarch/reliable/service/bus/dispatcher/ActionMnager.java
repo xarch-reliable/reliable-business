@@ -24,7 +24,7 @@ public abstract class ActionMnager {
 			map.put("body", onUserinfo((Map<String, String>) bodyMap.get("data")));
 			break;
 		case share:
-			onShare();
+			map.put("body", onShare());
 			break;
 		case join:
 		case finish:
