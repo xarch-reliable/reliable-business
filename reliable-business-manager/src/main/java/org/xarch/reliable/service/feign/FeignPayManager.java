@@ -1,5 +1,7 @@
 package org.xarch.reliable.service.feign;
 
+import java.util.Map;
+
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -9,9 +11,9 @@ import org.xarch.reliable.controller.hystrix.FeignPayHystrix;
 public interface FeignPayManager {
 
 	@GetMapping("/wechat/pay/h5")
-	public String getPayMpOrder(@RequestParam(value = "openid", required = true) String openid,
+	public Map<String, Object> getPayMpOrder(@RequestParam(value = "openid", required = true) String openid,
 			@RequestParam(value = "payid", required = true) String payid);
 
 	@GetMapping("/wechat/pay/refund")
-	public String getPayRefund(@RequestParam(value = "payid", required = true) String payid);
+	public Map<String, Object> getPayRefund(@RequestParam(value = "payid", required = true) String payid);
 }

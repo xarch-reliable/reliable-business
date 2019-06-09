@@ -1,5 +1,7 @@
 package org.xarch.reliable.controller;
 
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -13,7 +15,7 @@ public class BusinessController {
 	private BusinessServer businessServer;
 
 	@PostMapping("/support")
-	public String Support(@RequestBody String request) {
+	public Map<String, Object> Support(@RequestBody String request) {
 		return businessServer.execute(request);
 	}
 }

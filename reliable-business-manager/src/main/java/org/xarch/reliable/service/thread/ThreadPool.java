@@ -1,16 +1,40 @@
 package org.xarch.reliable.service.thread;
 
-// @Component
-public class ThreadPool {
-	
-	//TODO
+import java.util.Map;
 
-	/*
-	 * @Autowired private
-	 * 
-	 * @Async("asyncExecutor") public void StoragePayUORequestThread() {
-	 * 
-	 * }
-	 */
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Async;
+import org.springframework.stereotype.Component;
+import org.xarch.reliable.service.feign.FeignActInfoManager;
+import org.xarch.reliable.service.feign.FeignActidManager;
+import org.xarch.reliable.service.feign.FeignOpenidManager;
+import org.xarch.reliable.utils.BaseResultTools;
+
+@Component
+public class ThreadPool {
+
+	@Autowired
+	private FeignActInfoManager feignActInfoManager;
+
+	@Autowired
+	private FeignActidManager feignActidManager;
+
+	@Autowired
+	private FeignOpenidManager feignOpenidManager;
+
+	@Async("asyncExecutor")
+	public void StorageActInfoThread(Map<String, String> actInfo) {
+		feignActInfoManager.setActid2ActInfo(BaseResultTools.JsonObjectToStr(actInfo));
+	}
+
+	@Async("asyncExecutor")
+	public void StorageAMThread(String actid, String openid) {
+		feignActidManager.addAM(actid, openid);
+	}
+
+	@Async("asyncExecutor")
+	public void StorageOMThread(String openid, String actid) {
+		feignOpenidManager.addOM(openid, actid);
+	}
 
 }
