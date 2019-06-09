@@ -9,7 +9,7 @@ eureka:
       defaultZone: http://47.104.89.2:8000/eureka/
 spring:
   application:
-    name: reliable-avtivity-info-manager
+    name: reliable-activity-info-manager
   cloud:
     config:
       name: rabbitmq-bus,async-thread,logback-web-debug,mysql-8 #此处指定多个文件名即可
