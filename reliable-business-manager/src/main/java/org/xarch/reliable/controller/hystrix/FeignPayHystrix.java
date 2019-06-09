@@ -103,10 +103,10 @@ public class FeignPayHystrix
 	}
 
 	@Override
-	public String setActid2ActInfo(String reliableActivityInfo) {
+	public String setActid2ActInfo(String actInfo) {
 		Map<String, String> map = new HashMap<String, String>();
 		map.put("error_msg", "[FeignActInfoManager]发起setActid2ActInfo请求失败");
-		map.put("body", reliableActivityInfo);
+		//map.put("body", actInfo);
 		return BaseResultTools.JsonObjectToStr(map);
 	}
 

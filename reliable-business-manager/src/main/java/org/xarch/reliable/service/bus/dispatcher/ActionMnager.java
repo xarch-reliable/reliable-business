@@ -8,21 +8,24 @@ import org.xarch.reliable.utils.BaseResultTools;
 
 public abstract class ActionMnager {
 
-	protected String dispatch(String openid, Map<String, String> bodyMap) {
+	@SuppressWarnings("unchecked")
+	protected String dispatch(String openid, Map<String, Object> bodyMap) {
 		if (bodyMap.get("xraction") == null) {
 			return "业务识别失败";
 		}
-		ReliableMsgType msgType = ReliableMsgType.valueOf(bodyMap.get("xraction"));
+		ReliableMsgType msgType = ReliableMsgType.valueOf((String) bodyMap.get("xraction"));
 		Map<String, Object> map = new HashMap<String, Object>();
 		switch (msgType) {
 		case create:
-			map.put("body", onCrete());
+			map.put("body", onCrete((Map<String, String>) bodyMap.get("data")));
 			map.put("date", bodyMap.get("data"));
 			break;
 		case userinfo:
-			map.put("body", onUserinfo());
+			map.put("body", onUserinfo((Map<String, String>) bodyMap.get("data")));
 			break;
 		case share:
+			onShare();
+			break;
 		case join:
 		case finish:
 		case signin:
@@ -33,9 +36,11 @@ public abstract class ActionMnager {
 		return BaseResultTools.JsonObjectToStr(map);
 	};
 
-	protected abstract String onCrete();
+	protected abstract String onCrete(Map<String, String> actInfo);
 
-	protected abstract String onUserinfo();
+	protected abstract String onUserinfo(Map<String, String> actInfo);
+	
+	protected abstract String onShare();
 
 	protected String onDefault() {
 		return "功能暂未开放，系统优化中...敬请期待!";

@@ -1,5 +1,5 @@
 server:
-  port: 8850
+  port: 8888
 eureka:
   instance:
     prefer-ip-address: true #开启ip注册 

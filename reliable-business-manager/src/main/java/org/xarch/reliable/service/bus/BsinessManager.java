@@ -19,6 +19,6 @@ public abstract class BsinessManager extends ActionMnager {
 		if (request.get("error_msg") != null) {
 			return (String) request.get("error_msg");
 		}
-		return dispatch((String) request.get("openid"), (Map<String, String>) request.get("body"));
+		return dispatch((String) request.get("openid"), (Map<String, Object>) request.get("body"));
 	}
 }

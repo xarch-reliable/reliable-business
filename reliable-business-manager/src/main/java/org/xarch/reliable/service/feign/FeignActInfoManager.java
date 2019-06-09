@@ -7,11 +7,11 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.xarch.reliable.controller.hystrix.FeignPayHystrix;
 
-@FeignClient(name = "reliable-avtivity-info-manager",fallback = FeignPayHystrix.class)
+@FeignClient(name = "reliable-activity-info-manager",fallback = FeignPayHystrix.class)
 public interface FeignActInfoManager {
 	
 	@PostMapping("/activity/info/set")
-	public String setActid2ActInfo(@RequestBody String reliableActivityInfo);
+	public String setActid2ActInfo(@RequestBody String actInfo);
 	
 	@GetMapping("/activity/info/get/all")
 	public String getAllActInfo();

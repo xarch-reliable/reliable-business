@@ -5,6 +5,7 @@ import java.util.Map;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -30,6 +31,7 @@ public class BaseResultTools {
 
 	public static String JsonObjectToStr(Object object) {
 		try {
+			oMapper.setSerializationInclusion(Include.NON_NULL);
 			return oMapper.writeValueAsString(object);
 		} catch (JsonProcessingException e) {
 			logger.error("[pojo]-->[JsonString]序列化失败");
