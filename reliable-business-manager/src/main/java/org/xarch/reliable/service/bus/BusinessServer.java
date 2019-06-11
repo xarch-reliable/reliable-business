@@ -15,6 +15,8 @@ import org.xarch.reliable.service.feign.FeignPayManager;
 import org.xarch.reliable.service.feign.FeignPayidManager;
 import org.xarch.reliable.service.thread.ThreadPool;
 
+import com.google.common.collect.Lists;
+
 @Service
 public class BusinessServer extends BsinessManager {
 
@@ -78,8 +80,19 @@ public class BusinessServer extends BsinessManager {
 	}
 
 	@Override
-	protected List<Map<String, Object>> onAllActInfo() {
-		return feignActInfoManager.getAllActInfo();
+	protected List<Map<String, Object>> onAllActInfo(String openid) {
+		List<Map<String, Object>> list = Lists.newArrayList();
+		List<Map<String, Object>> allactinfo = feignActInfoManager.getAllActInfo();
+		Map<String, String> openid2actid = feignOpenidManager.getOM(openid);
+		for (Map<String, Object> actinfo :allactinfo) {
+			for (String actid : openid2actid.keySet()) {
+				String info2actid = (String) actinfo.get("actid");
+				if(info2actid !=null && info2actid.equals(actid)) {
+					list.add(actinfo);
+				}
+			}
+		}
+		return list;
 	}
 
 }

@@ -29,7 +29,7 @@ public abstract class ActionMnager {
 			responseMap.put("body", onActInfo((Map<String, String>) bodyMap.get("data")));
 			break;
 		case allactinfo:
-			responseMap.put("body", onAllActInfo());
+			responseMap.put("body", onAllActInfo(openid));
 			break;
 		case join:
 		case finish:
@@ -50,7 +50,7 @@ public abstract class ActionMnager {
 	
 	protected abstract Map<String, Object> onActInfo(Map<String, String> data);
 	
-	protected abstract List<Map<String,Object>> onAllActInfo();
+	protected abstract List<Map<String,Object>> onAllActInfo(String openid);
 
 	protected String onDefault() {
 		return "功能暂未开放，系统优化中...敬请期待!";
