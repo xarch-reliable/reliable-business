@@ -13,7 +13,7 @@ spring:
     name: reliable-business-manager
   cloud:
     config:
-      name: rabbitmq-bus,async-thread,logback-web-debug,feign #此处指定多个文件名即可
+      name: rabbitmq-bus,async-thread,logback-web-debug,feign,ribbon-eager-load #此处指定多个文件名即可
       profile: dev
       label: master
       discovery:

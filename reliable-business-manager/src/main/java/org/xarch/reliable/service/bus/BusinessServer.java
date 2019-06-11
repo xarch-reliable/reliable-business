@@ -1,6 +1,7 @@
 package org.xarch.reliable.service.bus;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.slf4j.Logger;
@@ -39,13 +40,12 @@ public class BusinessServer extends BsinessManager {
 
 	@Override
 	protected Map<String, Object> onCrete(String openid, Map<String, String> actInfo) {
-		// TODO Auto-generated method stub
+		Map<String, Object> map = new HashMap<String, Object>();
 		String actid = openid + String.valueOf(System.currentTimeMillis());
 		Map<String, String> payIdMap = feignPayidManager.getPayid2Map(actid, openid);
 		String payid = payIdMap.get(openid);
-		logger.info("[payid]="+payid);
+		logger.info("[payid]=" + payid);
 		if (payid == null) {
-			Map<String, Object> map = new HashMap<String, Object>();
 			map.put("error_msg", "payID获取失败");
 			return map;
 		}
@@ -53,11 +53,14 @@ public class BusinessServer extends BsinessManager {
 		threadPool.StorageActInfoThread(actInfo);
 		threadPool.StorageAMThread(actid, openid);
 		threadPool.StorageOMThread(openid, actid);
-		return feignPayManager.getPayMpOrder(openid, payid);
+		Map<String, Object> paymap = feignPayManager.getPayMpOrder(openid, payid);
+		map.put("actid", "actid");
+		map.put("paybody", paymap);
+		return map;
 	}
 
 	@Override
-	protected Map<String, Object> onUserinfo(Map<String, String> actInfo) {
+	protected Map<String, Object> onUserInfo(Map<String, String> actInfo) {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -66,6 +69,16 @@ public class BusinessServer extends BsinessManager {
 	protected Map<String, Object> onShare() {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	@Override
+	protected Map<String, Object> onActInfo(String actid) {
+		return feignActInfoManager.getActid2ActInfo(actid);
+	}
+
+	@Override
+	protected List<Map<String,Object>> onAllActInfo() {
+		return feignActInfoManager.getAllActInfo();
 	}
 
 }

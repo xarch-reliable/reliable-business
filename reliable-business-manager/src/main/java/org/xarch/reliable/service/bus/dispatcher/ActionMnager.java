@@ -1,5 +1,6 @@
 package org.xarch.reliable.service.bus.dispatcher;
 
+import java.util.List;
 import java.util.Map;
 
 import org.xarch.reliable.config.event.ReliableMsgType;
@@ -7,7 +8,8 @@ import org.xarch.reliable.config.event.ReliableMsgType;
 public abstract class ActionMnager {
 
 	@SuppressWarnings("unchecked")
-	protected Map<String, Object> dispatch(String openid, Map<String, Object> bodyMap,Map<String, Object> responseMap) {
+	protected Map<String, Object> dispatch(String openid, Map<String, Object> bodyMap,
+			Map<String, Object> responseMap) {
 		if (bodyMap.get("xraction") == null) {
 			responseMap.put("error_msg", "业务识别失败");
 			return responseMap;
@@ -16,13 +18,18 @@ public abstract class ActionMnager {
 		switch (msgType) {
 		case create:
 			responseMap.put("body", onCrete(openid, (Map<String, String>) bodyMap.get("data")));
-			responseMap.put("xraction", msgType);
 			break;
 		case userinfo:
-			responseMap.put("body", onUserinfo((Map<String, String>) bodyMap.get("data")));
+			responseMap.put("body", onUserInfo((Map<String, String>) bodyMap.get("data")));
 			break;
 		case share:
 			responseMap.put("body", onShare());
+			break;
+		case actinfo:
+			responseMap.put("body", onActInfo((String) bodyMap.get("actid")));
+			break;
+		case allactinfo:
+			responseMap.put("body", onAllActInfo());
 			break;
 		case join:
 		case finish:
@@ -31,14 +38,19 @@ public abstract class ActionMnager {
 			responseMap.put("body", onDefault());
 			break;
 		}
+		responseMap.put("xraction", msgType);
 		return responseMap;
 	};
 
 	protected abstract Map<String, Object> onCrete(String openid, Map<String, String> actInfo);
 
-	protected abstract Map<String, Object> onUserinfo(Map<String, String> actInfo);
+	protected abstract Map<String, Object> onUserInfo(Map<String, String> actInfo);
 
 	protected abstract Map<String, Object> onShare();
+	
+	protected abstract Map<String, Object> onActInfo(String actid);
+	
+	protected abstract List<Map<String,Object>> onAllActInfo();
 
 	protected String onDefault() {
 		return "功能暂未开放，系统优化中...敬请期待!";
