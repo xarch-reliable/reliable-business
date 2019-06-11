@@ -39,7 +39,7 @@ public class BusinessServer extends BsinessManager {
 	private ThreadPool threadPool;
 
 	@Override
-	protected Map<String, Object> onCrete(String openid, Map<String, String> actInfo) {
+	protected Map<String, Object> onCrete(String openid, Map<String, String> data) {
 		Map<String, Object> map = new HashMap<String, Object>();
 		String actid = openid + String.valueOf(System.currentTimeMillis());
 		Map<String, String> payIdMap = feignPayidManager.getPayid2Map(actid, openid);
@@ -49,8 +49,8 @@ public class BusinessServer extends BsinessManager {
 			map.put("error_msg", "payID获取失败");
 			return map;
 		}
-		actInfo.put("actid", actid);
-		threadPool.StorageActInfoThread(actInfo);
+		data.put("actid", actid);
+		threadPool.StorageActInfoThread(data);
 		threadPool.StorageAMThread(actid, openid);
 		threadPool.StorageOMThread(openid, actid);
 		Map<String, Object> paymap = feignPayManager.getPayMpOrder(openid, payid);
@@ -60,7 +60,7 @@ public class BusinessServer extends BsinessManager {
 	}
 
 	@Override
-	protected Map<String, Object> onUserInfo(Map<String, String> actInfo) {
+	protected Map<String, Object> onUserInfo(Map<String, String> data) {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -72,12 +72,13 @@ public class BusinessServer extends BsinessManager {
 	}
 
 	@Override
-	protected Map<String, Object> onActInfo(String actid) {
+	protected Map<String, Object> onActInfo(Map<String, String> data) {
+		String actid = data.get("actid");
 		return feignActInfoManager.getActid2ActInfo(actid);
 	}
 
 	@Override
-	protected List<Map<String,Object>> onAllActInfo() {
+	protected List<Map<String, Object>> onAllActInfo() {
 		return feignActInfoManager.getAllActInfo();
 	}
 

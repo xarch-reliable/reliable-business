@@ -26,7 +26,7 @@ public abstract class ActionMnager {
 			responseMap.put("body", onShare());
 			break;
 		case actinfo:
-			responseMap.put("body", onActInfo((String) bodyMap.get("actid")));
+			responseMap.put("body", onActInfo((Map<String, String>) bodyMap.get("data")));
 			break;
 		case allactinfo:
 			responseMap.put("body", onAllActInfo());
@@ -42,13 +42,13 @@ public abstract class ActionMnager {
 		return responseMap;
 	};
 
-	protected abstract Map<String, Object> onCrete(String openid, Map<String, String> actInfo);
+	protected abstract Map<String, Object> onCrete(String openid, Map<String, String> data);
 
-	protected abstract Map<String, Object> onUserInfo(Map<String, String> actInfo);
+	protected abstract Map<String, Object> onUserInfo(Map<String, String> data);
 
 	protected abstract Map<String, Object> onShare();
 	
-	protected abstract Map<String, Object> onActInfo(String actid);
+	protected abstract Map<String, Object> onActInfo(Map<String, String> data);
 	
 	protected abstract List<Map<String,Object>> onAllActInfo();
 
