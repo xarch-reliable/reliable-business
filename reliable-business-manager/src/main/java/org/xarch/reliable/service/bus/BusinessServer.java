@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.xarch.reliable.service.feign.FeignActInfoManager;
 import org.xarch.reliable.service.feign.FeignActidManager;
+import org.xarch.reliable.service.feign.FeignJsapiManager;
 import org.xarch.reliable.service.feign.FeignOpenidManager;
 import org.xarch.reliable.service.feign.FeignPayManager;
 import org.xarch.reliable.service.feign.FeignPayidManager;
@@ -36,6 +37,9 @@ public class BusinessServer extends BsinessManager {
 
 	@Autowired
 	private FeignPayManager feignPayManager;
+	
+	@Autowired
+	private FeignJsapiManager feignJsapiManager;
 
 	@Autowired
 	private ThreadPool threadPool;
@@ -52,6 +56,7 @@ public class BusinessServer extends BsinessManager {
 			return map;
 		}
 		data.put("actid", actid);
+		data.put("creator", openid);
 		threadPool.StorageActInfoThread(data);
 		threadPool.StorageAMThread(actid, openid);
 		threadPool.StorageOMThread(openid, actid);
@@ -68,9 +73,9 @@ public class BusinessServer extends BsinessManager {
 	}
 
 	@Override
-	protected Map<String, Object> onShare() {
-		// TODO Auto-generated method stub
-		return null;
+	protected Map<String, Object> onShare(Map<String, String> data) {
+		String url = data.get("url");
+		return feignJsapiManager.getShareInfo(url);
 	}
 
 	@Override
@@ -93,6 +98,29 @@ public class BusinessServer extends BsinessManager {
 			}
 		}
 		return list;
+	}
+
+	@Override
+	protected Map<String, Object> onJoin(String openid,Map<String, String> data) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		String actid = data.get("actid");
+		if(actid == null) {
+			map.put("error_msg", "actid为空");
+			return map;
+		}
+		Map<String, String> payIdMap = feignPayidManager.getPayid2Map(actid, openid);
+		String payid = payIdMap.get(openid);
+		logger.info("[payid]=" + payid);
+		if (payid == null) {
+			map.put("error_msg", "payID获取失败");
+			return map;
+		}
+		threadPool.StorageAMThread(actid, openid);
+		threadPool.StorageOMThread(openid, actid);
+		Map<String, Object> paymap = feignPayManager.getPayMpOrder(openid, payid);
+		map.put("actid", actid);
+		map.put("paybody", paymap);
+		return map;
 	}
 
 }

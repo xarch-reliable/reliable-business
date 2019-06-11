@@ -19,11 +19,8 @@ public abstract class ActionMnager {
 		case create:
 			responseMap.put("body", onCrete(openid, (Map<String, String>) bodyMap.get("data")));
 			break;
-		case userinfo:
-			responseMap.put("body", onUserInfo((Map<String, String>) bodyMap.get("data")));
-			break;
 		case share:
-			responseMap.put("body", onShare());
+			responseMap.put("body", onShare((Map<String, String>) bodyMap.get("data")));
 			break;
 		case actinfo:
 			responseMap.put("body", onActInfo((Map<String, String>) bodyMap.get("data")));
@@ -32,8 +29,11 @@ public abstract class ActionMnager {
 			responseMap.put("body", onAllActInfo(openid));
 			break;
 		case join:
-		case finish:
+			responseMap.put("body", onJoin(openid, (Map<String, String>) bodyMap.get("data")));
+			break;
+		case userinfo:
 		case signin:
+		case finish:
 		default:
 			responseMap.put("body", onDefault());
 			break;
@@ -46,11 +46,13 @@ public abstract class ActionMnager {
 
 	protected abstract Map<String, Object> onUserInfo(Map<String, String> data);
 
-	protected abstract Map<String, Object> onShare();
-	
+	protected abstract Map<String, Object> onShare(Map<String, String> data);
+
 	protected abstract Map<String, Object> onActInfo(Map<String, String> data);
-	
-	protected abstract List<Map<String,Object>> onAllActInfo(String openid);
+
+	protected abstract List<Map<String, Object>> onAllActInfo(String openid);
+
+	protected abstract Map<String, Object> onJoin(String openid, Map<String, String> data);
 
 	protected String onDefault() {
 		return "功能暂未开放，系统优化中...敬请期待!";
