@@ -9,7 +9,7 @@ import org.xarch.reliable.controller.hystrix.FeignJsapiHystrix;
 
 @FeignClient(name = "reliable-wechat-jsapi-manager", fallback = FeignJsapiHystrix.class)
 public interface FeignJsapiManager {
-	
-	@GetMapping("/actid/to/openid/add")
+
+	@GetMapping("jsapi/share/signature")
 	public Map<String, Object> getShareInfo(@RequestParam(value = "url", required = true) String url);
 }
