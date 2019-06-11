@@ -54,7 +54,7 @@ public class BusinessServer extends BsinessManager {
 		threadPool.StorageAMThread(actid, openid);
 		threadPool.StorageOMThread(openid, actid);
 		Map<String, Object> paymap = feignPayManager.getPayMpOrder(openid, payid);
-		map.put("actid", "actid");
+		map.put("actid", actid);
 		map.put("paybody", paymap);
 		return map;
 	}
