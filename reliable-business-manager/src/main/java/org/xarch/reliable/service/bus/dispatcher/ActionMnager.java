@@ -3,18 +3,24 @@ package org.xarch.reliable.service.bus.dispatcher;
 import java.util.List;
 import java.util.Map;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.xarch.reliable.config.event.ReliableMsgType;
 
 public abstract class ActionMnager {
 
+	private static final Logger logger = LoggerFactory.getLogger(ActionMnager.class);
+	
 	@SuppressWarnings("unchecked")
 	protected Map<String, Object> dispatch(String openid, Map<String, Object> bodyMap,
 			Map<String, Object> responseMap) {
-		if (bodyMap.get("xraction") == null) {
+		String xraction = (String)bodyMap.get("xraction");
+		logger.info("ActionMnager::dispatch() : xraction = " + xraction);
+		if (xraction == null) {
 			responseMap.put("error_msg", "业务识别失败");
 			return responseMap;
 		}
-		ReliableMsgType msgType = ReliableMsgType.valueOf((String) bodyMap.get("xraction"));
+		ReliableMsgType msgType = ReliableMsgType.valueOf(xraction);
 		switch (msgType) {
 		case create:
 			responseMap.put("body", onCrete(openid, (Map<String, String>) bodyMap.get("data")));

@@ -15,7 +15,8 @@ public abstract class BsinessManager extends ActionMnager {
 	public Map<String, Object> execute(String RequestStr) {
 		Map request = BaseResultTools.fromJSON(RequestStr, Map.class);
 		Map<String, Object> responseMap = new HashMap<String, Object>();
-		if (request.get("openid") == null) {
+		String openid = (String)request.get("openid");
+		if (openid == null) {
 			responseMap.put("error_msg", "身份认证失败");
 			return responseMap;
 		}
@@ -23,6 +24,6 @@ public abstract class BsinessManager extends ActionMnager {
 			responseMap.put("error_msg", request.get("error_msg"));
 			return request;
 		}
-		return dispatch((String) request.get("openid"), (Map<String, Object>) request.get("body"), responseMap);
+		return dispatch(openid, (Map<String, Object>) request.get("body"), responseMap);
 	}
 }
