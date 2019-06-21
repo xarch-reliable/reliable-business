@@ -14,11 +14,11 @@ import org.xarch.reliable.controller.hystrix.FeignActInfoHystrix;
 public interface FeignActInfoManager {
 	
 	@PostMapping("/activity/info/set")
-	public Map<String, String> setActid2ActInfo(@RequestBody String actInfo);
+	public Map<String, String> setActInfo(@RequestBody String actInfo);
 	
 	@GetMapping("/activity/info/get/all")
 	public List<Map<String, Object>> getAllActInfo();
 	
 	@GetMapping("/activity/info/get")
-	public Map<String, Object> getActid2ActInfo(@RequestParam(value = "actid", required = true) String actid);
+	public Map<String, Object> getActInfoByActid(@RequestParam(value = "actid", required = true) String actid);
 }

@@ -81,7 +81,7 @@ public class BusinessServer extends BsinessManager {
 	@Override
 	protected Map<String, Object> onActInfo(Map<String, String> data) {
 		String actid = data.get("actid");
-		return feignActInfoManager.getActid2ActInfo(actid);
+		return feignActInfoManager.getActInfoByActid(actid);
 	}
 
 	@Override
@@ -122,5 +122,25 @@ public class BusinessServer extends BsinessManager {
 		map.put("paybody", paymap);
 		return map;
 	}
+
+	@Override
+	protected List<Map<String, String>> onPartUserInfo(Map<String, String> data) {
+		List<Map<String, String>> list = Lists.newArrayList();
+		Map<String, String> map = new HashMap<String, String>();
+		String actid = data.get("actid");
+		if(actid == null) {
+			map.put("error_msg", "actid为空");
+			list.add(map);
+			return list;
+		}
+		Map<String, String> openidmap = feignActidManager.getAM(actid);
+		for (String item : openidmap.keySet()) {
+			Map<String, String> temmap = new HashMap<String, String>();
+			temmap.put("openid", item);
+			list.add(temmap);
+		}
+		return list;
+	}
+
 
 }

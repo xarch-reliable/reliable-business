@@ -13,7 +13,7 @@ import com.google.common.collect.Lists;
 public class FeignActInfoHystrix implements FeignActInfoManager {
 
 	@Override
-	public Map<String, String> setActid2ActInfo(String actInfo) {
+	public Map<String, String> setActInfo(String actInfo) {
 		Map<String, String> map = new HashMap<String, String>();
 		map.put("error_msg", "[FeignActInfoManager]发起setActid2ActInfo请求失败");
 		return map;
@@ -29,7 +29,7 @@ public class FeignActInfoHystrix implements FeignActInfoManager {
 	}
 
 	@Override
-	public Map<String, Object> getActid2ActInfo(String actid) {
+	public Map<String, Object> getActInfoByActid(String actid) {
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("error_msg", "[FeignActInfoManager]发起getActid2ActInfo请求失败");
 		map.put("actid", actid);

@@ -37,7 +37,9 @@ public abstract class ActionMnager {
 		case join:
 			responseMap.put("body", onJoin(openid, (Map<String, String>) bodyMap.get("data")));
 			break;
-		case userinfo:
+		case partuserinfo:
+			responseMap.put("body", onPartUserInfo((Map<String, String>) bodyMap.get("data")));
+			break;
 		case signin:
 		case finish:
 		default:
@@ -47,6 +49,8 @@ public abstract class ActionMnager {
 		responseMap.put("xraction", msgType);
 		return responseMap;
 	};
+
+	protected abstract List<Map<String, String>> onPartUserInfo(Map<String, String> map);
 
 	protected abstract Map<String, Object> onCrete(String openid, Map<String, String> data);
 

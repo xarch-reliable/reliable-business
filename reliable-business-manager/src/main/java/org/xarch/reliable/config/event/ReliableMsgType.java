@@ -7,7 +7,7 @@ public enum ReliableMsgType {
 	join, //加入
 	finish, //结算
 	signin, //签到
-	userinfo, //用户信息
+	partuserinfo, //参与活动的用户信息
 	actinfo, //活动信息
 	allactinfo //个人所有活动信息
 	

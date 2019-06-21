@@ -24,7 +24,7 @@ public class ThreadPool {
 
 	@Async("asyncExecutor")
 	public void StorageActInfoThread(Map<String, String> actInfo) {
-		feignActInfoManager.setActid2ActInfo(BaseResultTools.JsonObjectToStr(actInfo));
+		feignActInfoManager.setActInfo(BaseResultTools.JsonObjectToStr(actInfo));
 	}
 
 	@Async("asyncExecutor")
