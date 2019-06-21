@@ -137,8 +137,6 @@ public class BusinessServer extends BsinessManager {
 		for (String item : openidmap.keySet()) {
 			Map<String, String> temmap = new HashMap<String, String>();
 			temmap.put("openid", item);
-			temmap.put("nickname", "");
-			temmap.put("headimgurl", "");
 			list.add(temmap);
 		}
 		return list;
