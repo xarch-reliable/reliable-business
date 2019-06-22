@@ -20,9 +20,15 @@ public class ReliableActivityInfo implements Serializable {
 	@JsonProperty("actid")
 	private String actid;
 
-	@JsonProperty("creator")
-	private String creator;
+	@JsonProperty("creator_openid")
+	private String creatorOpenid;
 
+	@JsonProperty("creator_headimgurl")
+	private String creatorHeadimgurl;
+	
+	@JsonProperty("creator_nickname")
+	private String creatorNickname;
+	
 	@JsonProperty("create_time")
 	private String createTime;
 
@@ -52,7 +58,7 @@ public class ReliableActivityInfo implements Serializable {
 
 	@JsonProperty("status")
 	private String status;
-
+	
 	public Long getId() {
 		return id;
 	}
@@ -67,14 +73,6 @@ public class ReliableActivityInfo implements Serializable {
 
 	public void setActid(String actid) {
 		this.actid = actid;
-	}
-
-	public String getCreator() {
-		return creator;
-	}
-
-	public void setCreator(String creator) {
-		this.creator = creator;
 	}
 
 	public String getCreateTime() {
@@ -107,14 +105,6 @@ public class ReliableActivityInfo implements Serializable {
 
 	public void setTime(String time) {
 		this.time = time;
-	}
-
-	public String getLocaltion() {
-		return location;
-	}
-
-	public void setLocaltion(String location) {
-		this.location = location;
 	}
 
 	public String getBaozhenghb() {
@@ -157,4 +147,35 @@ public class ReliableActivityInfo implements Serializable {
 		this.status = status;
 	}
 
+	public String getCreatorOpenid() {
+		return creatorOpenid;
+	}
+
+	public void setCreatorOpenid(String creatorOpenid) {
+		this.creatorOpenid = creatorOpenid;
+	}
+
+	public String getCreatorHeadimgurl() {
+		return creatorHeadimgurl;
+	}
+
+	public void setCreatorHeadimgurl(String creatorHeadimgurl) {
+		this.creatorHeadimgurl = creatorHeadimgurl;
+	}
+
+	public String getCreatorNickname() {
+		return creatorNickname;
+	}
+
+	public void setCreatorNickname(String creatorNickname) {
+		this.creatorNickname = creatorNickname;
+	}
+
+	public String getLocation() {
+		return location;
+	}
+
+	public void setLocation(String location) {
+		this.location = location;
+	}
 }
