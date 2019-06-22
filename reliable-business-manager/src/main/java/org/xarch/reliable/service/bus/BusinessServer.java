@@ -56,7 +56,7 @@ public class BusinessServer extends BsinessManager {
 			return map;
 		}
 		data.put("actid", actid);
-		data.put("creator", openid);
+		data.put("creator_openid", openid);
 		threadPool.StorageActInfoThread(data);
 		threadPool.StorageAMThread(actid, openid);
 		threadPool.StorageOMThread(openid, actid);
