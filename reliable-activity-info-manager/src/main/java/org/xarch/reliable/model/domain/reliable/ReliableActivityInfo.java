@@ -29,8 +29,8 @@ public class ReliableActivityInfo implements Serializable {
 	@JsonProperty("creator_nickname")
 	private String creatorNickname;
 	
-	@JsonProperty("create_time")
-	private String createTime;
+	@JsonProperty("create_date")
+	private String createDate;
 
 	@JsonProperty("theme")
 	private String theme;
@@ -73,14 +73,6 @@ public class ReliableActivityInfo implements Serializable {
 
 	public void setActid(String actid) {
 		this.actid = actid;
-	}
-
-	public String getCreateTime() {
-		return createTime;
-	}
-
-	public void setCreateTime(String createTime) {
-		this.createTime = createTime;
 	}
 
 	public String getTheme() {
@@ -169,6 +161,14 @@ public class ReliableActivityInfo implements Serializable {
 
 	public void setCreatorNickname(String creatorNickname) {
 		this.creatorNickname = creatorNickname;
+	}
+
+	public String getCreateDate() {
+		return createDate;
+	}
+
+	public void setCreateDate(String createDate) {
+		this.createDate = createDate;
 	}
 
 	public String getLocation() {
