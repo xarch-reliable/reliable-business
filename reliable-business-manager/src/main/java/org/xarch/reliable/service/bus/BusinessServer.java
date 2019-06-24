@@ -153,11 +153,11 @@ public class BusinessServer extends BsinessManager {
 		Map<String, String> actidcheckmap = feignActidManager.checkAM(actid, openid);
 		Map<String, String> openidcheckmap = feignOpenidManager.checkOM(openid, actid);
 		map.put("actid", actid);
-		if(actidcheckmap.get(openid) != "true" || openidcheckmap.get(actid) != "true") {
-			map.put("check_msg", "签到失败");
+		if(actidcheckmap.get(openid).equals("true") && openidcheckmap.get(actid).equals("true")) {
+			map.put("check_msg", "签到成功");
 			return map;
 		}
-		map.put("check_msg", "签到成功");
+		map.put("check_msg", "签到失败");
 		return map;
 	}
 }
