@@ -150,9 +150,14 @@ public class BusinessServer extends BsinessManager {
 			map.put("error_msg", "actid为空");
 			return map;
 		}
-		Map<String, String> checkmap = feignActidManager.checkAM(actid, openid);
+		Map<String, String> actidcheckmap = feignActidManager.checkAM(actid, openid);
+		Map<String, String> openidcheckmap = feignOpenidManager.checkOM(openid, actid);
 		map.put("actid", actid);
-		map.put("body", checkmap);
+		if(actidcheckmap.get(openid) != "true" || openidcheckmap.get(actid) != "true") {
+			map.put("check_msg", "签到失败");
+			return map;
+		}
+		map.put("check_msg", "签到成功");
 		return map;
 	}
 }
