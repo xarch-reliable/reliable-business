@@ -40,7 +40,9 @@ public abstract class ActionMnager {
 		case partuserinfo:
 			responseMap.put("body", onPartUserInfo((Map<String, String>) bodyMap.get("data")));
 			break;
-		case signin:
+		case check:
+			responseMap.put("body", onCheck(openid, (Map<String, String>) bodyMap.get("data")));
+			break;
 		case finish:
 		default:
 			responseMap.put("body", onDefault());
@@ -50,7 +52,9 @@ public abstract class ActionMnager {
 		return responseMap;
 	};
 
-	protected abstract List<Map<String, String>> onPartUserInfo(Map<String, String> map);
+	protected abstract Map<String, Object> onCheck(String openid, Map<String, String> data);
+
+	protected abstract List<Map<String, String>> onPartUserInfo(Map<String, String> data);
 
 	protected abstract Map<String, Object> onCrete(String openid, Map<String, String> data);
 

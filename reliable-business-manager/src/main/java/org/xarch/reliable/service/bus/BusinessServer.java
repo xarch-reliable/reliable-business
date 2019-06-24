@@ -142,5 +142,17 @@ public class BusinessServer extends BsinessManager {
 		return list;
 	}
 
-
+	@Override
+	protected Map<String, Object> onCheck(String openid, Map<String, String> data) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		String actid = data.get("actid");
+		if(actid == null) {
+			map.put("error_msg", "actid为空");
+			return map;
+		}
+		Map<String, String> checkmap = feignActidManager.checkAM(actid, openid);
+		map.put("actid", actid);
+		map.put("body", checkmap);
+		return map;
+	}
 }
