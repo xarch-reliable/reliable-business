@@ -3,6 +3,7 @@ package org.xarch.reliable.service.bus;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -158,6 +159,27 @@ public class BusinessServer extends BsinessManager {
 			return map;
 		}
 		map.put("check_msg", "签到失败");
+		return map;
+	}
+
+	@Override
+	protected Map<String, Object> onFinish(String openid, Map<String, String> data) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		String actid = data.get("actid");
+		if(actid == null) {
+			map.put("error_msg", "actid为空");
+			return map;
+		}
+		Map<String, String> actidmap = feignActidManager.getAM(actid);
+		Map<String, String> payIdMap = feignPayidManager.getMap(actid);
+		for (Entry<String, String> entry: actidmap.entrySet()) {
+			logger.info("openid = "+entry.getKey()+" check = "+entry.getValue());
+			if(entry.getValue().equals("true")) {
+				String payid = payIdMap.get(entry.getKey());
+				feignPayManager.getPayRefund(payid);
+			}
+		}
+		map.put("finish_msg", "结算完成");
 		return map;
 	}
 }

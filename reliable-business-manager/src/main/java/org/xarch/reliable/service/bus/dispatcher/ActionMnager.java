@@ -44,6 +44,8 @@ public abstract class ActionMnager {
 			responseMap.put("body", onCheck(openid, (Map<String, String>) bodyMap.get("data")));
 			break;
 		case finish:
+			responseMap.put("body", onFinish(openid, (Map<String, String>) bodyMap.get("data")));
+			break;
 		default:
 			responseMap.put("body", onDefault());
 			break;
@@ -51,6 +53,8 @@ public abstract class ActionMnager {
 		responseMap.put("xraction", msgType);
 		return responseMap;
 	};
+
+	protected abstract Map<String, Object> onFinish(String openid, Map<String, String> data);
 
 	protected abstract Map<String, Object> onCheck(String openid, Map<String, String> data);
 
