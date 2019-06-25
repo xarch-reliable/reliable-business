@@ -170,6 +170,7 @@ public class BusinessServer extends BsinessManager {
 			map.put("error_msg", "actid为空");
 			return map;
 		}
+		map.put("actid", actid);
 		Map<String, String> actidmap = feignActidManager.getAM(actid);
 		Map<String, String> payIdMap = feignPayidManager.getMap(actid);
 		for (Entry<String, String> entry: actidmap.entrySet()) {
