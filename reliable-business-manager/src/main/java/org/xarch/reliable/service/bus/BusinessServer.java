@@ -177,7 +177,7 @@ public class BusinessServer extends BsinessManager {
 			logger.info("openid = "+entry.getKey()+" check = "+entry.getValue());
 			if(entry.getValue().equals("true")) {
 				String payid = payIdMap.get(entry.getKey());
-				feignPayManager.getPayRefund(payid);
+				threadPool.RefundThread(payid);
 			}
 		}
 		map.put("finish_msg", "结算完成");
