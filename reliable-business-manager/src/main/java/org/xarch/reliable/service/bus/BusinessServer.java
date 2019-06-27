@@ -145,21 +145,21 @@ public class BusinessServer extends BsinessManager {
 
 	@Override
 	protected Map<String, Object> onCheck(String openid, Map<String, String> data) {
-		Map<String, Object> map = new HashMap<String, Object>();
+		Map<String, Object> resmap = new HashMap<String, Object>();
 		String actid = data.get("actid");
 		if(actid == null) {
-			map.put("error_msg", "actid为空");
-			return map;
+			resmap.put("alert_msg", "actid为空");
+			return resmap;
 		}
 		Map<String, String> actidcheckmap = feignActidManager.checkAM(actid, openid);
 		Map<String, String> openidcheckmap = feignOpenidManager.checkOM(openid, actid);
-		map.put("actid", actid);
-		if(actidcheckmap.get(openid).equals("true") && openidcheckmap.get(actid).equals("true")) {
-			map.put("check_msg", "签到成功");
-			return map;
+		resmap.put("actid", actid);
+		if(actidcheckmap.get("error_msg") == null && openidcheckmap.get("error_msg") == null) {
+			resmap.put("alert_msg", "你很靠谱");
+		}else {
+			resmap.put("alert_msg", "您已经靠谱到不能再靠谱了");
 		}
-		map.put("check_msg", "签到失败");
-		return map;
+		return resmap;
 	}
 
 	@Override
