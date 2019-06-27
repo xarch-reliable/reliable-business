@@ -21,4 +21,7 @@ public interface FeignActInfoManager {
 	
 	@GetMapping("/activity/info/get")
 	public Map<String, Object> getActInfoByActid(@RequestParam(value = "actid", required = true) String actid);
+	
+	@GetMapping("/activity/info/finish")
+	public Map<String, String> finishActInfoByActid(@RequestParam(value = "actid", required = true) String actid);
 }

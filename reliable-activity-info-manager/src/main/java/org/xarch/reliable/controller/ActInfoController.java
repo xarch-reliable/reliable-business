@@ -31,8 +31,8 @@ public class ActInfoController {
 			map.put("error_msg", "actid为空");
 			return map;
 		}
-		if (reliableActInfoServer.setActInfo(reliableActivityInfo)) {
-			map.put("success", "存入成功");
+		if (reliableActInfoServer.createActInfo(reliableActivityInfo)) {
+			map.put("success_msg", "存入成功");
 		} else {
 			map.put("error_msg", "已存在");
 		}
@@ -51,6 +51,18 @@ public class ActInfoController {
 	@RequestMapping("/get")
 	public Map<String, Object> getActid2ActInfo(@RequestParam(value = "actid", required = true) String actid) {
 		return BaseResultTools.ObjectToMap(reliableActInfoServer.getActInfo(actid));
+	}
+	
+	@RequestMapping("/finish")
+	public Map<String, String> finishActid2ActInfo(@RequestParam(value = "actid", required = true) String actid) {
+		Map<String, String> resmap = new HashMap<String, String>();
+		ReliableActivityInfo actinfo = reliableActInfoServer.getActInfo(actid);
+		if(reliableActInfoServer.fininshActInfo(actinfo)) {
+			resmap.put("success_msg", "活动结算数据储存成功");
+		}else {
+			resmap.put("error_msg", "活动结算数据储存失败");
+		}
+		return resmap;
 	}
 
 }

@@ -103,25 +103,30 @@ public class BusinessServer extends BsinessManager {
 
 	@Override
 	protected Map<String, Object> onJoin(String openid,Map<String, String> data) {
-		Map<String, Object> map = new HashMap<String, Object>();
+		Map<String, Object> resmap = new HashMap<String, Object>();
 		String actid = data.get("actid");
 		if(actid == null) {
-			map.put("error_msg", "actid为空");
-			return map;
+			resmap.put("error_msg", "actid为空");
+			return resmap;
 		}
 		Map<String, String> payIdMap = feignPayidManager.getPayid2Map(actid, openid);
 		String payid = payIdMap.get(openid);
 		logger.info("[payid]=" + payid);
 		if (payid == null) {
-			map.put("error_msg", "payID获取失败");
-			return map;
+			resmap.put("error_msg", "payID获取失败");
+			return resmap;
 		}
-		threadPool.StorageAMThread(actid, openid);
-		threadPool.StorageOMThread(openid, actid);
-		Map<String, Object> paymap = feignPayManager.getPayMpOrder(openid, payid);
-		map.put("actid", actid);
-		map.put("paybody", paymap);
-		return map;
+		Map<String, String> actidaddmap = feignActidManager.addAM(actid, openid);
+		Map<String, String> openidaddmap = feignOpenidManager.addOM(openid, actid);
+		if(actidaddmap.get("error_msg") == null && openidaddmap.get("error_msg") == null) {
+			Map<String, Object> paymap = feignPayManager.getPayMpOrder(openid, payid);
+			resmap.put("actid", actid);
+			resmap.put("paybody", paymap);
+		}else {
+			resmap.put("alert_msg", "您已加入过该活动");
+		}
+		return resmap;
+
 	}
 
 	@Override
@@ -148,12 +153,12 @@ public class BusinessServer extends BsinessManager {
 		Map<String, Object> resmap = new HashMap<String, Object>();
 		String actid = data.get("actid");
 		if(actid == null) {
-			resmap.put("alert_msg", "actid为空");
+			resmap.put("error_msg", "actid为空");
 			return resmap;
 		}
+		resmap.put("actid", actid);
 		Map<String, String> actidcheckmap = feignActidManager.checkAM(actid, openid);
 		Map<String, String> openidcheckmap = feignOpenidManager.checkOM(openid, actid);
-		resmap.put("actid", actid);
 		if(actidcheckmap.get("error_msg") == null && openidcheckmap.get("error_msg") == null) {
 			resmap.put("alert_msg", "你很靠谱");
 		}else {
@@ -164,23 +169,28 @@ public class BusinessServer extends BsinessManager {
 
 	@Override
 	protected Map<String, Object> onFinish(String openid, Map<String, String> data) {
-		Map<String, Object> map = new HashMap<String, Object>();
+		Map<String, Object> resmap = new HashMap<String, Object>();
 		String actid = data.get("actid");
 		if(actid == null) {
-			map.put("error_msg", "actid为空");
-			return map;
+			resmap.put("alert_msg", "actid为空，请重新加载页面");
+			return resmap;
 		}
-		map.put("actid", actid);
-		Map<String, String> actidmap = feignActidManager.getAM(actid);
-		Map<String, String> payIdMap = feignPayidManager.getMap(actid);
-		for (Entry<String, String> entry: actidmap.entrySet()) {
-			logger.info("openid = "+entry.getKey()+" check = "+entry.getValue());
-			if(entry.getValue().equals("true")) {
-				String payid = payIdMap.get(entry.getKey());
-				threadPool.RefundThread(payid);
+		resmap.put("actid", actid);
+		Map<String, String> finishactmap = feignActInfoManager.finishActInfoByActid(actid);
+		if(finishactmap.get("error_msg") == null) {
+			Map<String, String> actidmap = feignActidManager.getAM(actid);
+			Map<String, String> payIdMap = feignPayidManager.getMap(actid);
+			for (Entry<String, String> entry: actidmap.entrySet()) {
+				logger.info("openid = "+entry.getKey()+" check = "+entry.getValue());
+				if(entry.getValue().equals("true")) {
+					String payid = payIdMap.get(entry.getKey());
+					threadPool.RefundThread(payid);
+				}
 			}
+			resmap.put("alert_msg", "结算完成");
+		}else {
+			resmap.put("alert_msg", "该活动已结算");
 		}
-		map.put("finish_msg", "结算完成");
-		return map;
+		return resmap;
 	}
 }

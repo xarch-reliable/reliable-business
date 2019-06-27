@@ -17,10 +17,15 @@ public class ActidManagerServerImpl implements ActidManagerServer {
 	@Override
 	public Map<String, String> addActid2Openid(String actid, String openid) {
 		Map<String, String> resmap = new HashMap<String, String>();
-		Map<String, String> map = actidCacheServer.getActidMap(actid, new HashMap<String, String>());
-		map.put(openid, "false");
-		actidCacheServer.setActidMap(actid, map);
-		resmap.put("success_msg", "actid_manager创建成功");
+		Map<String, String> actidmap = actidCacheServer.getActidMap(actid, new HashMap<String, String>());
+		String addMsg = actidmap.get(openid);
+		if(addMsg == null) {
+			actidmap.put(openid, "false");
+			actidCacheServer.setActidMap(actid, actidmap);
+			resmap.put("success_msg", "actid_manager加入成功");
+		}else {
+			resmap.put("error_msg", "actid_manager重复加入");
+		}
 		return resmap;
 	}
 
@@ -30,7 +35,7 @@ public class ActidManagerServerImpl implements ActidManagerServer {
 		Map<String, String> actidmap = actidCacheServer.getActidMap(actid, new HashMap<String, String>());
 		String checkMsg = actidmap.get(openid);
 		if(checkMsg.equals("true")) {
-			resmap.put("error_msg", "actid_manager签到失败");
+			resmap.put("error_msg", "actid_manager重复签到");
 		}else {
 			actidmap.put(openid, "true");
 			actidCacheServer.setActidMap(actid, actidmap);

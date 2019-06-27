@@ -17,10 +17,15 @@ public class OpenidManagerServerImpl implements OpenidManagerServer{
 	@Override
 	public Map<String, String> addOpenid2Actid(String openid, String actid) {
 		Map<String, String> resmap = new HashMap<String, String>();
-		Map<String, String> map = openidCacheServer.getOpenidMap(openid, new HashMap<String, String>());
-		map.put(actid, "false");
-		openidCacheServer.setOpenidMap(openid, map);
-		resmap.put("success_msg", "openid_manager创建成功");
+		Map<String, String> openidmap = openidCacheServer.getOpenidMap(openid, new HashMap<String, String>());
+		String addMsg = openidmap.get(actid);
+		if(addMsg == null) {
+			openidmap.put(actid, "false");
+			openidCacheServer.setOpenidMap(openid, openidmap);
+			resmap.put("success_msg", "actid_manager加入成功");
+		}else {
+			resmap.put("error_msg", "actid_manager重复加入");
+		}
 		return resmap;
 	}
 

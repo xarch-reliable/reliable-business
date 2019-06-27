@@ -29,13 +29,29 @@ public class ReliableActInfoServerImpl implements ReliableActInfoServer {
 	}
 
 	@Override
-	public boolean setActInfo(ReliableActivityInfo reliableActivityInfo) {
+	public boolean createActInfo(ReliableActivityInfo reliableActivityInfo) {
 		ReliableActivityInfo existing = activityInfoRepository.findByActid(reliableActivityInfo.getActid());
 		if (existing != null) {
 			return false;
+		}else {
+			reliableActivityInfo.setPayOrder("false");
+			reliableActivityInfo.setClear("false");
+			threadPool.StorageActInfoThread(reliableActivityInfo);
+			return true;
 		}
-		threadPool.StorageActInfoThread(reliableActivityInfo);
-		return true;
+	}
+
+	@Override
+	public boolean fininshActInfo(ReliableActivityInfo reliableActivityInfo) {
+		String clear = reliableActivityInfo.getClear();
+		if(clear.equals("true")) {
+			return false;
+		}else {
+			reliableActivityInfo.setClear("true");
+			threadPool.StorageActInfoThread(reliableActivityInfo);
+			return true;
+		}
+
 	}
 
 }

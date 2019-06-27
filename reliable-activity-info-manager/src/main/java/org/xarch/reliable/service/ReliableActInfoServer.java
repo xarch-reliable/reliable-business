@@ -6,7 +6,9 @@ import org.xarch.reliable.model.domain.reliable.ReliableActivityInfo;
 
 public interface ReliableActInfoServer {
 	
-	public boolean setActInfo(ReliableActivityInfo reliableActivityInfo);
+	public boolean createActInfo(ReliableActivityInfo reliableActivityInfo);
+	
+	public boolean fininshActInfo(ReliableActivityInfo reliableActivityInfo);
 
 	public ReliableActivityInfo getActInfo(String actid);
 	

@@ -56,8 +56,11 @@ public class ReliableActivityInfo implements Serializable {
 	@JsonProperty("details")
 	private String details;
 
-	@JsonProperty("status")
-	private String status;
+	@JsonProperty("clear")
+	private String clear;
+	
+	@JsonProperty("pay_order")
+	private String payOrder;
 	
 	public Long getId() {
 		return id;
@@ -131,14 +134,6 @@ public class ReliableActivityInfo implements Serializable {
 		this.details = details;
 	}
 
-	public String getStatus() {
-		return status;
-	}
-
-	public void setStatus(String status) {
-		this.status = status;
-	}
-
 	public String getCreatorOpenid() {
 		return creatorOpenid;
 	}
@@ -177,5 +172,21 @@ public class ReliableActivityInfo implements Serializable {
 
 	public void setLocation(String location) {
 		this.location = location;
+	}
+
+	public String getClear() {
+		return clear;
+	}
+
+	public void setClear(String clear) {
+		this.clear = clear;
+	}
+
+	public String getPayOrder() {
+		return payOrder;
+	}
+
+	public void setPayOrder(String payOrder) {
+		this.payOrder = payOrder;
 	}
 }
