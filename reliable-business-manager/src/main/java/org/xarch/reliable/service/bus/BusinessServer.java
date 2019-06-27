@@ -109,24 +109,30 @@ public class BusinessServer extends BsinessManager {
 			resmap.put("error_msg", "actid为空");
 			return resmap;
 		}
-		Map<String, String> payIdMap = feignPayidManager.getPayid2Map(actid, openid);
-		String payid = payIdMap.get(openid);
-		logger.info("[payid]=" + payid);
-		if (payid == null) {
-			resmap.put("error_msg", "payID获取失败");
+		Map<String, Object> actinfomap = feignActInfoManager.getActInfoByActid(actid);
+		if(actinfomap.get("clear").equals("true")) {
+			resmap.put("alert_msg", "该活动已结算，无法加入");
 			return resmap;
-		}
-		Map<String, String> actidaddmap = feignActidManager.addAM(actid, openid);
-		Map<String, String> openidaddmap = feignOpenidManager.addOM(openid, actid);
-		if(actidaddmap.get("error_msg") == null && openidaddmap.get("error_msg") == null) {
-			Map<String, Object> paymap = feignPayManager.getPayMpOrder(openid, payid);
-			resmap.put("actid", actid);
-			resmap.put("paybody", paymap);
 		}else {
-			resmap.put("alert_msg", "您已加入过该活动");
+			Map<String, String> payIdMap = feignPayidManager.getPayid2Map(actid, openid);
+			String payid = payIdMap.get(openid);
+			logger.info("[payid]=" + payid);
+			if (payid == null) {
+				resmap.put("error_msg", "payID获取失败");
+				return resmap;
+			}else {
+				Map<String, String> actidaddmap = feignActidManager.addAM(actid, openid);
+				Map<String, String> openidaddmap = feignOpenidManager.addOM(openid, actid);
+				if(actidaddmap.get("error_msg") == null && openidaddmap.get("error_msg") == null) {
+					Map<String, Object> paymap = feignPayManager.getPayMpOrder(openid, payid);
+					resmap.put("actid", actid);
+					resmap.put("paybody", paymap);
+				}else {
+					resmap.put("alert_msg", "您已加入过该活动");
+				}
+				return resmap;
+			}
 		}
-		return resmap;
-
 	}
 
 	@Override
