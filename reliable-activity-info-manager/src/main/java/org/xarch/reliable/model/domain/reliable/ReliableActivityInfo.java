@@ -8,6 +8,12 @@ import javax.persistence.Id;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+/**
+ * 	活动信息
+ * 
+ * @author wancy
+ *
+ */
 @Entity
 public class ReliableActivityInfo implements Serializable {
 
@@ -17,48 +23,63 @@ public class ReliableActivityInfo implements Serializable {
 	@GeneratedValue // [自动生成策略，自动编号排序]
 	private Long id;
 
+	// 活动ID
 	@JsonProperty("actid")
 	private String actid;
 
+	//创建者openid
 	@JsonProperty("creator_openid")
 	private String creatorOpenid;
 
+	//创建者头像
 	@JsonProperty("creator_headimgurl")
 	private String creatorHeadimgurl;
 	
+	//创建者昵称
 	@JsonProperty("creator_nickname")
 	private String creatorNickname;
 	
+	//创建日期
 	@JsonProperty("create_date")
 	private String createDate;
 
+	//活动主题
 	@JsonProperty("theme")
 	private String theme;
 
+	//活动日期
 	@JsonProperty("date")
 	private String date;
 
+	//开始时间
 	@JsonProperty("time")
 	private String time;
 
+	//活动地点
 	@JsonProperty("location")
 	private String location;
 
+	//保证红包
 	@JsonProperty("baozhenghb")
 	private String baozhenghb;
 
+	//结算方法
 	@JsonProperty("clear_method")
 	private String clearMethod;
 
+	//签到方法
 	@JsonProperty("check_method")
 	private String[] checkMethod;
 
+	//活动详情
 	@JsonProperty("details")
 	private String details;
 
+	//是否结算
 	@JsonProperty("clear")
 	private String clear;
 	
+	//预订单
 	@JsonProperty("pay_order")
 	private String payOrder;
 	

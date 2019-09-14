@@ -13,13 +13,20 @@ import org.springframework.data.redis.serializer.GenericJackson2JsonRedisSeriali
 import org.springframework.data.redis.serializer.RedisSerializationContext;
 import org.springframework.data.redis.serializer.StringRedisSerializer;
 
+/**
+ * Redis initialization
+ * 
+ * @author wancy
+ *
+ */
 @Configuration
 public class RedisConfig extends CachingConfigurerSupport{
 
 	/**
 	 * 	缓存管理器
+	 * 
 	 * @param connectionFactory
-	 * @return
+	 * @return CacheManager
 	 */
 	@Bean
 	public CacheManager cacheManager(RedisConnectionFactory connectionFactory) {
@@ -30,10 +37,10 @@ public class RedisConfig extends CachingConfigurerSupport{
 	}
 	
 	/**
-	 * 自定义 序列化
+	 * 	自定义 序列化
 	 * 
 	 * @param redisConnectionFactory
-	 * @return
+	 * @return RedisTemplate<String, Object>
 	 */
 	@Bean
 	public RedisTemplate<String, Object> redisCacheTemplate(RedisConnectionFactory redisConnectionFactory) {

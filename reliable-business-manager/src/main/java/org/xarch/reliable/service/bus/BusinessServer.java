@@ -19,8 +19,16 @@ import org.xarch.reliable.service.thread.ThreadPool;
 
 import com.google.common.collect.Lists;
 
+/**
+ * This is a business-specific implementation class
+ * Using feign to invoke specific spring services
+ * <Strong>wancy on May 24 achieving settlement processing</Strong>
+ * 
+ * @author wancy
+ *
+ */
 @Service
-public class BusinessServer extends BsinessManager {
+public class BusinessServer extends BusinessManager {
 
 	private static final Logger logger = LoggerFactory.getLogger(BusinessServer.class);
 
@@ -42,9 +50,16 @@ public class BusinessServer extends BsinessManager {
 	@Autowired
 	private FeignJsapiManager feignJsapiManager;
 
+	//线程管理者
 	@Autowired
 	private ThreadPool threadPool;
-
+	
+    /**
+    * Resolve the factory method implementing creating activity business。
+	* @param String openid and Map<String, String> data
+	* @return Map<String, Object> data
+	* @throws Will throw an error if the data is null.
+	*/
 	@Override
 	protected Map<String, Object> onCrete(String openid, Map<String, String> data) {
 		Map<String, Object> map = new HashMap<String, Object>();
@@ -67,24 +82,48 @@ public class BusinessServer extends BsinessManager {
 		return map;
 	}
 
+	/**
+    * Resolve the factory method implementing UserInfo business。
+	* @param String openid and Map<String, String> data
+	* @return Map<String, Object> data
+	* @throws Will throw an error if the data is null.
+	*/
 	@Override
 	protected Map<String, Object> onUserInfo(Map<String, String> data) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
+	/**
+	* Resolve the factory method implementing Share business。
+	* @param String openid and Map<String, String> data
+	* @return Map<String, Object> data
+	* @throws Will throw an error if the data is null.
+	*/
 	@Override
 	protected Map<String, Object> onShare(Map<String, String> data) {
 		String url = data.get("url");
 		return feignJsapiManager.getShareInfo(url);
 	}
 
+	/**
+	* Resolve the factory method implementing ActInfo business。
+	* @param String openid and Map<String, String> data
+	* @return Map<String, Object> data
+	* @throws Will throw an error if the data is null.
+	*/
 	@Override
 	protected Map<String, Object> onActInfo(Map<String, String> data) {
 		String actid = data.get("actid");
 		return feignActInfoManager.getActInfoByActid(actid);
 	}
 
+	/**
+	* Resolve the factory method implementing AllActInfo business。
+	* @param String openid and Map<String, String> data
+	* @return Map<String, Object> data
+	* @throws Will throw an error if the data is null.
+	*/
 	@Override
 	protected List<Map<String, Object>> onAllActInfo(String openid) {
 		List<Map<String, Object>> list = Lists.newArrayList();
@@ -101,6 +140,12 @@ public class BusinessServer extends BsinessManager {
 		return list;
 	}
 
+	/**
+	* Resolve the factory method implementing Join Activity business。
+	* @param String openid and Map<String, String> data
+	* @return Map<String, Object> data
+	* @throws Will throw an error if the data is null.
+	*/
 	@Override
 	protected Map<String, Object> onJoin(String openid,Map<String, String> data) {
 		Map<String, Object> resmap = new HashMap<String, Object>();
@@ -135,6 +180,12 @@ public class BusinessServer extends BsinessManager {
 		}
 	}
 
+	/**
+	* Resolve the factory method implementing PartUserInfo business。
+	* @param String openid and Map<String, String> data
+	* @return Map<String, Object> data
+	* @throws Will throw an error if the data is null.
+	*/
 	@Override
 	protected List<Map<String, String>> onPartUserInfo(Map<String, String> data) {
 		List<Map<String, String>> list = Lists.newArrayList();
@@ -154,6 +205,12 @@ public class BusinessServer extends BsinessManager {
 		return list;
 	}
 
+	/**
+	* Resolve the factory method implementing Check business。
+	* @param String openid and Map<String, String> data
+	* @return Map<String, Object> data
+	* @throws Will throw an error if the data is null.
+	*/
 	@Override
 	protected Map<String, Object> onCheck(String openid, Map<String, String> data) {
 		Map<String, Object> resmap = new HashMap<String, Object>();
@@ -173,6 +230,12 @@ public class BusinessServer extends BsinessManager {
 		return resmap;
 	}
 
+	/**
+	* Resolve the factory method implementing Finish business。
+	* @param String openid and Map<String, String> data
+	* @return Map<String, Object> data
+	* @throws Will throw an error if the data is null.
+	*/
 	@Override
 	protected Map<String, Object> onFinish(String openid, Map<String, String> data) {
 		Map<String, Object> resmap = new HashMap<String, Object>();
