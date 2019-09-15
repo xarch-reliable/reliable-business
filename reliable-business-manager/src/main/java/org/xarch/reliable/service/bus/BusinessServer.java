@@ -138,6 +138,8 @@ public class BusinessServer extends BusinessManager {
 		sendmap.put("data", datatmp);
 		Map<String, Object> resmap = feignDataManager.doGet2DataCenter(BaseResultTools.JsonObjectToStr(sendmap));
 		
+		logger.info(BaseResultTools.JsonObjectToStr(resmap));
+		
 		return resmap;
 	}
 
