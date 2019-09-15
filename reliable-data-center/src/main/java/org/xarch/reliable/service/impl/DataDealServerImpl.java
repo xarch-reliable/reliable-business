@@ -46,6 +46,8 @@ public class DataDealServerImpl implements DataDealServer {
 		ReliableDataType msgType = ReliableDataType.valueOf(xrdataction);
 		switch (msgType) {
 		case getActinfoListByOpenid:
+			logger.info("DataDealServerImpl::dispatch() : getActinfoListByOpenid!!!");
+			
 			responseMap.put("body", dataActionServer.onGetActinfoListByOpenid((String)bodyMap.get("openid")));
 			break;
 		case getActidListByOpenid:

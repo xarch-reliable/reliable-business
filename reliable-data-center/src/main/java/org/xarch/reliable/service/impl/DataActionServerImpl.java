@@ -4,6 +4,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.xarch.reliable.service.DataActionServer;
@@ -19,6 +21,8 @@ import com.google.common.collect.Lists;
 
 @Service
 public class DataActionServerImpl implements DataActionServer{
+	
+	private static final Logger logger = LoggerFactory.getLogger(DataActionServer.class);
 
 	@Autowired
 	private FeignActInfoManager feignActInfoManager;
@@ -44,12 +48,16 @@ public class DataActionServerImpl implements DataActionServer{
 	
 	@Override
 	public Map<String, Object> onGetActinfoListByOpenid(String openid) {
+		
+		logger.info("onGetActinfoListByOpenid::onGetActinfoListByOpenid() is called...");
+		
 		Map<String, Object> resmap = new HashMap<String, Object>();
 		List<Map<String, Object>> activityDoneList = Lists.newArrayList();
 		List<Map<String, Object>> activityUnDoneList = Lists.newArrayList();
+		logger.info("onGetActinfoListByOpenid::onGetActinfoListByOpenid() : 111");
 		List<Map<String, Object>> allactinfo = feignActInfoManager.getAllActInfo();
 		Map<String, String> openid2actid = feignOpenidManager.getOM(openid);
-		
+		logger.info("onGetActinfoListByOpenid::onGetActinfoListByOpenid() : 222");
 		for (Map<String, Object> actinfo :allactinfo) {
 			for (String actid : openid2actid.keySet()) {
 				String info2actid = (String) actinfo.get("actid");
