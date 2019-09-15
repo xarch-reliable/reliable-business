@@ -68,7 +68,7 @@ public abstract class ActionMnager {
 
 	protected abstract Map<String, Object> onActInfo(Map<String, String> data);
 
-	protected abstract List<Map<String, Object>> onAllActInfo(String openid);
+	protected abstract Map<String, Object> onAllActInfo(String openid);
 
 	protected abstract Map<String, Object> onJoin(String openid, Map<String, String> data);
 

@@ -11,11 +11,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.xarch.reliable.service.feign.FeignActInfoManager;
 import org.xarch.reliable.service.feign.FeignActidManager;
+import org.xarch.reliable.service.feign.FeignDataManager;
 import org.xarch.reliable.service.feign.FeignJsapiManager;
 import org.xarch.reliable.service.feign.FeignOpenidManager;
 import org.xarch.reliable.service.feign.FeignPayManager;
 import org.xarch.reliable.service.feign.FeignPayidManager;
 import org.xarch.reliable.service.thread.ThreadPool;
+import org.xarch.reliable.utils.BaseResultTools;
 
 import com.google.common.collect.Lists;
 
@@ -32,6 +34,9 @@ public class BusinessServer extends BusinessManager {
 
 	private static final Logger logger = LoggerFactory.getLogger(BusinessServer.class);
 
+	@Autowired
+	private FeignDataManager feignDataManager;
+	
 	@Autowired
 	private FeignActInfoManager feignActInfoManager;
 
@@ -125,19 +130,15 @@ public class BusinessServer extends BusinessManager {
 	* @throws Will throw an error if the data is null.
 	*/
 	@Override
-	protected List<Map<String, Object>> onAllActInfo(String openid) {
-		List<Map<String, Object>> list = Lists.newArrayList();
-		List<Map<String, Object>> allactinfo = feignActInfoManager.getAllActInfo();
-		Map<String, String> openid2actid = feignOpenidManager.getOM(openid);
-		for (Map<String, Object> actinfo :allactinfo) {
-			for (String actid : openid2actid.keySet()) {
-				String info2actid = (String) actinfo.get("actid");
-				if(info2actid !=null && info2actid.equals(actid)) {
-					list.add(actinfo);
-				}
-			}
-		}
-		return list;
+	protected Map<String, Object> onAllActInfo(String openid) {
+		Map<String, Object> sendmap = new HashMap<String, Object>();
+		Map<String, Object> datatmp = new HashMap<String, Object>();
+		datatmp.put("openid", openid);
+		sendmap.put("xrdataction", "getActinfoListByOpenid");
+		sendmap.put("data", datatmp);
+		Map<String, Object> resmap = feignDataManager.doGet2DataCenter(BaseResultTools.JsonObjectToStr(sendmap));
+		
+		return resmap;
 	}
 
 	/**
