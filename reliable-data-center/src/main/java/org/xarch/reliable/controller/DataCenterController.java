@@ -20,7 +20,7 @@ public class DataCenterController {
 	
 	@RequestMapping("/get")
 	public Map<String, Object> GetDataSupport(@RequestBody String request) {
-		logger.info("BusinessController::Support() : request = " + request);
+		logger.info("DataCenterController::Support() : request = " + request);
 		return dataServer.execute(request);
 	}
 	
