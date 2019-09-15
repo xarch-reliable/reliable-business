@@ -129,6 +129,7 @@ public class BusinessServer extends BusinessManager {
 	* @return Map<String, Object> data
 	* @throws Will throw an error if the data is null.
 	*/
+	@SuppressWarnings("unchecked")
 	@Override
 	protected Map<String, Object> onAllActInfo(String openid) {
 		Map<String, Object> sendmap = new HashMap<String, Object>();
@@ -138,9 +139,7 @@ public class BusinessServer extends BusinessManager {
 		sendmap.put("data", datatmp);
 		Map<String, Object> resmap = feignDataManager.doGet2DataCenter(BaseResultTools.JsonObjectToStr(sendmap));
 		
-		logger.info(BaseResultTools.JsonObjectToStr(resmap));
-		
-		return resmap;
+		return (Map<String, Object>)resmap.get("body");
 	}
 
 	/**
