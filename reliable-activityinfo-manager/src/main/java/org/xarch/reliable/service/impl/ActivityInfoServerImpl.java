@@ -4,17 +4,22 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.xarch.reliable.service.ActivityInfoServer;
 //import org.xarch.reliable.service.feign.FeignActidManager;
 import org.xarch.reliable.service.feign.FeignOpenidManager;
+import org.xarch.reliable.util.BaseResultTools;
 import org.xarch.reliable.util.RedisUtil;
 
 import com.google.common.collect.Lists;
 
 @Service
 public class ActivityInfoServerImpl implements ActivityInfoServer {
+	
+	private static final Logger logger = LoggerFactory.getLogger(ActivityInfoServerImpl.class);
 
 	//@Autowired
 	//private FeignActidManager feignActidManager;
@@ -52,7 +57,8 @@ public class ActivityInfoServerImpl implements ActivityInfoServer {
 		Map<String, String> openid2actid = feignOpenidManager.getOM(openid);
 		for (String actid : openid2actid.keySet()) {
 			Map maptmp = redisUtil.hmget(actid);
-			if( ((String)((Map<String, Object>)maptmp).get("clear")).equals("false") ) {
+			logger.info(BaseResultTools.JsonObjectToStr(maptmp));
+			if( (((Map<String, Object>)maptmp).get("clear")).equals("false") ) {
 				activityUnDoneList.add(maptmp);
 			}else {
 				activityDoneList.add(maptmp);
