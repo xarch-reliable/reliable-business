@@ -13,7 +13,7 @@ spring:
     name: reliable-activityinfo-manager
   cloud:
     config:
-      name: rabbitmq-bus,async-thread,logback-all-info,redis-1-activityinfo
+      name: rabbitmq-bus,async-thread,logback-all-info,logback-web-debug,feign,ribbon-eager-load-business,redis-1-activityinfo
       profile: dev
       label: master
       discovery:
