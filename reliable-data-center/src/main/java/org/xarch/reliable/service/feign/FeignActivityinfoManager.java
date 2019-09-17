@@ -15,8 +15,8 @@ public interface FeignActivityinfoManager {
 	@PostMapping("/activity/info/set")
 	public String setActInfo(@RequestParam(value = "actid", required = true) String actid, @RequestBody Map<String, Object> actdata);
 	
-	@GetMapping("/activity/info/get/getselfactlist")
-	public Map<String, Object> getAllActInfo(@RequestParam(value = "actid", required = true) String openid);
+	@GetMapping("/activity/info/getselfactlist")
+	public Map<String, Object> getAllActInfo(@RequestParam(value = "openid", required = true) String openid);
 	
 	@GetMapping("/activity/info/get")
 	public Map<String, Object> getActInfoByActid(@RequestParam(value = "actid", required = true) String actid);
