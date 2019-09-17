@@ -12,7 +12,7 @@ spring:
     name: reliable-openid-manager
   cloud:
     config:
-      name: rabbitmq-bus,async-thread,logback-all-info,redis-3-openid
+      name: rabbitmq-bus,async-thread,logback-web-debug,logback-all-info,redis-3-openid
       profile: dev
       label: master
       discovery:
