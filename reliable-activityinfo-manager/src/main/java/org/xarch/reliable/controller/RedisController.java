@@ -17,7 +17,7 @@ public class RedisController {
 	private ActivityInfoServer activityInfoServer;
 	
 	@RequestMapping("/set")
-	public boolean setMap(@RequestParam(value = "actid", required = true) String actid,
+	public String setMap(@RequestParam(value = "actid", required = true) String actid,
 			@RequestBody Map<String, Object> actdata) {
 		return activityInfoServer.setActivityInfo(actid, actdata);
 		
@@ -30,9 +30,15 @@ public class RedisController {
 	}
 	
 	@RequestMapping("/clear")
-	public boolean setClear(@RequestParam(value = "actid", required = true) String actid) {
+	public String setClear(@RequestParam(value = "actid", required = true) String actid) {
 
 		return activityInfoServer.setActClear(actid);
+	}
+	
+	@RequestMapping("/getclear")
+	public String getClear(@RequestParam(value = "actid", required = true) String actid) {
+
+		return activityInfoServer.getActClear(actid);
 	}
 	
 	@RequestMapping("/getselfactlist")

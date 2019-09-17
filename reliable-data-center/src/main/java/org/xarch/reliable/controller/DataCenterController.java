@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.xarch.reliable.service.DataDealServer;
+import org.xarch.reliable.utils.BaseResultTools;
 
 @RestController
 @RequestMapping("/reliable/data")
@@ -18,10 +19,9 @@ public class DataCenterController {
 	@Autowired
 	private DataDealServer dataServer;
 	
-	@RequestMapping("/get")
-	public Map<String, Object> GetDataSupport(@RequestBody String request) {
-		logger.info("DataCenterController::Support() : request = " + request);
-		return dataServer.execute(request);
+	@RequestMapping("/support")
+	public Map<String, Object> SetDataSupport(@RequestBody Map<String, Object> requestdata) {
+		logger.info("DataCenterController::Support() : request = " + BaseResultTools.JsonObjectToStr(requestdata));
+		return dataServer.execute(requestdata);
 	}
-	
 }

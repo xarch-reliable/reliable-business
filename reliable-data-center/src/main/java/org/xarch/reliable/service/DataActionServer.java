@@ -16,7 +16,11 @@ public interface DataActionServer {
 
 	public Map<String, Object> onSetActid2OpenidList(String actid, String openid);
 
-	public Map<String, Object> onSetActinfoByBody(String actid, Map<String, String> data);
+	public String onSetActinfoByBody(Map<String, Object> data);
+	
+	public String onSetActClear(String actid);
+	
+	public String onGetActClear(String actid);
 
 	public Map<String, Object> onCheckOpenid2ActidList(String openid, String actid);
 

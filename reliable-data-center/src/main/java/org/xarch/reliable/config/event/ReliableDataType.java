@@ -9,6 +9,8 @@ public enum ReliableDataType {
 	setOpenid2ActidList,
 	setActid2OpenidList,
 	setActinfoByBody,
+	setactclear,
+	getactclear,
 	checkOpenid2ActidList,
 	checkActid2OpenidList
 	

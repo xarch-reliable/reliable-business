@@ -9,7 +9,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.xarch.reliable.service.feign.FeignActInfoManager;
 import org.xarch.reliable.service.feign.FeignActidManager;
 import org.xarch.reliable.service.feign.FeignDataManager;
 import org.xarch.reliable.service.feign.FeignJsapiManager;
@@ -17,7 +16,6 @@ import org.xarch.reliable.service.feign.FeignOpenidManager;
 import org.xarch.reliable.service.feign.FeignPayManager;
 import org.xarch.reliable.service.feign.FeignPayidManager;
 import org.xarch.reliable.service.thread.ThreadPool;
-import org.xarch.reliable.utils.BaseResultTools;
 
 import com.google.common.collect.Lists;
 
@@ -37,8 +35,8 @@ public class BusinessServer extends BusinessManager {
 	@Autowired
 	private FeignDataManager feignDataManager;
 	
-	@Autowired
-	private FeignActInfoManager feignActInfoManager;
+	//@Autowired
+	//private FeignActInfoManager feignActInfoManager;
 
 	@Autowired
 	private FeignActidManager feignActidManager;
@@ -78,7 +76,13 @@ public class BusinessServer extends BusinessManager {
 		}
 		data.put("actid", actid);
 		data.put("creator_openid", openid);
-		threadPool.StorageActInfoThread(data);
+		data.put("clear", "false");
+		
+		Map<String, Object> sendmap = new HashMap<String, Object>();
+		sendmap.put("xrdataction", "setActinfoByBody");
+		sendmap.put("data", data);	
+		threadPool.StorageActInfoThread(sendmap);
+		
 		threadPool.StorageAMThread(actid, openid);
 		threadPool.StorageOMThread(openid, actid);
 		Map<String, Object> paymap = feignPayManager.getPayMpOrder(openid, payid);
@@ -117,10 +121,18 @@ public class BusinessServer extends BusinessManager {
 	* @return Map<String, Object> data
 	* @throws Will throw an error if the data is null.
 	*/
+	@SuppressWarnings("unchecked")
 	@Override
 	protected Map<String, Object> onActInfo(Map<String, String> data) {
-		String actid = data.get("actid");
-		return feignActInfoManager.getActInfoByActid(actid);
+		
+		Map<String, Object> sendmap = new HashMap<String, Object>();
+		Map<String, Object> datatmp = new HashMap<String, Object>();
+		datatmp.put("actid", data.get("actid"));
+		sendmap.put("xrdataction", "getActinfoByActid");
+		sendmap.put("data", datatmp);
+		Map<String, Object> resmap = feignDataManager.doSupport2DataCenter(sendmap);
+		
+		return (Map<String, Object>)resmap.get("body");
 	}
 
 	/**
@@ -137,7 +149,7 @@ public class BusinessServer extends BusinessManager {
 		datatmp.put("openid", openid);
 		sendmap.put("xrdataction", "getActinfoListByOpenid");
 		sendmap.put("data", datatmp);
-		Map<String, Object> resmap = feignDataManager.doGet2DataCenter(BaseResultTools.JsonObjectToStr(sendmap));
+		Map<String, Object> resmap = feignDataManager.doSupport2DataCenter(sendmap);
 		
 		return (Map<String, Object>)resmap.get("body");
 	}
@@ -156,8 +168,15 @@ public class BusinessServer extends BusinessManager {
 			resmap.put("error_msg", "actid为空");
 			return resmap;
 		}
-		Map<String, Object> actinfomap = feignActInfoManager.getActInfoByActid(actid);
-		if(actinfomap.get("clear").equals("true")) {
+		
+		Map<String, Object> sendmap = new HashMap<String, Object>();
+		Map<String, Object> datatmp = new HashMap<String, Object>();
+		datatmp.put("actid", actid);
+		sendmap.put("xrdataction", "getactclear");
+		sendmap.put("data", datatmp);
+		Map<String, Object> getclearmap = feignDataManager.doSupport2DataCenter(sendmap);
+		
+		if(((String)getclearmap.get("body")).equals("true")) {
 			resmap.put("alert_msg", "该活动已结算，无法加入");
 			return resmap;
 		}else {
@@ -247,8 +266,16 @@ public class BusinessServer extends BusinessManager {
 			return resmap;
 		}
 		resmap.put("actid", actid);
-		Map<String, String> finishactmap = feignActInfoManager.finishActInfoByActid(actid);
-		if(finishactmap.get("error_msg") == null) {
+		
+		
+		Map<String, Object> sendmap = new HashMap<String, Object>();
+		Map<String, Object> datatmp = new HashMap<String, Object>();
+		datatmp.put("actid", actid);
+		sendmap.put("xrdataction", "setactclear");
+		sendmap.put("data", datatmp);
+		Map<String, Object> finishactmap = feignDataManager.doSupport2DataCenter(sendmap);
+		
+		if(((String)finishactmap.get("body")).equals("true")) {
 			Map<String, String> actidmap = feignActidManager.getAM(actid);
 			Map<String, String> payIdMap = feignPayidManager.getMap(actid);
 			for (Entry<String, String> entry: actidmap.entrySet()) {

@@ -10,8 +10,8 @@ import org.xarch.reliable.controller.hystrix.FeignDataCenterHystrix;
 @FeignClient(name = "reliable-data-center", fallback = FeignDataCenterHystrix.class)
 public interface FeignDataManager {
 	
-	@GetMapping("/reliable/data/get")
-	public Map<String, Object> doGet2DataCenter(@RequestBody String request);
+	@GetMapping("/reliable/data/support")
+	public Map<String, Object> doSupport2DataCenter(@RequestBody Map<String, Object> requestdata);
 	
 }
 

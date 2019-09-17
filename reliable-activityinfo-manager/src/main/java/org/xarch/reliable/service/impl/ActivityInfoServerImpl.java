@@ -26,8 +26,12 @@ public class ActivityInfoServerImpl implements ActivityInfoServer {
     private RedisUtil redisUtil;
 	
 	@Override
-	public boolean setActivityInfo(String actid, Map<String, Object> actdata) {
-		return redisUtil.hmset(actid, actdata);
+	public String setActivityInfo(String actid, Map<String, Object> actdata) {
+		if(redisUtil.hmset(actid, actdata)) {
+			return "true";
+		}else {
+			return "false";
+		}
 	}
 
 	@SuppressWarnings({ "unchecked", "rawtypes" })
@@ -60,15 +64,20 @@ public class ActivityInfoServerImpl implements ActivityInfoServer {
 	}
 
 	@Override
-	public boolean setActClear(String actid) {
+	public String setActClear(String actid) {
 		
 		if( ((String)redisUtil.hget(actid, "clear")).equals("true") ) {
-			return false;
+			return "false";
 		}else {
 			Map<String, Object> maptmp = getActivityInfo(actid);
 			maptmp.put("clear", "true");
 			return setActivityInfo(actid, maptmp);
 		}
+	}
+
+	@Override
+	public String getActClear(String actid) {
+		return (String)redisUtil.hget(actid, "clear");
 	}
 
 }

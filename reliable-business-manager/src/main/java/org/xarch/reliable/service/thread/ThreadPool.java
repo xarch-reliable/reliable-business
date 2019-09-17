@@ -7,6 +7,7 @@ import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Component;
 import org.xarch.reliable.service.feign.FeignActInfoManager;
 import org.xarch.reliable.service.feign.FeignActidManager;
+import org.xarch.reliable.service.feign.FeignDataManager;
 import org.xarch.reliable.service.feign.FeignOpenidManager;
 import org.xarch.reliable.service.feign.FeignPayManager;
 import org.xarch.reliable.utils.BaseResultTools;
@@ -14,6 +15,9 @@ import org.xarch.reliable.utils.BaseResultTools;
 @Component
 public class ThreadPool {
 
+	@Autowired
+	private FeignDataManager feignDataManager;
+	
 	@Autowired
 	private FeignActInfoManager feignActInfoManager;
 
@@ -27,8 +31,8 @@ public class ThreadPool {
 	private FeignPayManager feignPayManager;
 
 	@Async("asyncExecutor")
-	public void StorageActInfoThread(Map<String, String> actInfo) {
-		feignActInfoManager.setActInfo(BaseResultTools.JsonObjectToStr(actInfo));
+	public void StorageActInfoThread(Map<String, Object> sendata) {
+		feignDataManager.doSupport2DataCenter(sendata);
 	}
 
 	@Async("asyncExecutor")

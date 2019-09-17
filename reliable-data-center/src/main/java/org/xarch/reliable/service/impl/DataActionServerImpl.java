@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import org.xarch.reliable.service.DataActionServer;
 import org.xarch.reliable.service.feign.FeignActInfoManager;
 import org.xarch.reliable.service.feign.FeignActidManager;
+import org.xarch.reliable.service.feign.FeignActivityinfoManager;
 import org.xarch.reliable.service.feign.FeignJsapiManager;
 import org.xarch.reliable.service.feign.FeignOpenidManager;
 import org.xarch.reliable.service.feign.FeignPayManager;
@@ -25,7 +26,7 @@ public class DataActionServerImpl implements DataActionServer{
 	private static final Logger logger = LoggerFactory.getLogger(DataActionServer.class);
 
 	@Autowired
-	private FeignActInfoManager feignActInfoManager;
+	private FeignActivityinfoManager feignActInfoManager;
 
 	@Autowired
 	private FeignActidManager feignActidManager;
@@ -48,32 +49,7 @@ public class DataActionServerImpl implements DataActionServer{
 	
 	@Override
 	public Map<String, Object> onGetActinfoListByOpenid(String openid) {
-		
-		logger.info("onGetActinfoListByOpenid::onGetActinfoListByOpenid() is called...");
-		
-		Map<String, Object> resmap = new HashMap<String, Object>();
-		List<Map<String, Object>> activityDoneList = Lists.newArrayList();
-		List<Map<String, Object>> activityUnDoneList = Lists.newArrayList();
-		logger.info("onGetActinfoListByOpenid::onGetActinfoListByOpenid() : 111");
-		List<Map<String, Object>> allactinfo = feignActInfoManager.getAllActInfo();
-		Map<String, String> openid2actid = feignOpenidManager.getOM(openid);
-		logger.info("onGetActinfoListByOpenid::onGetActinfoListByOpenid() : 222");
-		for (Map<String, Object> actinfo :allactinfo) {
-			for (String actid : openid2actid.keySet()) {
-				String info2actid = (String) actinfo.get("actid");
-				if(info2actid !=null && info2actid.equals(actid)) {
-					if(((String)actinfo.get("clear")).equals("false")) {
-						activityUnDoneList.add(actinfo);
-					}else {
-						activityDoneList.add(actinfo);
-					}
-				}
-			}
-		}
-		resmap.put("activityDoneList", activityDoneList);
-		resmap.put("activityUnDoneList", activityUnDoneList);
-		
-		return resmap;
+		return feignActInfoManager.getAllActInfo(openid);
 	}
 
 	@Override
@@ -88,8 +64,7 @@ public class DataActionServerImpl implements DataActionServer{
 
 	@Override
 	public Map<String, Object> onGetActinfoByActid(String actid) {
-		// TODO Auto-generated method stub
-		return null;
+		return feignActInfoManager.getActInfoByActid(actid);
 	}
 
 	@Override
@@ -105,11 +80,25 @@ public class DataActionServerImpl implements DataActionServer{
 	}
 
 	@Override
-	public Map<String, Object> onSetActinfoByBody(String actid, Map<String, String> data) {
-		// TODO Auto-generated method stub
-		return null;
+	public String onSetActinfoByBody(Map<String, Object> data) {
+		String actid = (String)data.get("actid");
+		if(actid != null) {
+			return feignActInfoManager.setActInfo(actid, data);
+		}else {
+			return "false";
+		}
 	}
 
+	@Override
+	public String onSetActClear(String actid) {
+		return feignActInfoManager.finishActInfoByActid(actid);
+	}
+	
+	@Override
+	public String onGetActClear(String actid) {
+		return feignActInfoManager.getActfinishByActid(actid);
+	}
+	
 	@Override
 	public Map<String, Object> onCheckOpenid2ActidList(String openid, String actid) {
 		// TODO Auto-generated method stub

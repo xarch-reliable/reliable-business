@@ -10,7 +10,6 @@ import org.springframework.stereotype.Service;
 import org.xarch.reliable.config.event.ReliableDataType;
 import org.xarch.reliable.service.DataActionServer;
 import org.xarch.reliable.service.DataDealServer;
-import org.xarch.reliable.utils.BaseResultTools;
 
 @Service
 public class DataDealServerImpl implements DataDealServer {
@@ -20,24 +19,22 @@ public class DataDealServerImpl implements DataDealServer {
 	@Autowired
 	private DataActionServer dataActionServer;
 
-	@SuppressWarnings({ "unchecked", "rawtypes" })
+	@SuppressWarnings({ "unchecked" })
 	@Override
-	public Map<String, Object> execute(String RequestStr) {
-		Map request = BaseResultTools.fromJSON(RequestStr, Map.class);
+	public Map<String, Object> execute(Map<String, Object> data) {
 		Map<String, Object> responseMap = new HashMap<String, Object>();
-		String xrdataction = (String)request.get("xrdataction");
+		String xrdataction = (String)data.get("xrdataction");
 		if (xrdataction == null) {
 			responseMap.put("error_msg", "数据识别失败");
 			return responseMap;
 		}
-		if (request.get("error_msg") != null) {
-			responseMap.put("error_msg", request.get("error_msg"));
-			return request;
+		if (data.get("error_msg") != null) {
+			responseMap.put("error_msg", data.get("error_msg"));
+			return data;
 		}
-		return dispatch(xrdataction, (Map<String, Object>)request.get("data"), responseMap);
+		return dispatch(xrdataction, (Map<String, Object>)data.get("data"), responseMap);
 	}
 
-	@SuppressWarnings("unchecked")
 	@Override
 	public Map<String, Object> dispatch(String xrdataction, Map<String, Object> bodyMap, Map<String, Object> responseMap) {
 
@@ -66,7 +63,13 @@ public class DataDealServerImpl implements DataDealServer {
 			responseMap.put("body", dataActionServer.onSetActid2OpenidList((String)bodyMap.get("actid"), (String)bodyMap.get("openid")));
 			break;
 		case setActinfoByBody:
-			responseMap.put("body", dataActionServer.onSetActinfoByBody((String)bodyMap.get("actid"), (Map<String, String>) bodyMap.get("data")));
+			responseMap.put("body", dataActionServer.onSetActinfoByBody(bodyMap));
+			break;
+		case setactclear:
+			responseMap.put("body", dataActionServer.onSetActClear((String)bodyMap.get("actid")));
+			break;
+		case getactclear:
+			responseMap.put("body", dataActionServer.onGetActClear((String)bodyMap.get("actid")));
 			break;
 		case checkOpenid2ActidList:
 			responseMap.put("body", dataActionServer.onCheckOpenid2ActidList((String)bodyMap.get("openid"), (String)bodyMap.get("actid")));
