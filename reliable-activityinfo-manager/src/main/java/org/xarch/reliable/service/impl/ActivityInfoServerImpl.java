@@ -9,6 +9,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.xarch.reliable.service.ActivityInfoServer;
+import org.xarch.reliable.service.feign.FeignActidManager;
 //import org.xarch.reliable.service.feign.FeignActidManager;
 import org.xarch.reliable.service.feign.FeignOpenidManager;
 import org.xarch.reliable.util.BaseResultTools;
@@ -21,8 +22,8 @@ public class ActivityInfoServerImpl implements ActivityInfoServer {
 	
 	private static final Logger logger = LoggerFactory.getLogger(ActivityInfoServerImpl.class);
 
-	//@Autowired
-	//private FeignActidManager feignActidManager;
+	@Autowired
+	private FeignActidManager feignActidManager;
 
 	@Autowired
 	private FeignOpenidManager feignOpenidManager;
