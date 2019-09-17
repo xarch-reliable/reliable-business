@@ -53,7 +53,7 @@ public class ActivityInfoServerImpl implements ActivityInfoServer {
 		Map<String, Object> resmap = new HashMap<String, Object>();
 		List<Map<String, Object>> activityDoneList = Lists.newArrayList();
 		List<Map<String, Object>> activityUnDoneList = Lists.newArrayList();
-		
+		logger.info("[openid]"+openid);
 		Map<String, String> openid2actid = feignOpenidManager.getOM(openid);
 		logger.info("[openid2actid]"+BaseResultTools.JsonObjectToStr(openid2actid));
 		for (String actid : openid2actid.keySet()) {

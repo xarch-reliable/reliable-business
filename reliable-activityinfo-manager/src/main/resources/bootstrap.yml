@@ -3,8 +3,8 @@ server:
 eureka:
   instance:
     prefer-ip-address: true 
-    ip-address: 47.104.72.15
-    #ip-address: localhost
+    #ip-address: 47.104.72.15
+    ip-address: localhost
   client:
     service-url:
       defaultZone: http://47.92.98.17:8000/eureka/
@@ -13,7 +13,7 @@ spring:
     name: reliable-activityinfo-manager
   cloud:
     config:
-      name: rabbitmq-bus,async-thread,logback-all-info,logback-web-debug,feign,ribbon-eager-load-business,redis-1-activityinfo
+      name: rabbitmq-bus,async-thread,logback-web-debug,feign,ribbon-eager-load-business,redis-1-activityinfo
       profile: dev
       label: master
       discovery:
