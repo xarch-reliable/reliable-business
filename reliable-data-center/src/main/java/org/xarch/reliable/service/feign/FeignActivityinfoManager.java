@@ -7,9 +7,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.xarch.reliable.controller.hystrix.FeignActInfoHystrix;
+import org.xarch.reliable.controller.hystrix.FeignActivityinfoHystrix;
 
-@FeignClient(name = "reliable-activityinfo-manager",fallback = FeignActInfoHystrix.class)
+@FeignClient(name = "reliable-activityinfo-manager",fallback = FeignActivityinfoHystrix.class)
 public interface FeignActivityinfoManager {
 	
 	@PostMapping("/activity/info/set")
