@@ -85,7 +85,28 @@ public class ActivityInfoServerImpl implements ActivityInfoServer {
 
 	@Override
 	public String getActClear(String actid) {
+		
 		return (String)redisUtil.hget(actid, "clear");
+	}
+
+	@Override
+	public String addActPartNumber(String actid) {
+		
+		Map<String, Object> maptmp = getActivityInfo(actid);
+		int i = Integer.parseInt((String)maptmp.get("part_number"));
+		++i;
+		maptmp.put("part_number", String.valueOf(i));
+		return setActivityInfo(actid, maptmp);
+		
+	}
+
+	@Override
+	public String setActStatus(String actid, String status) {
+		
+		Map<String, Object> maptmp = getActivityInfo(actid);
+		maptmp.put("status", status);
+		return setActivityInfo(actid, maptmp);
+		
 	}
 
 }

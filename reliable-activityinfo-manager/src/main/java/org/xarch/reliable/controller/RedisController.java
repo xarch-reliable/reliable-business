@@ -47,4 +47,17 @@ public class RedisController {
 		return activityInfoServer.getActInfoListByOpenid(openid);
 	}
 	
+	@RequestMapping("/addnumber")
+	public String addNumber(@RequestParam(value = "actid", required = true) String actid) {
+
+		return activityInfoServer.getActClear(actid);
+	}
+	
+	@RequestMapping("/setstatus")
+	public String setStatus(@RequestParam(value = "actid", required = true) String actid,
+			@RequestParam(value = "status", required = true) String status) {
+
+		return activityInfoServer.getActClear(actid);
+	}
+	
 }

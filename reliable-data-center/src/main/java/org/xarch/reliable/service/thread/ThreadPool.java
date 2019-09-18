@@ -5,8 +5,8 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Component;
-import org.xarch.reliable.service.feign.FeignActInfoManager;
 import org.xarch.reliable.service.feign.FeignActidManager;
+import org.xarch.reliable.service.feign.FeignActivityinfoManager;
 import org.xarch.reliable.service.feign.FeignOpenidManager;
 import org.xarch.reliable.service.feign.FeignPayManager;
 import org.xarch.reliable.utils.BaseResultTools;
@@ -15,7 +15,7 @@ import org.xarch.reliable.utils.BaseResultTools;
 public class ThreadPool {
 
 	@Autowired
-	private FeignActInfoManager feignActInfoManager;
+	private FeignActivityinfoManager feignActInfoManager;
 
 	@Autowired
 	private FeignActidManager feignActidManager;
@@ -27,8 +27,8 @@ public class ThreadPool {
 	private FeignPayManager feignPayManager;
 
 	@Async("asyncExecutor")
-	public void StorageActInfoThread(Map<String, String> actInfo) {
-		feignActInfoManager.setActInfo(BaseResultTools.JsonObjectToStr(actInfo));
+	public void StorageActInfoThread(String actid, Map<String, Object> actInfo) {
+		feignActInfoManager.setActInfo(actid, actInfo);
 	}
 
 	@Async("asyncExecutor")

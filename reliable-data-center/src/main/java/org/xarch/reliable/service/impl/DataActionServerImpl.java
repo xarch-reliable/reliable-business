@@ -18,7 +18,7 @@ import org.xarch.reliable.service.thread.ThreadPool;
 @Service
 public class DataActionServerImpl implements DataActionServer{
 	
-	private static final Logger logger = LoggerFactory.getLogger(DataActionServer.class);
+	private static final Logger logger = LoggerFactory.getLogger(DataActionServerImpl.class);
 
 	@Autowired
 	private FeignActivityinfoManager feignActInfoManager;
@@ -64,7 +64,6 @@ public class DataActionServerImpl implements DataActionServer{
 
 	@Override
 	public Map<String, Object> onSetOpenid2ActidList(String openid, String actid) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
@@ -86,12 +85,22 @@ public class DataActionServerImpl implements DataActionServer{
 
 	@Override
 	public String onSetActClear(String actid) {
-		return feignActInfoManager.finishActInfoByActid(actid);
+		return feignActInfoManager.setFinishActInfoByActid(actid);
 	}
 	
 	@Override
 	public String onGetActClear(String actid) {
-		return feignActInfoManager.getActfinishByActid(actid);
+		return feignActInfoManager.getActFinishByActid(actid);
+	}
+	
+	@Override
+	public String onSetActStatus(String actid, String status) {
+		return feignActInfoManager.setActStatusByActidStatus(actid, status);
+	}
+
+	@Override
+	public String onAddActPartNumber(String actid) {
+		return feignActInfoManager.addActParNumberByActid(actid);
 	}
 	
 	@Override

@@ -71,6 +71,12 @@ public class DataDealServerImpl implements DataDealServer {
 		case getactclear:
 			responseMap.put("body", dataActionServer.onGetActClear((String)bodyMap.get("actid")));
 			break;
+		case setactstatus:
+			responseMap.put("body", dataActionServer.onSetActStatus((String)bodyMap.get("actid"), (String)bodyMap.get("status")));
+			break;
+		case addactpartnumber:
+			responseMap.put("body", dataActionServer.onAddActPartNumber((String)bodyMap.get("actid")));
+			break;
 		case checkOpenid2ActidList:
 			responseMap.put("body", dataActionServer.onCheckOpenid2ActidList((String)bodyMap.get("openid"), (String)bodyMap.get("actid")));
 			break;

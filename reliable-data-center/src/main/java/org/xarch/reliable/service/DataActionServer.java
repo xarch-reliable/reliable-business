@@ -21,6 +21,10 @@ public interface DataActionServer {
 	public String onSetActClear(String actid);
 	
 	public String onGetActClear(String actid);
+	
+	public String onSetActStatus(String actid, String status);
+	
+	public String onAddActPartNumber(String actid);
 
 	public Map<String, Object> onCheckOpenid2ActidList(String openid, String actid);
 

@@ -14,4 +14,8 @@ public interface ActivityInfoServer {
 	
 	public String getActClear(String actid);
 	
+	public String addActPartNumber(String actid);
+	
+	public String setActStatus(String actid, String status);
+	
 }

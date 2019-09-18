@@ -22,8 +22,14 @@ public interface FeignActivityinfoManager {
 	public Map<String, Object> getActInfoByActid(@RequestParam(value = "actid", required = true) String actid);
 	
 	@GetMapping("/activity/info/clear")
-	public String finishActInfoByActid(@RequestParam(value = "actid", required = true) String actid);
+	public String setFinishActInfoByActid(@RequestParam(value = "actid", required = true) String actid);
 	
 	@GetMapping("/activity/info/getclear")
-	public String getActfinishByActid(@RequestParam(value = "actid", required = true) String actid);
+	public String getActFinishByActid(@RequestParam(value = "actid", required = true) String actid);
+	
+	@GetMapping("/activity/info/addnumber")
+	public String addActParNumberByActid(@RequestParam(value = "actid", required = true) String actid);
+	
+	@GetMapping("/activity/info/setstatus")
+	public String setActStatusByActidStatus(@RequestParam(value = "actid", required = true) String actid, @RequestParam(value = "status", required = true) String status);
 }

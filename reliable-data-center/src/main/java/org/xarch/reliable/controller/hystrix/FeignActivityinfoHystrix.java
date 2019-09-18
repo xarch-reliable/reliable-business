@@ -32,17 +32,23 @@ public class FeignActivityinfoHystrix implements FeignActivityinfoManager {
 	}
 
 	@Override
-	public String finishActInfoByActid(String actid) {
-		Map<String, String> map = new HashMap<String, String>();
-		map.put("error_msg", "[FeignActivityinfoManager]发起clear请求失败");
-		return "false";
+	public String setFinishActInfoByActid(String actid) {
+		return "[error_msg]FeignActivityinfoManager发起setFinish请求失败";
 	}
 
 	@Override
-	public String getActfinishByActid(String actid) {
-		Map<String, String> map = new HashMap<String, String>();
-		map.put("error_msg", "[FeignActivityinfoManager]发起clear请求失败");
-		return "false";
+	public String getActFinishByActid(String actid) {
+		return "[error_msg]FeignActivityinfoManager发起getActFinish请求失败";
+	}
+
+	@Override
+	public String addActParNumberByActid(String actid) {
+		return "[error_msg]FeignActivityinfoManager发起addActParNumber请求失败";
+	}
+
+	@Override
+	public String setActStatusByActidStatus(String actid, String status) {
+		return "[error_msg]FeignActivityinfoManager发起setActStatus请求失败";
 	}
 
 }

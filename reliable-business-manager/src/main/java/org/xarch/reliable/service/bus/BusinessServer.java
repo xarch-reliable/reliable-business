@@ -77,6 +77,8 @@ public class BusinessServer extends BusinessManager {
 		data.put("actid", actid);
 		data.put("creator_openid", openid);
 		data.put("clear", "false");
+		data.put("part_number", "1");
+		data.put("status", "1");	// 活动生成  活动发布  活动签到  活动结算
 		
 		Map<String, Object> sendmap = new HashMap<String, Object>();
 		sendmap.put("xrdataction", "setActinfoByBody");
@@ -193,6 +195,14 @@ public class BusinessServer extends BusinessManager {
 					Map<String, Object> paymap = feignPayManager.getPayMpOrder(openid, payid);
 					resmap.put("actid", actid);
 					resmap.put("paybody", paymap);
+					
+					Map<String, Object> mapsend = new HashMap<String, Object>();
+					Map<String, Object> maptmp = new HashMap<String, Object>();
+					maptmp.put("actid", actid);
+					mapsend.put("xrdataction", "addactpartnumber");
+					mapsend.put("data", maptmp);
+					feignDataManager.doSupport2DataCenter(sendmap);
+					
 				}else {
 					resmap.put("alert_msg", "您已加入过该活动");
 				}
