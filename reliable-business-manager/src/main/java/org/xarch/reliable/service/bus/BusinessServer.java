@@ -201,7 +201,7 @@ public class BusinessServer extends BusinessManager {
 					maptmp.put("actid", actid);
 					mapsend.put("xrdataction", "addactpartnumber");
 					mapsend.put("data", maptmp);
-					feignDataManager.doSupport2DataCenter(sendmap);
+					feignDataManager.doSupport2DataCenter(mapsend);
 					
 				}else {
 					resmap.put("alert_msg", "您已加入过该活动");
