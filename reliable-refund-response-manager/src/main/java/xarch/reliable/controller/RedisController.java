@@ -10,17 +10,16 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-
 import xarch.reliable.service.RefundInfoServer;
-import xarch.reliable.util.BaseResultTools;
-
+import xarch.reliable.utils.BaseResultTools;
 
 
 
 @RestController
-@RequestMapping(value ="/refund/request/info")
+@RequestMapping(value ="/refund/response/info")
 public class RedisController {
-	private static final Logger logger = LoggerFactory.getLogger(RedisController.class);
+	
+private static final Logger logger = LoggerFactory.getLogger(RedisController.class);
 	
 	@Autowired
 	private RefundInfoServer refundInfoServer;
@@ -37,4 +36,5 @@ public class RedisController {
 		logger.info("RedisController() :: getMap : payid="+payid);
 		return refundInfoServer.getRefundInfo(payid);
 	}
+
 }

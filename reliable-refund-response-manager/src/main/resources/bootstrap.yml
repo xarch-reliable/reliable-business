@@ -1,0 +1,21 @@
+server:
+  port: 8870
+eureka:
+  instance:
+    prefer-ip-address: true 
+    ip-address: 47.104.72.15
+    #ip-address: localhost
+  client:
+    service-url:
+      defaultZone: http://47.92.98.17:8000/eureka/
+spring:
+  application:
+    name: reliable-refund-response-manager
+  cloud:
+    config:
+      name: rabbitmq-bus,async-thread,logback-web-debug,feign,ribbon-eager-load-business,redis-8-refund-response
+      profile: dev
+      label: master
+      discovery:
+        enabled: true
+        service-id: reliable-config
