@@ -1,10 +1,10 @@
 server:
-  port: 8870
+  port: 8890
 eureka:
   instance:
     prefer-ip-address: true 
-    #ip-address: 47.104.72.15
-    ip-address: localhost
+    ip-address: 47.104.72.15
+    #ip-address: localhost
   client:
     service-url:
       defaultZone: http://47.92.98.17:8000/eureka/
