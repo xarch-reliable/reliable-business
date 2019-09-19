@@ -27,8 +27,8 @@ public class OrderResponseServiceImpl implements OrderResponseService{
     private RedisUtil redisUtil;
 
 	@Override
-	public String setOrderResponse(String payid, Map<String, Object> oResponseData) {
-		if(redisUtil.hmset(payid, oResponseData)) {
+	public String setOrderResponse(String prepay_id, Map<String, Object> oResponseData) {
+		if(redisUtil.hmset(prepay_id, oResponseData)) {
 			return "true";
 		}else {
 			return "false";
@@ -37,11 +37,11 @@ public class OrderResponseServiceImpl implements OrderResponseService{
 
 	@SuppressWarnings({ "unchecked", "null" })
 	@Override
-	public Map<String, Object> getOrderResponse(String payid) {
+	public Map<String, Object> getOrderResponse(String prepay_id) {
 		@SuppressWarnings("rawtypes")
-		Map orderResponseMap = redisUtil.hmget(payid);
+		Map orderResponseMap = redisUtil.hmget(prepay_id);
 		if (orderResponseMap == null) {
-			orderResponseMap.put("error_msg", "无此payid的订单响应信息");
+			orderResponseMap.put("error_msg", "无此prepay_id的订单响应信息");
 		}
 		return (Map<String, Object>)orderResponseMap;
 	}

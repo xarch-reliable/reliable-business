@@ -12,8 +12,8 @@ import java.util.Map;
 */
 public interface OrderResponseService {
 	
-	public String setOrderResponse(String payid,Map<String, Object> oResponseData);
+	public String setOrderResponse(String prepay_id,Map<String, Object> oResponseData);
 	
-	public Map<String, Object> getOrderResponse(String payid);
+	public Map<String, Object> getOrderResponse(String prepay_id);
 
 }
