@@ -16,7 +16,7 @@ import xarch.reliable.utils.BaseResultTools;
 
 
 @RestController
-@RequestMapping(value ="/refund-response/info")
+@RequestMapping(value ="/refund/response/info")
 public class RedisController {
 	
 private static final Logger logger = LoggerFactory.getLogger(RedisController.class);
