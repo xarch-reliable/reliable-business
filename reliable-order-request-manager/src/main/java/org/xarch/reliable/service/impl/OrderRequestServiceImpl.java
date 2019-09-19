@@ -27,8 +27,8 @@ public class OrderRequestServiceImpl implements OrderRequestService{
     private RedisUtil redisUtil;
 
 	@Override
-	public String setOrderRequest(String payid, Map<String, Object> oRequestData) {
-		if(redisUtil.hmset(payid, oRequestData)) {
+	public String setOrderRequest(String out_trade_no, Map<String, Object> oRequestData) {
+		if(redisUtil.hmset(out_trade_no, oRequestData)) {
 			return "true";
 		}else {
 			return "false";
@@ -38,11 +38,11 @@ public class OrderRequestServiceImpl implements OrderRequestService{
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public Map<String, Object> getOrderRequest(String payid) {
+	public Map<String, Object> getOrderRequest(String out_trade_no) {
 		@SuppressWarnings("rawtypes")
-		Map orderRequestMap = redisUtil.hmget(payid);
+		Map orderRequestMap = redisUtil.hmget(out_trade_no);
 		if (orderRequestMap == null) {
-			orderRequestMap.put("error_msg", "无此payid的订单请求信息");
+			orderRequestMap.put("error_msg", "无此out_trade_no的订单请求信息");
 		}
 		return (Map<String, Object>)orderRequestMap;
 	}

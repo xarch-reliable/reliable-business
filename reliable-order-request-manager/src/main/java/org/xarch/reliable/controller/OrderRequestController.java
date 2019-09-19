@@ -30,18 +30,18 @@ public class OrderRequestController {
 	private OrderRequestService oRequestService;
 	
 	@RequestMapping("/set")
-	public String setMap(@RequestParam(value = "payid",required = true) String payid,
+	public String setMap(@RequestParam(value = "out_trade_no",required = true) String out_trade_no,
 			@RequestBody Map<String, Object> oRequestData) {
 		
 		logger.info("OrderRequestController() :: setMap : oRequestData="+BaseResultTools.JsonObjectToStr(oRequestData));
-		return oRequestService.setOrderRequest(payid, oRequestData);
+		return oRequestService.setOrderRequest(out_trade_no, oRequestData);
 		
 	}
 	
 	@RequestMapping("/get")
-	public Map<String, Object> getMap(@RequestParam(value = "payid",required = true) String payid){
-		logger.info("OrderRequestController() :: getMap : payid="+payid);
-		return oRequestService.getOrderRequest(payid);
+	public Map<String, Object> getMap(@RequestParam(value = "out_trade_no",required = true) String out_trade_no){
+		logger.info("OrderRequestController() :: getMap : out_trade_no="+out_trade_no);
+		return oRequestService.getOrderRequest(out_trade_no);
 		
 		}
 	}

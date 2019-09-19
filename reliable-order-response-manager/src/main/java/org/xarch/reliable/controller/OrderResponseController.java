@@ -31,18 +31,18 @@ public class OrderResponseController {
 	private OrderResponseService oResponseService;
 	
 	@RequestMapping("/set")
-	public String setMap(@RequestParam(value = "payid",required = true) String payid,
+	public String setMap(@RequestParam(value = "prepay_id",required = true) String prepay_id,
 			@RequestBody Map<String, Object> oResponseData) {
 		
 		logger.info("OrderResponseController() :: setMap : oResponseData="+BaseResultTools.JsonObjectToStr(oResponseData));
-		return oResponseService.setOrderResponse(payid, oResponseData);
+		return oResponseService.setOrderResponse(prepay_id, oResponseData);
 		
 	}
 	
 	@RequestMapping("/get")
-	public Map<String, Object> getMap(@RequestParam(value = "payid",required = true) String payid){
-		logger.info("OrderResponseController() :: getMap : payid="+payid);
-		return oResponseService.getOrderResponse(payid);
+	public Map<String, Object> getMap(@RequestParam(value = "prepay_id",required = true) String prepay_id){
+		logger.info("OrderResponseController() :: getMap : prepay_id="+prepay_id);
+		return oResponseService.getOrderResponse(prepay_id);
 		
 		}
 
