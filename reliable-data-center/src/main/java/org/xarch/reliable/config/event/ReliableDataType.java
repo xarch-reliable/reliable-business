@@ -14,6 +14,14 @@ public enum ReliableDataType {
 	setactstatus,
 	addactpartnumber,
 	checkOpenid2ActidList,
-	checkActid2OpenidList
+	checkActid2OpenidList,
+	setOrderRequest,
+	getOrderRequest,
+	setOrderResponse,
+	getOrderResponse,
+	setRefundRequest,
+	getRefundRequest,
+	setRefundResponse,
+	getRefundResponse,
 	
 }

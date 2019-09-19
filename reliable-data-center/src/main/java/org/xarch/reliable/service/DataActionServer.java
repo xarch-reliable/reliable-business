@@ -29,6 +29,22 @@ public interface DataActionServer {
 	public Map<String, Object> onCheckOpenid2ActidList(String openid, String actid);
 
 	public Map<String, Object> onCheckActid2OpenidList(String actid, String openid);
+	
+	public Map<String, Object> onSetOrderRequest(String key, Map<String, Object> data);
+	
+	public Map<String, Object> onGetOrderRequest(String key);
+	
+	public Map<String, Object> onSetOrderResponse(String key, Map<String, Object> data);
+	
+	public Map<String, Object> onGetOrderResponse(String key);
+	
+	public Map<String, Object> onSetRefundRequest(String key, Map<String, Object> data);
+	
+	public Map<String, Object> onGetRefundRequest(String key);
+	
+	public Map<String, Object> onSetRefundResponse(String key, Map<String, Object> data);
+	
+	public Map<String, Object> onGetRefundResponse(String key);
 
 	public String onDefault();
 	

@@ -1,5 +1,6 @@
 package org.xarch.reliable.service.impl;
 
+import java.util.HashMap;
 import java.util.Map;
 
 import org.slf4j.Logger;
@@ -11,8 +12,12 @@ import org.xarch.reliable.service.feign.FeignActidManager;
 import org.xarch.reliable.service.feign.FeignActivityinfoManager;
 import org.xarch.reliable.service.feign.FeignJsapiManager;
 import org.xarch.reliable.service.feign.FeignOpenidManager;
+import org.xarch.reliable.service.feign.FeignOrderRequestManager;
+import org.xarch.reliable.service.feign.FeignOrderResponseManager;
 import org.xarch.reliable.service.feign.FeignPayManager;
 import org.xarch.reliable.service.feign.FeignPayidManager;
+import org.xarch.reliable.service.feign.FeignRefundRequestManager;
+import org.xarch.reliable.service.feign.FeignRefundResponseManager;
 import org.xarch.reliable.service.thread.ThreadPool;
 
 @Service
@@ -34,6 +39,18 @@ public class DataActionServerImpl implements DataActionServer{
 
 	@Autowired
 	private FeignPayManager feignPayManager;
+	
+	@Autowired
+	private FeignOrderRequestManager feignOrderRequestManager;
+
+	@Autowired
+	private FeignOrderResponseManager feignOrderResponseManager;
+	
+	@Autowired
+	private FeignRefundRequestManager feignRefundRequestManager;
+	
+	@Autowired
+	private FeignRefundResponseManager feignRefundResponseManager;
 	
 	@Autowired
 	private FeignJsapiManager feignJsapiManager;
@@ -116,9 +133,92 @@ public class DataActionServerImpl implements DataActionServer{
 	}
 
 	@Override
+	public Map<String, Object> onSetOrderRequest(String key, Map<String, Object> data) {
+		if(key != null) {
+			return feignOrderRequestManager.setOrderRequest(key, data);
+		}else {
+			data.put("error_msg", "false");
+			return data;
+		}
+	}
+
+	@Override
+	public Map<String, Object> onGetOrderRequest(String key) {
+		if(key != null) {
+			return feignOrderRequestManager.getOrderRequest(key);
+		}else {
+			Map<String, Object> data = new HashMap<String, Object>();
+			data.put("error_msg", "false");
+			return data;
+		}
+	}
+
+	@Override
+	public Map<String, Object> onSetOrderResponse(String key, Map<String, Object> data) {
+		if(key != null) {
+			return feignOrderResponseManager.setOrderResponse(key, data);
+		}else {
+			data.put("error_msg", "false");
+			return data;
+		}
+	}
+
+	@Override
+	public Map<String, Object> onGetOrderResponse(String key) {
+		if(key != null) {
+			return feignOrderResponseManager.getOrderResponse(key);
+		}else {
+			Map<String, Object> data = new HashMap<String, Object>();
+			data.put("error_msg", "false");
+			return data;
+		}
+	}
+
+	@Override
+	public Map<String, Object> onSetRefundRequest(String key, Map<String, Object> data) {
+		if(key != null) {
+			return feignRefundRequestManager.setRefundRequest(key, data);
+		}else {
+			data.put("error_msg", "false");
+			return data;
+		}
+	}
+
+	@Override
+	public Map<String, Object> onGetRefundRequest(String key) {
+		if(key != null) {
+			return feignRefundRequestManager.getRefundRequest(key);
+		}else {
+			Map<String, Object> data = new HashMap<String, Object>();
+			data.put("error_msg", "false");
+			return data;
+		}
+	}
+
+	@Override
+	public Map<String, Object> onSetRefundResponse(String key, Map<String, Object> data) {
+		if(key != null) {
+			return feignRefundResponseManager.setRefundResponse(key, data);
+		}else {
+			data.put("error_msg", "false");
+			return data;
+		}
+	}
+	
+	@Override
+	public Map<String, Object> onGetRefundResponse(String key) {
+		if(key != null) {
+			return feignRefundResponseManager.getRefundResponse(key);
+		}else {
+			Map<String, Object> data = new HashMap<String, Object>();
+			data.put("error_msg", "false");
+			return data;
+		}
+	}
+	
+	@Override
 	public String onDefault() {
 		// TODO Auto-generated method stub
 		return null;
 	}
-
 }

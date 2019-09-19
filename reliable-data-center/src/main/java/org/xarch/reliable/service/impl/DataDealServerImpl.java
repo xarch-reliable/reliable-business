@@ -83,6 +83,31 @@ public class DataDealServerImpl implements DataDealServer {
 		case checkActid2OpenidList:
 			responseMap.put("body", dataActionServer.onCheckActid2OpenidList((String)bodyMap.get("actid"), (String)bodyMap.get("openid")));
 			break;
+		case setOrderRequest:
+			responseMap.put("body", dataActionServer.onSetOrderRequest((String)bodyMap.get("out_trade_no"), bodyMap));
+			break;
+		case getOrderRequest:
+			responseMap.put("body", dataActionServer.onGetOrderRequest((String)bodyMap.get("out_trade_no")));
+			break;
+		case setOrderResponse:
+			responseMap.put("body", dataActionServer.onSetOrderResponse((String)bodyMap.get("prepay_id"), bodyMap));
+			break;
+		case getOrderResponse:
+			responseMap.put("body", dataActionServer.onGetOrderResponse((String)bodyMap.get("prepay_id")));
+			break;
+		case setRefundRequest:
+			responseMap.put("body", dataActionServer.onSetRefundRequest((String)bodyMap.get("out_refund_no"), bodyMap));
+			break;
+		case getRefundRequest:
+			responseMap.put("body", dataActionServer.onGetRefundRequest((String)bodyMap.get("out_refund_no")));
+			break;
+		case setRefundResponse:
+			responseMap.put("body", dataActionServer.onSetRefundResponse((String)bodyMap.get("out_refund_no"), bodyMap));
+			break;
+		case getRefundResponse:
+			responseMap.put("body", dataActionServer.onGetRefundResponse((String)bodyMap.get("out_refund_no")));
+			break;
+			
 		default:
 			responseMap.put("body", dataActionServer.onDefault());
 			break;
