@@ -112,7 +112,7 @@ public class DataDealServerImpl implements DataDealServer {
 			responseMap.put("body", dataActionServer.onDefault());
 			break;
 		}
-		responseMap.put("xraction", msgType);
+		responseMap.put("xrdataction", msgType);
 		return responseMap;
 	}
 
