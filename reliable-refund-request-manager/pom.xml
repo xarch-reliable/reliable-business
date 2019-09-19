@@ -9,9 +9,9 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>org.xarch</groupId>
-	<artifactId>reliable-refund-requset-manager</artifactId>
+	<artifactId>reliable-refund-request-manager</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>reliable-refund-requset-manager</name>
+	<name>reliable-refund-request-manager</name>
 	<description>退款</description>
 
 	<properties>
