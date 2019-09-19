@@ -12,9 +12,9 @@ import java.util.Map;
 */
 public interface OrderRequestService {
 	
-	public String setOrderRequest(String payid,Map<String, Object> oRequestData);
+	public String setOrderRequest(String out_trade_no,Map<String, Object> oRequestData);
 	
-	public Map<String, Object> getOrderRequest(String payid);
+	public Map<String, Object> getOrderRequest(String out_trade_no);
 	
 	
 
