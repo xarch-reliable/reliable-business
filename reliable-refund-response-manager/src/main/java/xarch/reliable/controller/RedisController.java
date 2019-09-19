@@ -24,17 +24,17 @@ private static final Logger logger = LoggerFactory.getLogger(RedisController.cla
 	@Autowired
 	private RefundInfoServer refundInfoServer;
 	@RequestMapping("/set")
-	public String setMap(@RequestParam(value = "payid", required = true) String payid,
+	public String setMap(@RequestParam(value = "out_refund_no", required = true) String out_refund_no,
 			@RequestBody Map<String, Object> refunddata) {
 		
 		logger.info("RedisController() :: setMap : refunddata="+BaseResultTools.JsonObjectToStr(refunddata));
-		return refundInfoServer.setRefundInfo(payid, refunddata);
+		return refundInfoServer.setRefundInfo(out_refund_no, refunddata);
 		
 	}
 	@RequestMapping("/get")
-	public Map<String, Object> getMap(@RequestParam(value = "payid", required = true) String payid) {
-		logger.info("RedisController() :: getMap : payid="+payid);
-		return refundInfoServer.getRefundInfo(payid);
+	public Map<String, Object> getMap(@RequestParam(value = "out_refund_no", required = true) String out_refund_no) {
+		logger.info("RedisController() :: getMap : out_refund_no="+out_refund_no);
+		return refundInfoServer.getRefundInfo(out_refund_no);
 	}
 
 }

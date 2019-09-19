@@ -25,8 +25,8 @@ public class RefundInfoServerImpl implements RefundInfoServer {
 	 
 	
 	@Override
-	public String setRefundInfo(String payid, Map<String, Object> refunddata) {
-		if(redisUtil.hmset(payid, refunddata)) {
+	public String setRefundInfo(String out_refund_no, Map<String, Object> refunddata) {
+		if(redisUtil.hmset(out_refund_no, refunddata)) {
 			return "true";
 		}else {
 			return "false";
@@ -34,8 +34,8 @@ public class RefundInfoServerImpl implements RefundInfoServer {
 	}
 
 	@Override
-	public Map<String, Object> getRefundInfo(String payid) {
-		Map refundinfodata = redisUtil.hmget(payid);
+	public Map<String, Object> getRefundInfo(String out_refund_no) {
+		Map refundinfodata = redisUtil.hmget(out_refund_no);
 		return (Map<String, Object>)refundinfodata;
 	}
 
