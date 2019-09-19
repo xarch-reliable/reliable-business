@@ -12,7 +12,7 @@ import java.util.Map;
 */
 public interface OrderNotifyService {
 	
-	public String setOrderNotify(String out_trade_no,Map<String, Object> oNotifyData);
+	public Map<String, Object> setOrderNotify(String out_trade_no,Map<String, Object> oNotifyData);
 	
 	public Map<String, Object> getOrderNotify(String out_trade_no);
 	

@@ -27,7 +27,7 @@ public class OrderNotityController {
 	private OrderNotifyService oNotifyService;
 	
 	@RequestMapping("/set")
-	public String setMap(@RequestParam(value = "out_trade_no",required = true) String out_trade_no,
+	public Map<String, Object> setMap(@RequestParam(value = "out_trade_no",required = true) String out_trade_no,
 			@RequestBody Map<String, Object> oNotifyData) {
 		
 		logger.info("OrderNotifyController() :: setMap : oNotifyData="+BaseResultTools.JsonObjectToStr(oNotifyData));

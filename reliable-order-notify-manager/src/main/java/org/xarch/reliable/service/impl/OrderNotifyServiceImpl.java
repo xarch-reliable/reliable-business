@@ -8,6 +8,7 @@ package org.xarch.reliable.service.impl;
 *  @Date  2019年9月19日
 */
 
+import java.util.HashMap;
 import java.util.Map;
 
 import org.slf4j.Logger;
@@ -26,15 +27,17 @@ public class OrderNotifyServiceImpl implements OrderNotifyService{
     private RedisUtil redisUtil;
 
 	@Override
-	public String setOrderNotify(String out_trade_no, Map<String, Object> oNotifyData) {
-		
+	public Map<String, Object> setOrderNotify(String out_trade_no, Map<String, Object> oNotifyData) {
+		Map<String, Object> map = new HashMap<String,Object>();
 		if(redisUtil.hmset(out_trade_no, oNotifyData)) {
-			return "true";
+			map.put("success_msg", "true");
 		}else {
-			return "false";
+			map.put("error_msg", "false");
 		}
+		return map;
 	}
 
+	@SuppressWarnings({ "unchecked", "null" })
 	@Override
 	public Map<String, Object> getOrderNotify(String out_trade_no) {
 		@SuppressWarnings("rawtypes")
