@@ -103,7 +103,7 @@ public class ActivityInfoServerImpl implements ActivityInfoServer {
 		
 		Map<String, Object> maptmp = getActivityInfo(actid);
 		String creator_openid = (String)maptmp.get("creator_openid");
-		if(creator_openid.equals(creator_openid)) {
+		if(creator_openid.equals(openid)) {
 			maptmp.put("status", status);
 			return setActivityInfo(actid, maptmp);
 		}else {
