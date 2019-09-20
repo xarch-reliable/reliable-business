@@ -3,9 +3,11 @@ package org.xarch.reliable.controller.hystrix;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.springframework.stereotype.Service;
 import org.xarch.reliable.service.feign.FeignOrderNotifyManager;
 import org.xarch.reliable.service.feign.FeignRefundNotifyManager;
 
+@Service
 public class FeignNotifyHystrix implements FeignOrderNotifyManager, FeignRefundNotifyManager{
 
 	@Override
