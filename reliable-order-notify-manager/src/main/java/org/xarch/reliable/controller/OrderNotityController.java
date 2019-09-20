@@ -26,7 +26,7 @@ public class OrderNotityController {
 	@Autowired
 	private OrderNotifyService oNotifyService;
 	
-	@RequestMapping("/set")
+	@RequestMapping("/info/set")
 	public Map<String, Object> setMap(@RequestParam(value = "out_trade_no",required = true) String out_trade_no,
 			@RequestBody Map<String, Object> oNotifyData) {
 		
@@ -35,7 +35,7 @@ public class OrderNotityController {
 		
 	}
 	
-	@RequestMapping("/get")
+	@RequestMapping("/info/get")
 	public Map<String, Object> getMap(@RequestParam(value = "out_trade_no",required = true) String out_trade_no){
 		logger.info("OrderNotifyController() :: getMap : out_trade_no="+out_trade_no);
 		return oNotifyService.getOrderNotify(out_trade_no);

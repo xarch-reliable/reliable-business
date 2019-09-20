@@ -30,7 +30,7 @@ public class OrderResponseController {
 	@Autowired
 	private OrderResponseService oResponseService;
 	
-	@RequestMapping("/set")
+	@RequestMapping("/info/set")
 	public String setMap(@RequestParam(value = "prepay_id",required = true) String prepay_id,
 			@RequestBody Map<String, Object> oResponseData) {
 		
@@ -39,7 +39,7 @@ public class OrderResponseController {
 		
 	}
 	
-	@RequestMapping("/get")
+	@RequestMapping("/info/get")
 	public Map<String, Object> getMap(@RequestParam(value = "prepay_id",required = true) String prepay_id){
 		logger.info("OrderResponseController() :: getMap : prepay_id="+prepay_id);
 		return oResponseService.getOrderResponse(prepay_id);
