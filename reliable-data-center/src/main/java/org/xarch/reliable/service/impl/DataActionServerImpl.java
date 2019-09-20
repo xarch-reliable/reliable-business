@@ -12,10 +12,12 @@ import org.xarch.reliable.service.feign.FeignActidManager;
 import org.xarch.reliable.service.feign.FeignActivityinfoManager;
 import org.xarch.reliable.service.feign.FeignJsapiManager;
 import org.xarch.reliable.service.feign.FeignOpenidManager;
+import org.xarch.reliable.service.feign.FeignOrderNotifyManager;
 import org.xarch.reliable.service.feign.FeignOrderRequestManager;
 import org.xarch.reliable.service.feign.FeignOrderResponseManager;
 import org.xarch.reliable.service.feign.FeignPayManager;
 import org.xarch.reliable.service.feign.FeignPayidManager;
+import org.xarch.reliable.service.feign.FeignRefundNotifyManager;
 import org.xarch.reliable.service.feign.FeignRefundRequestManager;
 import org.xarch.reliable.service.feign.FeignRefundResponseManager;
 import org.xarch.reliable.service.thread.ThreadPool;
@@ -51,6 +53,12 @@ public class DataActionServerImpl implements DataActionServer{
 	
 	@Autowired
 	private FeignRefundResponseManager feignRefundResponseManager;
+	
+	@Autowired
+	private FeignOrderNotifyManager feignOrderNotifyManager;
+	
+	@Autowired
+	private FeignRefundNotifyManager feignRefundNotifyManager;
 	
 	@Autowired
 	private FeignJsapiManager feignJsapiManager;
@@ -209,6 +217,48 @@ public class DataActionServerImpl implements DataActionServer{
 	public Map<String, Object> onGetRefundResponse(String key) {
 		if(key != null) {
 			return feignRefundResponseManager.getRefundResponse(key);
+		}else {
+			Map<String, Object> data = new HashMap<String, Object>();
+			data.put("error_msg", "false");
+			return data;
+		}
+	}
+
+	@Override
+	public Map<String, Object> onSetOrderNotify(String key, Map<String, Object> data) {
+		if(key != null) {
+			return feignOrderNotifyManager.setOrderNotify(key, data);
+		}else {
+			data.put("error_msg", "false");
+			return data;
+		}
+	}
+
+	@Override
+	public Map<String, Object> onGetOrderNotify(String key) {
+		if(key != null) {
+			return feignOrderNotifyManager.getOrderNotify(key);
+		}else {
+			Map<String, Object> data = new HashMap<String, Object>();
+			data.put("error_msg", "false");
+			return data;
+		}
+	}
+
+	@Override
+	public Map<String, Object> onSetRefundNotify(String key, Map<String, Object> data) {
+		if(key != null) {
+			return feignRefundNotifyManager.setRefundNotify(key, data);
+		}else {
+			data.put("error_msg", "false");
+			return data;
+		}
+	}
+
+	@Override
+	public Map<String, Object> onGetRefundNotify(String key) {
+		if(key != null) {
+			return feignRefundNotifyManager.getRefundNotify(key);
 		}else {
 			Map<String, Object> data = new HashMap<String, Object>();
 			data.put("error_msg", "false");

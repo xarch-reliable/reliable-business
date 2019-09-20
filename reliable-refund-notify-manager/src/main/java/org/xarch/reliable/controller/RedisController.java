@@ -23,7 +23,7 @@ private static final Logger logger = LoggerFactory.getLogger(RedisController.cla
 	@Autowired
 	private RefundInfoServer refundInfoServer;
 	@RequestMapping("/set")
-	public String setMap(@RequestParam(value = "out_refund_no", required = true) String  out_refund_no ,
+	public Map<String, Object> setMap(@RequestParam(value = "out_refund_no", required = true) String  out_refund_no ,
 			@RequestBody Map<String, Object> notifydata) {
 		
 		logger.info("RedisController() :: setMap : refunddata="+BaseResultTools.JsonObjectToStr(notifydata));

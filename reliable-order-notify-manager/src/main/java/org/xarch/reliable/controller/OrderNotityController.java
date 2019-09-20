@@ -20,7 +20,6 @@ import org.xarch.reliable.util.BaseResultTools;
 */
 public class OrderNotityController {
 	
-	@SuppressWarnings("unused")
 	private static final org.slf4j.Logger logger = LoggerFactory.getLogger(OrderNotityController.class);
 	
 	@Autowired

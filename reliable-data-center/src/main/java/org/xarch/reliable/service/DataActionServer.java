@@ -45,6 +45,14 @@ public interface DataActionServer {
 	public Map<String, Object> onSetRefundResponse(String key, Map<String, Object> data);
 	
 	public Map<String, Object> onGetRefundResponse(String key);
+	
+	public Map<String, Object> onSetOrderNotify(String key, Map<String, Object> data);
+	
+	public Map<String, Object> onGetOrderNotify(String key);
+	
+	public Map<String, Object> onSetRefundNotify(String key, Map<String, Object> data);
+	
+	public Map<String, Object> onGetRefundNotify(String key);
 
 	public String onDefault();
 	

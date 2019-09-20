@@ -1,5 +1,6 @@
 package org.xarch.reliable.service.impl;
 
+import java.util.HashMap;
 import java.util.Map;
 
 import org.slf4j.Logger;
@@ -18,14 +19,18 @@ public class RefundInfoServerimpl implements RefundInfoServer {
 	@Autowired private RedisUtil redisUtil;
 
 	@Override
-	public String setRefundInfo(String out_refund_no, Map<String, Object> notifydata) {
+	public Map<String, Object> setRefundInfo(String out_refund_no, Map<String, Object> notifydata) {
+		
+		Map<String, Object> map = new HashMap<String, Object>();
 		if(redisUtil.hmset(out_refund_no, notifydata)) {
-			return "true";
+			map.put("success_msg", "true");
 		}else {
-			return "false";
+			map.put("error_msg", "false");
 		}
+		return map;
 	}
 
+	@SuppressWarnings({ "unchecked", "rawtypes" })
 	@Override
 	public Map<String, Object> getRefundInfo(String out_refund_no) {
 		Map notifydata = redisUtil.hmget(out_refund_no);

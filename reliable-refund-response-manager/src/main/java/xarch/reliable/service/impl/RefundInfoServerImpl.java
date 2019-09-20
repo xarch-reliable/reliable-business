@@ -1,5 +1,6 @@
 package xarch.reliable.service.impl;
 
+import java.util.HashMap;
 import java.util.Map;
 
 import org.slf4j.Logger;
@@ -25,14 +26,17 @@ public class RefundInfoServerImpl implements RefundInfoServer {
 	 
 	
 	@Override
-	public String setRefundInfo(String out_refund_no, Map<String, Object> refunddata) {
+	public Map<String, Object> setRefundInfo(String out_refund_no, Map<String, Object> refunddata) {
+		Map<String, Object> map = new HashMap<String, Object>();
 		if(redisUtil.hmset(out_refund_no, refunddata)) {
-			return "true";
+			map.put("success_msg", "true");
 		}else {
-			return "false";
+			map.put("error_msg", "false");
 		}
+		return map;
 	}
 
+	@SuppressWarnings({ "unchecked", "rawtypes" })
 	@Override
 	public Map<String, Object> getRefundInfo(String out_refund_no) {
 		Map refundinfodata = redisUtil.hmget(out_refund_no);
