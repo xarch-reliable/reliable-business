@@ -25,7 +25,7 @@ public class RefundInfoServerimpl implements RefundInfoServer {
 		if(redisUtil.hmset(out_refund_no, notifydata)) {
 			map.put("success_msg", "true");
 		}else {
-			map.put("error_msg", "true");
+			map.put("error_msg", "false");
 		}
 		return map;
 	}
