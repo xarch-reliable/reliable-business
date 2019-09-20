@@ -23,5 +23,9 @@ public enum ReliableDataType {
 	getRefundRequest,
 	setRefundResponse,
 	getRefundResponse,
+	setOrderNotify,
+	getOrderNotify,
+	setRefundNotify,
+	getRefundNotify
 	
 }
