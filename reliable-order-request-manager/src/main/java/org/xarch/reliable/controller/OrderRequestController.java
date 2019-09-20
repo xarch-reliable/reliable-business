@@ -30,7 +30,7 @@ public class OrderRequestController {
 	private OrderRequestService oRequestService;
 	
 	@RequestMapping("/info/set")
-	public String setMap(@RequestParam(value = "out_trade_no",required = true) String out_trade_no,
+	public Map<String, Object> setMap(@RequestParam(value = "out_trade_no",required = true) String out_trade_no,
 			@RequestBody Map<String, Object> oRequestData) {
 		
 		logger.info("OrderRequestController() :: setMap : oRequestData="+BaseResultTools.JsonObjectToStr(oRequestData));

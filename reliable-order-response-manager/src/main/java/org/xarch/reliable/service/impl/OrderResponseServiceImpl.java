@@ -1,5 +1,6 @@
 package org.xarch.reliable.service.impl;
 
+import java.util.HashMap;
 import java.util.Map;
 
 import org.slf4j.Logger;
@@ -27,12 +28,14 @@ public class OrderResponseServiceImpl implements OrderResponseService{
     private RedisUtil redisUtil;
 
 	@Override
-	public String setOrderResponse(String prepay_id, Map<String, Object> oResponseData) {
+	public Map<String, Object> setOrderResponse(String prepay_id, Map<String, Object> oResponseData) {
+		Map<String, Object> map = new HashMap<String, Object>();
 		if(redisUtil.hmset(prepay_id, oResponseData)) {
-			return "true";
+			map.put("success_msg", "true");
 		}else {
-			return "false";
+			map.put("error_msg", "false");
 		}
+		return map;
 	}
 
 	@SuppressWarnings({ "unchecked", "null" })

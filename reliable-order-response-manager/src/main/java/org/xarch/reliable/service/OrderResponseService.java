@@ -12,7 +12,7 @@ import java.util.Map;
 */
 public interface OrderResponseService {
 	
-	public String setOrderResponse(String prepay_id,Map<String, Object> oResponseData);
+	public Map<String, Object> setOrderResponse(String prepay_id,Map<String, Object> oResponseData);
 	
 	public Map<String, Object> getOrderResponse(String prepay_id);
 
