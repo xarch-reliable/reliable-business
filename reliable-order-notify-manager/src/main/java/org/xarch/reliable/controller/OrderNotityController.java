@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 import org.xarch.reliable.service.OrderNotifyService;
 import org.xarch.reliable.util.BaseResultTools;
 
@@ -18,6 +19,8 @@ import org.xarch.reliable.util.BaseResultTools;
 *
 *  @Date  2019年9月19日
 */
+@RestController
+@RequestMapping("/order/notify")
 public class OrderNotityController {
 	
 	private static final org.slf4j.Logger logger = LoggerFactory.getLogger(OrderNotityController.class);
