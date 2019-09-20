@@ -16,6 +16,6 @@ public interface ActivityInfoServer {
 	
 	public String addActPartNumber(String actid);
 	
-	public String setActStatus(String actid, String status);
+	public String setActStatus(String openid, String actid, String status);
 	
 }

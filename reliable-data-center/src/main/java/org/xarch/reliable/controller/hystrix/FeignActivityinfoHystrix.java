@@ -47,7 +47,7 @@ public class FeignActivityinfoHystrix implements FeignActivityinfoManager {
 	}
 
 	@Override
-	public String setActStatusByActidStatus(String actid, String status) {
+	public String setActStatusByActidStatus(String openid, String actid, String status) {
 		return "[error_msg]FeignActivityinfoManager发起setActStatus请求失败";
 	}
 

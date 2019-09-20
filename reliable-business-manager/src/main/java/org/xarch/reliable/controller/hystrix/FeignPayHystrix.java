@@ -34,12 +34,13 @@ public class FeignPayHystrix implements FeignPayManager, FeignPayidManager {
 	}
 
 	@Override
-	public Map<String, Object> getPayMpOrder(String openid, String payid) {
+	public Map<String, Object> getPayMpOrder(String openid, String payid, String actid) {
 		Map<String, Object> map = new HashMap<String, Object>();
 		logger.info("[FeignPayManager]获取getPayMpOrder失败");
 		map.put("error_msg", "[FeignPayManager]获取getPayMpOrder失败");
 		map.put("openid", openid);
 		map.put("payid", payid);
+		map.put("actid", actid);
 		return map;
 	}
 

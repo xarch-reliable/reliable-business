@@ -119,8 +119,8 @@ public class DataActionServerImpl implements DataActionServer{
 	}
 	
 	@Override
-	public String onSetActStatus(String actid, String status) {
-		return feignActInfoManager.setActStatusByActidStatus(actid, status);
+	public String onSetActStatus(String openid, String actid, String status) {
+		return feignActInfoManager.setActStatusByActidStatus(openid, actid, status);
 	}
 
 	@Override
@@ -227,6 +227,11 @@ public class DataActionServerImpl implements DataActionServer{
 	@Override
 	public Map<String, Object> onSetOrderNotify(String key, Map<String, Object> data) {
 		if(key != null) {
+			String actid = (String)data.get("attach");
+			String openid = (String)data.get("openid");
+			if(actid!=null && openid!=null) {
+				feignActInfoManager.setActStatusByActidStatus(openid, actid, "2");
+			}
 			return feignOrderNotifyManager.setOrderNotify(key, data);
 		}else {
 			data.put("error_msg", "false");

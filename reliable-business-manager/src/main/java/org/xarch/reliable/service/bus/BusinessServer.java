@@ -87,7 +87,7 @@ public class BusinessServer extends BusinessManager {
 		
 		threadPool.StorageAMThread(actid, openid);
 		threadPool.StorageOMThread(openid, actid);
-		Map<String, Object> paymap = feignPayManager.getPayMpOrder(openid, payid);
+		Map<String, Object> paymap = feignPayManager.getPayMpOrder(openid, payid, actid);
 		map.put("actid", actid);
 		map.put("paybody", paymap);
 		return map;
@@ -192,7 +192,7 @@ public class BusinessServer extends BusinessManager {
 				Map<String, String> actidaddmap = feignActidManager.addAM(actid, openid);
 				Map<String, String> openidaddmap = feignOpenidManager.addOM(openid, actid);
 				if(actidaddmap.get("error_msg") == null && openidaddmap.get("error_msg") == null) {
-					Map<String, Object> paymap = feignPayManager.getPayMpOrder(openid, payid);
+					Map<String, Object> paymap = feignPayManager.getPayMpOrder(openid, payid, actid);
 					resmap.put("actid", actid);
 					resmap.put("paybody", paymap);
 					

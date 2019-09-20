@@ -101,12 +101,16 @@ public class ActivityInfoServerImpl implements ActivityInfoServer {
 	}
 
 	@Override
-	public String setActStatus(String actid, String status) {
+	public String setActStatus(String openid, String actid, String status) {
 		
 		Map<String, Object> maptmp = getActivityInfo(actid);
-		maptmp.put("status", status);
-		return setActivityInfo(actid, maptmp);
-		
+		String creator_openid = (String)maptmp.get("creator_openid");
+		if(creator_openid.equals(creator_openid)) {
+			maptmp.put("status", status);
+			return setActivityInfo(actid, maptmp);
+		}else {
+			return "false";
+		}
 	}
 
 }

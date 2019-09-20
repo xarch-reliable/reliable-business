@@ -22,7 +22,7 @@ public interface DataActionServer {
 	
 	public String onGetActClear(String actid);
 	
-	public String onSetActStatus(String actid, String status);
+	public String onSetActStatus(String openid, String actid, String status);
 	
 	public String onAddActPartNumber(String actid);
 

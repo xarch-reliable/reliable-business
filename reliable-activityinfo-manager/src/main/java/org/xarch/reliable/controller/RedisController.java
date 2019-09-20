@@ -61,10 +61,11 @@ public class RedisController {
 	}
 	
 	@RequestMapping("/setstatus")
-	public String setStatus(@RequestParam(value = "actid", required = true) String actid,
+	public String setStatus(@RequestParam(value = "openid", required = true) String openid,
+			@RequestParam(value = "actid", required = true) String actid,
 			@RequestParam(value = "status", required = true) String status) {
-		logger.info("RedisController() :: setStatus : actid="+actid+"  status="+status);
-		return activityInfoServer.setActStatus(actid, status);
+		logger.info("RedisController() :: setStatus :  openid="+openid+"  actid="+actid+"  status="+status);
+		return activityInfoServer.setActStatus(openid, actid, status);
 	}
 	
 }
