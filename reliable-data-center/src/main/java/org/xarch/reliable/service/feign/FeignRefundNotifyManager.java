@@ -12,9 +12,9 @@ import org.xarch.reliable.controller.hystrix.FeignNotifyHystrix;
 public interface FeignRefundNotifyManager {
 	
 	@PostMapping("/refund/notify/info/set")
-	public Map<String, Object> setRefundNotify(@RequestParam(value = "out_trade_no", required = true) String out_trade_no, @RequestBody Map<String, Object> data);
+	public Map<String, Object> setRefundNotify(@RequestParam(value = "out_refund_no", required = true) String out_refund_no, @RequestBody Map<String, Object> data);
 
 	@PostMapping("/refund/notify/info/get")
-	public Map<String, Object> getRefundNotify(@RequestParam(value = "out_trade_no", required = true) String out_trade_no);
+	public Map<String, Object> getRefundNotify(@RequestParam(value = "out_refund_no", required = true) String out_refund_no);
 
 }
