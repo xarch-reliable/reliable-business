@@ -56,10 +56,8 @@ public class ActivityInfoServerImpl implements ActivityInfoServer {
 		List<Map<String, Object>> activityUnDoneList = Lists.newArrayList();
 		logger.info("[openid]"+openid);
 		Map<String, String> openid2actid = feignOpenidManager.getOM(openid);
-		logger.info("[openid2actid]"+BaseResultTools.JsonObjectToStr(openid2actid));
 		for (String actid : openid2actid.keySet()) {
 			Map maptmp = redisUtil.hmget(actid);
-			logger.info("[maptmp]"+BaseResultTools.JsonObjectToStr(maptmp));
 			if( (((Map<String, Object>)maptmp).get("clear")).equals("false") ) {
 				activityUnDoneList.add(maptmp);
 			}else {
