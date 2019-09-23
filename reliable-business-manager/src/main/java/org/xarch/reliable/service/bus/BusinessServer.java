@@ -9,10 +9,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.xarch.reliable.service.feign.FeignActidManager;
 import org.xarch.reliable.service.feign.FeignDataManager;
 import org.xarch.reliable.service.feign.FeignJsapiManager;
-import org.xarch.reliable.service.feign.FeignOpenidManager;
 import org.xarch.reliable.service.feign.FeignPayManager;
 import org.xarch.reliable.service.feign.FeignPayidManager;
 import org.xarch.reliable.service.thread.ThreadPool;
@@ -34,12 +32,6 @@ public class BusinessServer extends BusinessManager {
 
 	@Autowired
 	private FeignDataManager feignDataManager;
-
-	@Autowired
-	private FeignActidManager feignActidManager;
-
-	@Autowired
-	private FeignOpenidManager feignOpenidManager;
 
 	@Autowired
 	private FeignPayidManager feignPayidManager;
@@ -74,16 +66,13 @@ public class BusinessServer extends BusinessManager {
 		data.put("actid", actid);
 		data.put("creator_openid", openid);
 		data.put("clear", "false");
-		data.put("part_number", "1");
+		data.put("part_number", "0");
 		data.put("status", "1");	// 活动生成  活动发布  活动签到  活动结算
 		
 		Map<String, Object> sendmap = new HashMap<String, Object>();
 		sendmap.put("xrdataction", "setActinfoByBody");
 		sendmap.put("data", data);
 		threadPool.StorageActInfoThread(sendmap);
-		
-		threadPool.StorageAMThread(actid, openid);
-		threadPool.StorageOMThread(openid, actid);
 		Map<String, Object> paymap = feignPayManager.getPayMpOrder(openid, payid, actid);
 		map.put("actid", actid);
 		map.put("paybody", paymap);
@@ -129,9 +118,9 @@ public class BusinessServer extends BusinessManager {
 		datatmp.put("actid", data.get("actid"));
 		sendmap.put("xrdataction", "getActinfoByActid");
 		sendmap.put("data", datatmp);
-		Map<String, Object> resmap = feignDataManager.doSupport2DataCenter(sendmap);
+		Map<String, Object> resmap = (Map<String, Object>)feignDataManager.doSupport2DataCenter(sendmap).get("body");
 		
-		return (Map<String, Object>)resmap.get("body");
+		return resmap;
 	}
 
 	/**
@@ -148,9 +137,9 @@ public class BusinessServer extends BusinessManager {
 		datatmp.put("openid", openid);
 		sendmap.put("xrdataction", "getActinfoListByOpenid");
 		sendmap.put("data", datatmp);
-		Map<String, Object> resmap = feignDataManager.doSupport2DataCenter(sendmap);
+		Map<String, Object> resmap = (Map<String, Object>)feignDataManager.doSupport2DataCenter(sendmap).get("body");
 		
-		return (Map<String, Object>)resmap.get("body");
+		return resmap;
 	}
 
 	/**
@@ -174,8 +163,8 @@ public class BusinessServer extends BusinessManager {
 		datatmp.put("actid", actid);
 		sendmap.put("xrdataction", "getactclear");
 		sendmap.put("data", datatmp);
-		Map<String, Object> getclearmap = feignDataManager.doSupport2DataCenter(sendmap);
-		String clear = (String)((Map<String, Object>)getclearmap.get("body")).get("clear");
+		Map<String, Object> getclearmap = (Map<String, Object>)feignDataManager.doSupport2DataCenter(sendmap).get("body");
+		String clear = (String)getclearmap.get("clear");
 		if(clear.equals("true")) {
 			resmap.put("alert_msg", "该活动已结算，无法加入");
 			return resmap;
@@ -187,19 +176,20 @@ public class BusinessServer extends BusinessManager {
 				resmap.put("error_msg", "payID获取失败");
 				return resmap;
 			}else {
-				Map<String, String> actidaddmap = feignActidManager.addAM(actid, openid);
-				Map<String, String> openidaddmap = feignOpenidManager.addOM(openid, actid);
-				if(actidaddmap.get("error_msg") == null && openidaddmap.get("error_msg") == null) {
+				
+				Map<String, Object> sendmap1 = new HashMap<String, Object>();
+				Map<String, Object> datatmp1 = new HashMap<String, Object>();
+				datatmp1.put("openid", openid);
+				datatmp1.put("actid", actid);
+				sendmap1.put("xrdataction", "getOAManagerList");
+				sendmap1.put("data", datatmp1);
+				Map<String, Object> getOAMListmap = (Map<String, Object>)feignDataManager.doSupport2DataCenter(sendmap1).get("body");
+				
+				if(((Map<String, Object>)getOAMListmap.get("AMList")).get("error_msg") == null && 
+						((Map<String, Object>)getOAMListmap.get("OMList")).get("error_msg") == null) {
 					Map<String, Object> paymap = feignPayManager.getPayMpOrder(openid, payid, actid);
 					resmap.put("actid", actid);
 					resmap.put("paybody", paymap);
-					
-					Map<String, Object> mapsend = new HashMap<String, Object>();
-					Map<String, Object> maptmp = new HashMap<String, Object>();
-					maptmp.put("actid", actid);
-					mapsend.put("xrdataction", "addactpartnumber");
-					mapsend.put("data", maptmp);
-					feignDataManager.doSupport2DataCenter(mapsend);
 					
 				}else {
 					resmap.put("alert_msg", "您已加入过该活动");
@@ -215,6 +205,7 @@ public class BusinessServer extends BusinessManager {
 	* @return Map<String, Object> data
 	* @throws Will throw an error if the data is null.
 	*/
+	@SuppressWarnings("unchecked")
 	@Override
 	protected List<Map<String, String>> onPartUserInfo(Map<String, String> data) {
 		List<Map<String, String>> list = Lists.newArrayList();
@@ -225,7 +216,14 @@ public class BusinessServer extends BusinessManager {
 			list.add(map);
 			return list;
 		}
-		Map<String, String> openidmap = feignActidManager.getAM(actid);
+		
+		Map<String, Object> sendmap = new HashMap<String, Object>();
+		Map<String, Object> datatmp = new HashMap<String, Object>();
+		datatmp.put("actid", actid);
+		sendmap.put("xrdataction", "getAMList");
+		sendmap.put("data", datatmp);
+		Map<String, Object> openidmap = (Map<String, Object>)feignDataManager.doSupport2DataCenter(sendmap).get("body");
+		
 		for (String item : openidmap.keySet()) {
 			Map<String, String> temmap = new HashMap<String, String>();
 			temmap.put("openid", item);
@@ -240,6 +238,7 @@ public class BusinessServer extends BusinessManager {
 	* @return Map<String, Object> data
 	* @throws Will throw an error if the data is null.
 	*/
+	@SuppressWarnings("unchecked")
 	@Override
 	protected Map<String, Object> onCheck(String openid, Map<String, String> data) {
 		Map<String, Object> resmap = new HashMap<String, Object>();
@@ -249,9 +248,16 @@ public class BusinessServer extends BusinessManager {
 			return resmap;
 		}
 		resmap.put("actid", actid);
-		Map<String, String> actidcheckmap = feignActidManager.checkAM(actid, openid);
-		Map<String, String> openidcheckmap = feignOpenidManager.checkOM(openid, actid);
-		if(actidcheckmap.get("error_msg") == null && openidcheckmap.get("error_msg") == null) {
+		
+		Map<String, Object> sendmap = new HashMap<String, Object>();
+		Map<String, Object> datatmp = new HashMap<String, Object>();
+		datatmp.put("openid", openid);
+		datatmp.put("actid", actid);
+		sendmap.put("xrdataction", "checkOAManagerList");
+		sendmap.put("data", datatmp);
+		Map<String, Object> getOAMListmap = (Map<String, Object>)feignDataManager.doSupport2DataCenter(sendmap).get("body");
+		
+		if(getOAMListmap.get("error_msg") == null) {
 			resmap.put("alert_msg", "你很靠谱");
 		}else {
 			resmap.put("alert_msg", "您已经靠谱到不能再靠谱了");
@@ -282,11 +288,19 @@ public class BusinessServer extends BusinessManager {
 		datatmp.put("actid", actid);
 		sendmap.put("xrdataction", "setactclear");
 		sendmap.put("data", datatmp);
-		Map<String, Object> finishactmap = feignDataManager.doSupport2DataCenter(sendmap);
+		Map<String, Object> finishactmap = (Map<String, Object>)feignDataManager.doSupport2DataCenter(sendmap).get("body");
 		
-		if(((Map<String, Object>)finishactmap.get("body")).get("success_msg") != null) {
-			Map<String, String> actidmap = feignActidManager.getAM(actid);
+		if(finishactmap.get("success_msg") != null) {
+			
+			Map<String, Object> sendmap1 = new HashMap<String, Object>();
+			Map<String, Object> datatmp1 = new HashMap<String, Object>();
+			datatmp1.put("actid", actid);
+			sendmap1.put("xrdataction", "getAMList");
+			sendmap1.put("data", datatmp1);
+			Map<String, String> actidmap = (Map<String, String>)feignDataManager.doSupport2DataCenter(sendmap1).get("body");
+			
 			Map<String, String> payIdMap = feignPayidManager.getMap(actid);
+			
 			for (Entry<String, String> entry: actidmap.entrySet()) {
 				if(entry.getValue().equals("true")) {
 					String payid = payIdMap.get(entry.getKey());

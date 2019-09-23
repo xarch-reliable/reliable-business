@@ -50,17 +50,17 @@ public class DataDealServerImpl implements DataDealServer {
 		case getActinfoByActid:
 			responseMap.put("body", dataActionServer.onGetActinfoByActid((String)bodyMap.get("actid")));
 			break;
-		case getActidListByOpenid:
-			responseMap.put("body", dataActionServer.onGetActidListByOpenid((String)bodyMap.get("openid")));
+		case getOAManagerList:
+			responseMap.put("body", dataActionServer.onGetOAManagerList((String)bodyMap.get("openid"), (String)bodyMap.get("actid")));
 			break;
-		case getOpenidListByActid:
-			responseMap.put("body", dataActionServer.onGetOpenidListByActid((String)bodyMap.get("actid")));
+		case setOAManagerList:
+			responseMap.put("body", dataActionServer.onSetOAManagerList((String)bodyMap.get("openid"), (String)bodyMap.get("actid")));
 			break;
-		case setOpenid2ActidList:
-			responseMap.put("body", dataActionServer.onSetOpenid2ActidList((String)bodyMap.get("openid"), (String)bodyMap.get("actid")));
+		case getOMList:
+			responseMap.put("body", dataActionServer.onGetOMList((String)bodyMap.get("openid")));
 			break;
-		case setActid2OpenidList:
-			responseMap.put("body", dataActionServer.onSetActid2OpenidList((String)bodyMap.get("actid"), (String)bodyMap.get("openid")));
+		case getAMList:
+			responseMap.put("body", dataActionServer.onGetAMList((String)bodyMap.get("actid")));
 			break;
 		case setActinfoByBody:
 			responseMap.put("body", dataActionServer.onSetActinfoByBody(bodyMap));
@@ -77,11 +77,8 @@ public class DataDealServerImpl implements DataDealServer {
 		case addactpartnumber:
 			responseMap.put("body", dataActionServer.onAddActPartNumber((String)bodyMap.get("actid")));
 			break;
-		case checkOpenid2ActidList:
-			responseMap.put("body", dataActionServer.onCheckOpenid2ActidList((String)bodyMap.get("openid"), (String)bodyMap.get("actid")));
-			break;
-		case checkActid2OpenidList:
-			responseMap.put("body", dataActionServer.onCheckActid2OpenidList((String)bodyMap.get("actid"), (String)bodyMap.get("openid")));
+		case checkOAManagerList:
+			responseMap.put("body", dataActionServer.onCheckOAManagerList((String)bodyMap.get("openid"), (String)bodyMap.get("actid")));
 			break;
 		case setOrderRequest:
 			responseMap.put("body", dataActionServer.onSetOrderRequest((String)bodyMap.get("out_trade_no"), bodyMap));

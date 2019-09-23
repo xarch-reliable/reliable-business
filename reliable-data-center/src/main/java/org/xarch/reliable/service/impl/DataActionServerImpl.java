@@ -78,23 +78,33 @@ public class DataActionServerImpl implements DataActionServer{
 	}
 
 	@Override
-	public Map<String, Object> onGetActidListByOpenid(String openid) {
+	public Map<String, Object> onGetOAManagerList(String openid, String actid) {
+		Map<String, Object> resmap = new HashMap<String, Object>();
+		resmap.put("AMList", feignActidManager.getAM(actid));
+		resmap.put("OMList", feignOpenidManager.getOM(openid));
+		return resmap;
+	}
+
+	@Override
+	public Map<String, Object> onSetOAManagerList(String openid, String actid) {
+		Map<String, Object> resmap = new HashMap<String, Object>();
+		if(feignActidManager.addAM(actid, openid).get("error_msg") != null ||
+				feignOpenidManager.addOM(openid, actid).get("error_msg") != null) {
+			resmap.put("error_msg", "false");
+		}else {
+			resmap.put("success_msg", "true");
+		}
+		return resmap;
+	}
+
+	@Override
+	public Map<String, Object> onGetOMList(String openid) {
 		return feignOpenidManager.getOM(openid);
 	}
 
 	@Override
-	public Map<String, Object> onGetOpenidListByActid(String actid) {
+	public Map<String, Object> onGetAMList(String actid) {
 		return feignActidManager.getAM(actid);
-	}
-
-	@Override
-	public Map<String, Object> onSetOpenid2ActidList(String openid, String actid) {
-		return feignOpenidManager.addOM(openid, actid);
-	}
-
-	@Override
-	public Map<String, Object> onSetActid2OpenidList(String actid, String openid) {
-		return feignActidManager.addAM(actid, openid);
 	}
 
 	@Override
@@ -131,13 +141,15 @@ public class DataActionServerImpl implements DataActionServer{
 	}
 	
 	@Override
-	public Map<String, Object> onCheckOpenid2ActidList(String openid, String actid) {
-		return feignOpenidManager.checkOM(openid, actid);
-	}
-
-	@Override
-	public Map<String, Object> onCheckActid2OpenidList(String actid, String openid) {
-		return feignActidManager.checkAM(actid, openid);
+	public Map<String, Object> onCheckOAManagerList(String openid, String actid) {
+		Map<String, Object> resmap = new HashMap<String, Object>();
+		if(feignActidManager.checkAM(actid, openid).get("error_msg") != null ||
+				feignOpenidManager.checkOM(openid, actid).get("error_msg") != null) {
+			resmap.put("error_msg", "false");
+		}else {
+			resmap.put("success_msg", "true");
+		}
+		return resmap;
 	}
 
 	@Override
@@ -231,6 +243,8 @@ public class DataActionServerImpl implements DataActionServer{
 			String openid = (String)data.get("openid");
 			if(actid!=null && openid!=null) {
 				feignActInfoManager.setActStatusByActidStatus(openid, actid, "2");
+				feignActInfoManager.addActParNumberByActid(actid);
+				onSetOAManagerList(openid, actid);
 			}
 			return feignOrderNotifyManager.setOrderNotify(key, data);
 		}else {
@@ -277,4 +291,5 @@ public class DataActionServerImpl implements DataActionServer{
 		resmap.put("error_msg", "功能暂未开发");
 		return resmap;
 	}
+
 }

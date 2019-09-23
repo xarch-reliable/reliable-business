@@ -6,15 +6,15 @@ public interface DataActionServer {
 	
 	public Map<String, Object> onGetActinfoListByOpenid(String openid);
 
-	public Map<String, Object> onGetActidListByOpenid(String openid);
-
-	public Map<String, Object> onGetOpenidListByActid(String actid);
-
 	public Map<String, Object> onGetActinfoByActid(String actid);
+	
+	public Map<String, Object> onGetOAManagerList(String openid, String actid);
 
-	public Map<String, Object> onSetOpenid2ActidList(String openid, String actid);
-
-	public Map<String, Object> onSetActid2OpenidList(String actid, String openid);
+	public Map<String, Object> onSetOAManagerList(String openid, String actid);
+	
+	public Map<String, Object> onGetOMList(String openid);
+	
+	public Map<String, Object> onGetAMList(String actid);
 
 	public Map<String, Object> onSetActinfoByBody(Map<String, Object> data);
 	
@@ -26,9 +26,7 @@ public interface DataActionServer {
 	
 	public Map<String, Object> onAddActPartNumber(String actid);
 
-	public Map<String, Object> onCheckOpenid2ActidList(String openid, String actid);
-
-	public Map<String, Object> onCheckActid2OpenidList(String actid, String openid);
+	public Map<String, Object> onCheckOAManagerList(String openid, String actid);
 	
 	public Map<String, Object> onSetOrderRequest(String key, Map<String, Object> data);
 	
