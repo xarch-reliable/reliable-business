@@ -13,7 +13,7 @@ import org.xarch.reliable.service.ActivityRabbitMQService;
 *
 *  @Author  Jim_Carrey
 *
-*  @Date  2019年9月22日
+*  @Date  2019年9月23日
 */
 @Service
 @RabbitListener(queues = "activity")

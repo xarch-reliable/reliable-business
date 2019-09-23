@@ -86,15 +86,16 @@ public class RabbitmqConfig {
 	}
 	
 	
-	//order消息队列
+	//refund消息队列
 	@Bean
-	public org.springframework.amqp.core.Queue orderQueue() {
-		return new org.springframework.amqp.core.Queue("order");
+	public org.springframework.amqp.core.Queue refundQueue() {
+		return new org.springframework.amqp.core.Queue("refund");
 	}
 	
-	//activity消息队列
-	@Bean
-	public org.springframework.amqp.core.Queue activityQueue() {
-		return new org.springframework.amqp.core.Queue("activity");
-	}
+	/*
+	 * //activity消息队列
+	 * 
+	 * @Bean public org.springframework.amqp.core.Queue activityQueue() { return new
+	 * org.springframework.amqp.core.Queue("activity"); }
+	 */
 }
