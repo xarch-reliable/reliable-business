@@ -32,12 +32,14 @@ public class ActivityInfoServerImpl implements ActivityInfoServer {
     private RedisUtil redisUtil;
 	
 	@Override
-	public String setActivityInfo(String actid, Map<String, Object> actdata) {
+	public Map<String, Object> setActivityInfo(String actid, Map<String, Object> actdata) {
+		Map<String, Object> resmap = new HashMap<String, Object>();
 		if(redisUtil.hmset(actid, actdata)) {
-			return "true";
+			resmap.put("success_msg", "true");
 		}else {
-			return "false";
+			resmap.put("error_msg", "false");
 		}
+		return resmap;
 	}
 
 	@SuppressWarnings({ "unchecked", "rawtypes" })
@@ -70,10 +72,11 @@ public class ActivityInfoServerImpl implements ActivityInfoServer {
 	}
 
 	@Override
-	public String setActClear(String actid) {
-		
+	public Map<String, Object> setActClear(String actid) {
 		if( ((String)redisUtil.hget(actid, "clear")).equals("true") ) {
-			return "false";
+			Map<String, Object> resmap = new HashMap<String, Object>();
+			resmap.put("error_msg", "false");
+			return resmap;
 		}else {
 			Map<String, Object> maptmp = getActivityInfo(actid);
 			maptmp.put("clear", "true");
@@ -82,13 +85,14 @@ public class ActivityInfoServerImpl implements ActivityInfoServer {
 	}
 
 	@Override
-	public String getActClear(String actid) {
-		
-		return (String)redisUtil.hget(actid, "clear");
+	public Map<String, Object> getActClear(String actid) {
+		Map<String, Object> resmap = new HashMap<String, Object>();
+		resmap.put("clear", (String)redisUtil.hget(actid, "clear"));
+		return resmap;
 	}
 
 	@Override
-	public String addActPartNumber(String actid) {
+	public Map<String, Object> addActPartNumber(String actid) {
 		
 		Map<String, Object> maptmp = getActivityInfo(actid);
 		int i = Integer.parseInt((String)maptmp.get("part_number"));
@@ -99,7 +103,7 @@ public class ActivityInfoServerImpl implements ActivityInfoServer {
 	}
 
 	@Override
-	public String setActStatus(String openid, String actid, String status) {
+	public Map<String, Object> setActStatus(String openid, String actid, String status) {
 		
 		Map<String, Object> maptmp = getActivityInfo(actid);
 		String creator_openid = (String)maptmp.get("creator_openid");
@@ -107,7 +111,9 @@ public class ActivityInfoServerImpl implements ActivityInfoServer {
 			maptmp.put("status", status);
 			return setActivityInfo(actid, maptmp);
 		}else {
-			return "false";
+			Map<String, Object> resmap = new HashMap<String, Object>();
+			resmap.put("error_msg", "false");
+			return resmap;
 		}
 	}
 

@@ -73,71 +73,71 @@ public class DataActionServerImpl implements DataActionServer{
 	}
 
 	@Override
-	public Map<String, String> onGetActidListByOpenid(String openid) {
-		return feignOpenidManager.getOM(openid);
-	}
-
-	@Override
-	public Map<String, String> onGetOpenidListByActid(String actid) {
-		return feignActidManager.getAM(actid);
-	}
-
-	@Override
 	public Map<String, Object> onGetActinfoByActid(String actid) {
 		return feignActInfoManager.getActInfoByActid(actid);
 	}
 
 	@Override
+	public Map<String, Object> onGetActidListByOpenid(String openid) {
+		return feignOpenidManager.getOM(openid);
+	}
+
+	@Override
+	public Map<String, Object> onGetOpenidListByActid(String actid) {
+		return feignActidManager.getAM(actid);
+	}
+
+	@Override
 	public Map<String, Object> onSetOpenid2ActidList(String openid, String actid) {
-		return null;
+		return feignOpenidManager.addOM(openid, actid);
 	}
 
 	@Override
 	public Map<String, Object> onSetActid2OpenidList(String actid, String openid) {
-		// TODO Auto-generated method stub
-		return null;
+		return feignActidManager.addAM(actid, openid);
 	}
 
 	@Override
-	public String onSetActinfoByBody(Map<String, Object> data) {
+	public Map<String, Object> onSetActinfoByBody(Map<String, Object> data) {
+		
 		String actid = (String)data.get("actid");
 		if(actid != null) {
 			return feignActInfoManager.setActInfo(actid, data);
 		}else {
-			return "false";
+			Map<String, Object> resmap = new HashMap<String, Object>();
+			resmap.put("error_msg", "actid为空");
+			return resmap;
 		}
 	}
 
 	@Override
-	public String onSetActClear(String actid) {
+	public Map<String, Object> onSetActClear(String actid) {
 		return feignActInfoManager.setFinishActInfoByActid(actid);
 	}
 	
 	@Override
-	public String onGetActClear(String actid) {
+	public Map<String, Object> onGetActClear(String actid) {
 		return feignActInfoManager.getActFinishByActid(actid);
 	}
 	
 	@Override
-	public String onSetActStatus(String openid, String actid, String status) {
+	public Map<String, Object> onSetActStatus(String openid, String actid, String status) {
 		return feignActInfoManager.setActStatusByActidStatus(openid, actid, status);
 	}
 
 	@Override
-	public String onAddActPartNumber(String actid) {
+	public Map<String, Object> onAddActPartNumber(String actid) {
 		return feignActInfoManager.addActParNumberByActid(actid);
 	}
 	
 	@Override
 	public Map<String, Object> onCheckOpenid2ActidList(String openid, String actid) {
-		// TODO Auto-generated method stub
-		return null;
+		return feignOpenidManager.checkOM(openid, actid);
 	}
 
 	@Override
 	public Map<String, Object> onCheckActid2OpenidList(String actid, String openid) {
-		// TODO Auto-generated method stub
-		return null;
+		return feignActidManager.checkAM(actid, openid);
 	}
 
 	@Override
@@ -272,8 +272,9 @@ public class DataActionServerImpl implements DataActionServer{
 	}
 	
 	@Override
-	public String onDefault() {
-		// TODO Auto-generated method stub
-		return null;
+	public Map<String, Object> onDefault() {
+		Map<String, Object> resmap = new HashMap<String, Object>();
+		resmap.put("error_msg", "功能暂未开发");
+		return resmap;
 	}
 }

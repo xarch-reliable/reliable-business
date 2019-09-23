@@ -6,9 +6,9 @@ public interface DataActionServer {
 	
 	public Map<String, Object> onGetActinfoListByOpenid(String openid);
 
-	public Map<String, String> onGetActidListByOpenid(String openid);
+	public Map<String, Object> onGetActidListByOpenid(String openid);
 
-	public Map<String, String> onGetOpenidListByActid(String actid);
+	public Map<String, Object> onGetOpenidListByActid(String actid);
 
 	public Map<String, Object> onGetActinfoByActid(String actid);
 
@@ -16,15 +16,15 @@ public interface DataActionServer {
 
 	public Map<String, Object> onSetActid2OpenidList(String actid, String openid);
 
-	public String onSetActinfoByBody(Map<String, Object> data);
+	public Map<String, Object> onSetActinfoByBody(Map<String, Object> data);
 	
-	public String onSetActClear(String actid);
+	public Map<String, Object> onSetActClear(String actid);
 	
-	public String onGetActClear(String actid);
+	public Map<String, Object> onGetActClear(String actid);
 	
-	public String onSetActStatus(String openid, String actid, String status);
+	public Map<String, Object> onSetActStatus(String openid, String actid, String status);
 	
-	public String onAddActPartNumber(String actid);
+	public Map<String, Object> onAddActPartNumber(String actid);
 
 	public Map<String, Object> onCheckOpenid2ActidList(String openid, String actid);
 
@@ -54,6 +54,6 @@ public interface DataActionServer {
 	
 	public Map<String, Object> onGetRefundNotify(String key);
 
-	public String onDefault();
+	public Map<String, Object> onDefault();
 	
 }

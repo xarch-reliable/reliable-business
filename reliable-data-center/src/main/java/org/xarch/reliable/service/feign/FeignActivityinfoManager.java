@@ -13,7 +13,7 @@ import org.xarch.reliable.controller.hystrix.FeignActivityinfoHystrix;
 public interface FeignActivityinfoManager {
 	
 	@PostMapping("/activity/info/set")
-	public String setActInfo(@RequestParam(value = "actid", required = true) String actid, @RequestBody Map<String, Object> actdata);
+	public Map<String, Object> setActInfo(@RequestParam(value = "actid", required = true) String actid, @RequestBody Map<String, Object> actdata);
 	
 	@GetMapping("/activity/info/getselfactlist")
 	public Map<String, Object> getAllActInfo(@RequestParam(value = "openid", required = true) String openid);
@@ -22,14 +22,14 @@ public interface FeignActivityinfoManager {
 	public Map<String, Object> getActInfoByActid(@RequestParam(value = "actid", required = true) String actid);
 	
 	@GetMapping("/activity/info/clear")
-	public String setFinishActInfoByActid(@RequestParam(value = "actid", required = true) String actid);
+	public Map<String, Object> setFinishActInfoByActid(@RequestParam(value = "actid", required = true) String actid);
 	
 	@GetMapping("/activity/info/getclear")
-	public String getActFinishByActid(@RequestParam(value = "actid", required = true) String actid);
+	public Map<String, Object> getActFinishByActid(@RequestParam(value = "actid", required = true) String actid);
 	
 	@GetMapping("/activity/info/addnumber")
-	public String addActParNumberByActid(@RequestParam(value = "actid", required = true) String actid);
+	public Map<String, Object> addActParNumberByActid(@RequestParam(value = "actid", required = true) String actid);
 	
 	@GetMapping("/activity/info/setstatus")
-	public String setActStatusByActidStatus(@RequestParam(value = "openid", required = true) String openid, @RequestParam(value = "actid", required = true) String actid, @RequestParam(value = "status", required = true) String status);
+	public Map<String, Object> setActStatusByActidStatus(@RequestParam(value = "openid", required = true) String openid, @RequestParam(value = "actid", required = true) String actid, @RequestParam(value = "status", required = true) String status);
 }

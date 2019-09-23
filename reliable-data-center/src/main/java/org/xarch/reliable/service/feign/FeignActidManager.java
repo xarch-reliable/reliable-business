@@ -10,13 +10,13 @@ import org.xarch.reliable.controller.hystrix.FeignOmAmHystrix;
 @FeignClient(name = "reliable-actid-manager",fallback = FeignOmAmHystrix.class)
 public interface FeignActidManager {
 	@GetMapping("/actid/to/openid/add")
-	public Map<String, String> addAM(@RequestParam(value = "actid", required = true) String actid,
+	public Map<String, Object> addAM(@RequestParam(value = "actid", required = true) String actid,
 			@RequestParam(value = "openid", required = true) String openid);
 	
 	@GetMapping("/actid/to/openid/check")
-	public Map<String, String> checkAM(@RequestParam(value = "actid", required = true) String actid,
+	public Map<String, Object> checkAM(@RequestParam(value = "actid", required = true) String actid,
 			@RequestParam(value = "openid", required = true) String openid);
 	
 	@GetMapping("/actid/to/openid/get")
-	public Map<String, String> getAM(@RequestParam(value = "actid", required = true) String actid);
+	public Map<String, Object> getAM(@RequestParam(value = "actid", required = true) String actid);
 }

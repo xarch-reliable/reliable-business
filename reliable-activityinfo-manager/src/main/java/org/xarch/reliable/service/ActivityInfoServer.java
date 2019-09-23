@@ -4,18 +4,18 @@ import java.util.Map;
 
 public interface ActivityInfoServer {
 
-	public String setActivityInfo(String actid, Map<String, Object> actdata);
+	public Map<String, Object> setActivityInfo(String actid, Map<String, Object> actdata);
 	
 	public Map<String, Object> getActivityInfo(String actid);
 	
 	public Map<String, Object> getActInfoListByOpenid(String openid);
 	
-	public String setActClear(String actid);
+	public Map<String, Object> setActClear(String actid);
 	
-	public String getActClear(String actid);
+	public Map<String, Object> getActClear(String actid);
 	
-	public String addActPartNumber(String actid);
+	public Map<String, Object> addActPartNumber(String actid);
 	
-	public String setActStatus(String openid, String actid, String status);
+	public Map<String, Object> setActStatus(String openid, String actid, String status);
 	
 }

@@ -34,9 +34,6 @@ public class BusinessServer extends BusinessManager {
 
 	@Autowired
 	private FeignDataManager feignDataManager;
-	
-	//@Autowired
-	//private FeignActInfoManager feignActInfoManager;
 
 	@Autowired
 	private FeignActidManager feignActidManager;
@@ -82,7 +79,7 @@ public class BusinessServer extends BusinessManager {
 		
 		Map<String, Object> sendmap = new HashMap<String, Object>();
 		sendmap.put("xrdataction", "setActinfoByBody");
-		sendmap.put("data", data);	
+		sendmap.put("data", data);
 		threadPool.StorageActInfoThread(sendmap);
 		
 		threadPool.StorageAMThread(actid, openid);
@@ -162,6 +159,7 @@ public class BusinessServer extends BusinessManager {
 	* @return Map<String, Object> data
 	* @throws Will throw an error if the data is null.
 	*/
+	@SuppressWarnings("unchecked")
 	@Override
 	protected Map<String, Object> onJoin(String openid,Map<String, String> data) {
 		Map<String, Object> resmap = new HashMap<String, Object>();
@@ -177,8 +175,8 @@ public class BusinessServer extends BusinessManager {
 		sendmap.put("xrdataction", "getactclear");
 		sendmap.put("data", datatmp);
 		Map<String, Object> getclearmap = feignDataManager.doSupport2DataCenter(sendmap);
-		
-		if(((String)getclearmap.get("body")).equals("true")) {
+		String clear = (String)((Map<String, Object>)getclearmap.get("body")).get("clear");
+		if(clear.equals("true")) {
 			resmap.put("alert_msg", "该活动已结算，无法加入");
 			return resmap;
 		}else {
@@ -267,6 +265,7 @@ public class BusinessServer extends BusinessManager {
 	* @return Map<String, Object> data
 	* @throws Will throw an error if the data is null.
 	*/
+	@SuppressWarnings("unchecked")
 	@Override
 	protected Map<String, Object> onFinish(String openid, Map<String, String> data) {
 		Map<String, Object> resmap = new HashMap<String, Object>();
@@ -285,11 +284,10 @@ public class BusinessServer extends BusinessManager {
 		sendmap.put("data", datatmp);
 		Map<String, Object> finishactmap = feignDataManager.doSupport2DataCenter(sendmap);
 		
-		if(((String)finishactmap.get("body")).equals("true")) {
+		if(((Map<String, Object>)finishactmap.get("body")).get("success_msg") != null) {
 			Map<String, String> actidmap = feignActidManager.getAM(actid);
 			Map<String, String> payIdMap = feignPayidManager.getMap(actid);
 			for (Entry<String, String> entry: actidmap.entrySet()) {
-				logger.info("openid = "+entry.getKey()+" check = "+entry.getValue());
 				if(entry.getValue().equals("true")) {
 					String payid = payIdMap.get(entry.getKey());
 					threadPool.RefundThread(payid);
