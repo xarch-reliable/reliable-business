@@ -10,12 +10,10 @@ import org.springframework.stereotype.Service;
 import org.xarch.reliable.service.DataActionServer;
 import org.xarch.reliable.service.feign.FeignActidManager;
 import org.xarch.reliable.service.feign.FeignActivityinfoManager;
-import org.xarch.reliable.service.feign.FeignJsapiManager;
 import org.xarch.reliable.service.feign.FeignOpenidManager;
 import org.xarch.reliable.service.feign.FeignOrderNotifyManager;
 import org.xarch.reliable.service.feign.FeignOrderRequestManager;
 import org.xarch.reliable.service.feign.FeignOrderResponseManager;
-import org.xarch.reliable.service.feign.FeignPayManager;
 import org.xarch.reliable.service.feign.FeignPayidManager;
 import org.xarch.reliable.service.feign.FeignRefundNotifyManager;
 import org.xarch.reliable.service.feign.FeignRefundRequestManager;
@@ -38,9 +36,6 @@ public class DataActionServerImpl implements DataActionServer{
 
 	@Autowired
 	private FeignPayidManager feignPayidManager;
-
-	@Autowired
-	private FeignPayManager feignPayManager;
 	
 	@Autowired
 	private FeignOrderRequestManager feignOrderRequestManager;
@@ -59,9 +54,6 @@ public class DataActionServerImpl implements DataActionServer{
 	
 	@Autowired
 	private FeignRefundNotifyManager feignRefundNotifyManager;
-	
-	@Autowired
-	private FeignJsapiManager feignJsapiManager;
 
 	//线程管理者
 	@Autowired
@@ -290,6 +282,16 @@ public class DataActionServerImpl implements DataActionServer{
 		Map<String, Object> resmap = new HashMap<String, Object>();
 		resmap.put("error_msg", "功能暂未开发");
 		return resmap;
+	}
+
+	@Override
+	public Map<String, Object> onGetPayid(String actid, String openid) {
+		return feignPayidManager.getPayid2Map(actid, openid);
+	}
+
+	@Override
+	public Map<String, Object> onGetPayidMap(String actid) {
+		return feignPayidManager.getMap(actid);
 	}
 
 }

@@ -12,7 +12,6 @@ import org.springframework.stereotype.Service;
 import org.xarch.reliable.service.feign.FeignDataManager;
 import org.xarch.reliable.service.feign.FeignJsapiManager;
 import org.xarch.reliable.service.feign.FeignPayManager;
-import org.xarch.reliable.service.feign.FeignPayidManager;
 import org.xarch.reliable.service.thread.ThreadPool;
 
 import com.google.common.collect.Lists;
@@ -34,9 +33,6 @@ public class BusinessServer extends BusinessManager {
 	private FeignDataManager feignDataManager;
 
 	@Autowired
-	private FeignPayidManager feignPayidManager;
-
-	@Autowired
 	private FeignPayManager feignPayManager;
 	
 	@Autowired
@@ -52,12 +48,21 @@ public class BusinessServer extends BusinessManager {
 	* @return Map<String, Object> data
 	* @throws Will throw an error if the data is null.
 	*/
+	@SuppressWarnings("unchecked")
 	@Override
 	protected Map<String, Object> onCrete(String openid, Map<String, String> data) {
 		Map<String, Object> map = new HashMap<String, Object>();
 		String actid = openid + String.valueOf(System.currentTimeMillis());
-		Map<String, String> payIdMap = feignPayidManager.getPayid2Map(actid, openid);
-		String payid = payIdMap.get(openid);
+		
+		Map<String, Object> sendpayidmap = new HashMap<String, Object>();
+		Map<String, Object> datatmp = new HashMap<String, Object>();
+		datatmp.put("openid", openid);
+		datatmp.put("actid", actid);
+		sendpayidmap.put("xrdataction", "getpayid");
+		sendpayidmap.put("data", datatmp);
+		Map<String, Object> payidmap = (Map<String, Object>)feignDataManager.doSupport2DataCenter(sendpayidmap).get("body");
+		
+		String payid = (String)payidmap.get(openid);
 		logger.info("[payid]=" + payid);
 		if (payid == null) {
 			map.put("error_msg", "payID获取失败");
@@ -169,8 +174,16 @@ public class BusinessServer extends BusinessManager {
 			resmap.put("alert_msg", "该活动已结算，无法加入");
 			return resmap;
 		}else {
-			Map<String, String> payIdMap = feignPayidManager.getPayid2Map(actid, openid);
-			String payid = payIdMap.get(openid);
+			
+			Map<String, Object> sendpayidmap = new HashMap<String, Object>();
+			Map<String, Object> payidtmp = new HashMap<String, Object>();
+			payidtmp.put("openid", openid);
+			payidtmp.put("actid", actid);
+			sendpayidmap.put("xrdataction", "getpayid");
+			sendpayidmap.put("data", payidtmp);
+			Map<String, Object> payidmap = (Map<String, Object>)feignDataManager.doSupport2DataCenter(sendpayidmap).get("body");
+			
+			String payid = (String)payidmap.get(openid);
 			logger.info("[payid]=" + payid);
 			if (payid == null) {
 				resmap.put("error_msg", "payID获取失败");
@@ -299,11 +312,16 @@ public class BusinessServer extends BusinessManager {
 			sendmap1.put("data", datatmp1);
 			Map<String, String> actidmap = (Map<String, String>)feignDataManager.doSupport2DataCenter(sendmap1).get("body");
 			
-			Map<String, String> payIdMap = feignPayidManager.getMap(actid);
+			Map<String, Object> sendpayidmap = new HashMap<String, Object>();
+			Map<String, Object> payidtmp = new HashMap<String, Object>();
+			payidtmp.put("actid", actid);
+			sendpayidmap.put("xrdataction", "getpayidMap");
+			sendpayidmap.put("data", payidtmp);
+			Map<String, String> payidmap = (Map<String, String>)feignDataManager.doSupport2DataCenter(sendpayidmap).get("body");
 			
 			for (Entry<String, String> entry: actidmap.entrySet()) {
 				if(entry.getValue().equals("true")) {
-					String payid = payIdMap.get(entry.getKey());
+					String payid = payidmap.get(entry.getKey());
 					threadPool.RefundThread(payid);
 				}
 			}

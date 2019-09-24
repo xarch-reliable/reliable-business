@@ -15,8 +15,8 @@ public class FeignPayHystrix implements FeignPayManager, FeignPayidManager {
 	private static final Logger logger = LoggerFactory.getLogger(FeignPayHystrix.class);
 
 	@Override
-	public Map<String, String> getPayid2Map(String actid, String openid) {
-		Map<String, String> map = new HashMap<String, String>();
+	public Map<String, Object> getPayid2Map(String actid, String openid) {
+		Map<String, Object> map = new HashMap<String, Object>();
 		logger.info("[FeignPayidManager]获取getPayid2Map失败");
 		map.put("error_msg", "[FeignPayidManager]获取getPayid2Map失败");
 		map.put("openid", openid);
@@ -25,8 +25,8 @@ public class FeignPayHystrix implements FeignPayManager, FeignPayidManager {
 	}
 
 	@Override
-	public Map<String, String> getMap(String actid) {
-		Map<String, String> map = new HashMap<String, String>();
+	public Map<String, Object> getMap(String actid) {
+		Map<String, Object> map = new HashMap<String, Object>();
 		logger.info("[FeignPayidManager]获取getMap失败");
 		map.put("error_msg", "[FeignPayidManager]获取getMap失败");
 		map.put("actid", actid);

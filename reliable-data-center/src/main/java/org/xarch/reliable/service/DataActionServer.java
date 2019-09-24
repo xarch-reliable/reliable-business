@@ -25,6 +25,10 @@ public interface DataActionServer {
 	public Map<String, Object> onSetActStatus(String openid, String actid, String status);
 	
 	public Map<String, Object> onAddActPartNumber(String actid);
+	
+	public Map<String, Object> onGetPayid(String actid, String openid);
+	
+	public Map<String, Object> onGetPayidMap(String actid);
 
 	public Map<String, Object> onCheckOAManagerList(String openid, String actid);
 	
