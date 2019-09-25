@@ -172,11 +172,7 @@ public class BusinessServer extends BusinessManager {
 		}else {
 			
 			Map<String, Object> sendpayidmap = new HashMap<String, Object>();
-			Map<String, Object> payidtmp = new HashMap<String, Object>();
-			payidtmp.put("openid", openid);
-			payidtmp.put("actid", actid);
 			sendpayidmap.put("xrdataction", "getpayid");
-			sendpayidmap.put("data", payidtmp);
 			Map<String, Object> payidmap = (Map<String, Object>)feignDataManager.doSupport2DataCenter(sendpayidmap).get("body");
 			
 			String payid = (String)payidmap.get(openid);
