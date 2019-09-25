@@ -55,11 +55,7 @@ public class BusinessServer extends BusinessManager {
 		String actid = openid + String.valueOf(System.currentTimeMillis());
 		
 		Map<String, Object> sendpayidmap = new HashMap<String, Object>();
-		Map<String, Object> datatmp = new HashMap<String, Object>();
-		datatmp.put("openid", openid);
-		datatmp.put("actid", actid);
 		sendpayidmap.put("xrdataction", "getpayid");
-		sendpayidmap.put("data", datatmp);
 		Map<String, Object> payidmap = (Map<String, Object>)feignDataManager.doSupport2DataCenter(sendpayidmap).get("body");
 		
 		String payid = (String)payidmap.get(openid);
