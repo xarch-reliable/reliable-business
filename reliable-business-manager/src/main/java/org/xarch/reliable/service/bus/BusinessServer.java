@@ -58,7 +58,7 @@ public class BusinessServer extends BusinessManager {
 		sendpayidmap.put("xrdataction", "getpayid");
 		Map<String, Object> payidmap = (Map<String, Object>)feignDataManager.doSupport2DataCenter(sendpayidmap).get("body");
 		
-		String payid = (String)payidmap.get(openid);
+		String payid = (String)payidmap.get("payid");
 		logger.info("[payid]=" + payid);
 		if (payid == null) {
 			map.put("error_msg", "payID获取失败");
