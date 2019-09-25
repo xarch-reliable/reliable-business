@@ -9,10 +9,10 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>org.xarch</groupId>
-	<artifactId>reliable-id-provider</artifactId>
+	<artifactId>reliable-payid-provider</artifactId>
 	<version>0.0.1</version>
-	<name>reliable-id-provider</name>
-	<description>活动信息存储</description>
+	<name>reliable-payid-provider</name>
+	<description>payid提供者</description>
 
 	<properties>
 		<java.version>1.8</java.version>
