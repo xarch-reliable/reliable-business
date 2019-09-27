@@ -46,12 +46,6 @@ public abstract class ActionMnager {
 		case finish:
 			responseMap.put("body", onFinish(openid, (Map<String, String>) bodyMap.get("data")));
 			break;
-<<<<<<< HEAD
-		case draftinfo:
-			responseMap.put("body", onDraft(openid, (Map<String, String>) bodyMap.get("data")));
-			break;
-=======
->>>>>>> parent of 3106bc4... draft
 		default:
 			responseMap.put("body", onDefault());
 			break;

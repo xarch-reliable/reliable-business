@@ -54,15 +54,6 @@ public class DataActionServerImpl implements DataActionServer{
 	
 	@Autowired
 	private FeignRefundNotifyManager feignRefundNotifyManager;
-<<<<<<< HEAD
-
-	@Autowired
-	private FeignDraftManager feignDraftManager;
-	
-	@Autowired
-	private FeignDraftidManager feignDraftidManager;
-=======
->>>>>>> parent of 3106bc4... draft
 
 	//线程管理者
 	@Autowired
@@ -296,61 +287,11 @@ public class DataActionServerImpl implements DataActionServer{
 	@Override
 	public Map<String, Object> onGetPayid(String actid, String openid) {
 		return feignPayidManager.getPayid2Map(actid, openid);
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
 	}
 
 	@Override
 	public Map<String, Object> onGetPayidMap(String actid) {
 		return feignPayidManager.getMap(actid);
 	}
-<<<<<<< HEAD
-
-	@Override
-	public Map<String, Object> onSetDraftinfo(String key, Map<String, Object> data) {
-	
-		Map<String, Object> resmap = new HashMap<String, Object>();
-		if(key != null) {
-			if(feignDraftManager.setDraftinfo(key, data).get("success_msg").equals("true")&&feignDraftidManager.setDraftidinfo((String)data.get("openid"), key, data).get("success_msg").equals("true")) {
-				resmap.put("success_msg", "true");
-			}else {
-				resmap.put("error_msg", "false");
-			}
-		}else {
-			
-			resmap.put("error_msg", "false");
-			
-		}
-		return resmap;
-=======
-	}
-=======
-	}
->>>>>>> parent of c35622d... 修改payid获取方式
-=======
-	}
->>>>>>> parent of c35622d... 修改payid获取方式
-=======
-	}
->>>>>>> parent of c35622d... 修改payid获取方式
-
-	@Override
-	public Map<String, Object> onGetPayidMap(String actid) {
-		return feignPayidManager.getMap(actid);
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
->>>>>>> parent of c35622d... 修改payid获取方式
-=======
->>>>>>> parent of c35622d... 修改payid获取方式
-=======
->>>>>>> parent of c35622d... 修改payid获取方式
-=======
->>>>>>> parent of c35622d... 修改payid获取方式
-	}
-=======
->>>>>>> parent of 3106bc4... draft
 
 }
