@@ -8,11 +8,19 @@
 		<version>2.1.8.RELEASE</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
+<<<<<<< HEAD:reliable-draft-manager/pom.xml
 	<groupId>org.xarch.reliable</groupId>
 	<artifactId>reliable-draft-manager</artifactId>
 	<version>0.0.1</version>
 	<name>reliable-draft-manager</name>
 	<description>退款通知</description>
+=======
+	<groupId>org.xarch</groupId>
+	<artifactId>reliable-id-provider</artifactId>
+	<version>0.0.1</version>
+	<name>reliable-id-provider</name>
+	<description>活动信息存储</description>
+>>>>>>> parent of 2edd5f3... 修正:reliable-payid-provider/pom.xml
 
 	<properties>
 		<java.version>1.8</java.version>
