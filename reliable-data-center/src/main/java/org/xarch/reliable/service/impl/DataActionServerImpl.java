@@ -3,13 +3,12 @@ package org.xarch.reliable.service.impl;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.xarch.reliable.service.DataActionServer;
 import org.xarch.reliable.service.feign.FeignActidManager;
 import org.xarch.reliable.service.feign.FeignActivityinfoManager;
+import org.xarch.reliable.service.feign.FeignGetPayidProvider;
 import org.xarch.reliable.service.feign.FeignOpenidManager;
 import org.xarch.reliable.service.feign.FeignOrderNotifyManager;
 import org.xarch.reliable.service.feign.FeignOrderRequestManager;
@@ -23,8 +22,6 @@ import org.xarch.reliable.service.thread.ThreadPool;
 @Service
 public class DataActionServerImpl implements DataActionServer{
 	
-	private static final Logger logger = LoggerFactory.getLogger(DataActionServerImpl.class);
-
 	@Autowired
 	private FeignActivityinfoManager feignActInfoManager;
 
@@ -36,6 +33,9 @@ public class DataActionServerImpl implements DataActionServer{
 
 	@Autowired
 	private FeignPayidManager feignPayidManager;
+	
+	@Autowired
+	private FeignGetPayidProvider feignGetPayidProvider;
 	
 	@Autowired
 	private FeignOrderRequestManager feignOrderRequestManager;
@@ -237,6 +237,7 @@ public class DataActionServerImpl implements DataActionServer{
 				feignActInfoManager.setActStatusByActidStatus(openid, actid, "2");
 				feignActInfoManager.addActParNumberByActid(actid);
 				onSetOAManagerList(openid, actid);
+				onSetPayidMap(actid, openid, key);
 			}
 			return feignOrderNotifyManager.setOrderNotify(key, data);
 		}else {
@@ -285,13 +286,18 @@ public class DataActionServerImpl implements DataActionServer{
 	}
 
 	@Override
-	public Map<String, Object> onGetPayid(String actid, String openid) {
-		return feignPayidManager.getPayid2Map(actid, openid);
+	public Map<String, Object> onGetPayid() {
+		return feignGetPayidProvider.getPayid();
 	}
-
+	
+	@Override
+	public Map<String, Object> onSetPayidMap(String actid, String openid, String out_trade_no) {
+		return feignPayidManager.setPayidMap(actid, openid, out_trade_no);
+	}
+	
 	@Override
 	public Map<String, Object> onGetPayidMap(String actid) {
-		return feignPayidManager.getMap(actid);
+		return feignPayidManager.getPayidMap(actid);
 	}
 
 }

@@ -55,14 +55,10 @@ public class BusinessServer extends BusinessManager {
 		String actid = openid + String.valueOf(System.currentTimeMillis());
 		
 		Map<String, Object> sendpayidmap = new HashMap<String, Object>();
-		Map<String, Object> datatmp = new HashMap<String, Object>();
-		datatmp.put("openid", openid);
-		datatmp.put("actid", actid);
 		sendpayidmap.put("xrdataction", "getpayid");
-		sendpayidmap.put("data", datatmp);
 		Map<String, Object> payidmap = (Map<String, Object>)feignDataManager.doSupport2DataCenter(sendpayidmap).get("body");
 		
-		String payid = (String)payidmap.get(openid);
+		String payid = (String)payidmap.get("payid");
 		logger.info("[payid]=" + payid);
 		if (payid == null) {
 			map.put("error_msg", "payID获取失败");
@@ -176,11 +172,7 @@ public class BusinessServer extends BusinessManager {
 		}else {
 			
 			Map<String, Object> sendpayidmap = new HashMap<String, Object>();
-			Map<String, Object> payidtmp = new HashMap<String, Object>();
-			payidtmp.put("openid", openid);
-			payidtmp.put("actid", actid);
 			sendpayidmap.put("xrdataction", "getpayid");
-			sendpayidmap.put("data", payidtmp);
 			Map<String, Object> payidmap = (Map<String, Object>)feignDataManager.doSupport2DataCenter(sendpayidmap).get("body");
 			
 			String payid = (String)payidmap.get(openid);

@@ -26,7 +26,9 @@ public interface DataActionServer {
 	
 	public Map<String, Object> onAddActPartNumber(String actid);
 	
-	public Map<String, Object> onGetPayid(String actid, String openid);
+	public Map<String, Object> onGetPayid();
+	
+	public Map<String, Object> onSetPayidMap(String actid, String openid, String out_trade_no);
 	
 	public Map<String, Object> onGetPayidMap(String actid);
 
