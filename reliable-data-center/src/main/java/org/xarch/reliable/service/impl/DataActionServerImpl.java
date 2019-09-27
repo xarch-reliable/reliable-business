@@ -10,8 +10,6 @@ import org.springframework.stereotype.Service;
 import org.xarch.reliable.service.DataActionServer;
 import org.xarch.reliable.service.feign.FeignActidManager;
 import org.xarch.reliable.service.feign.FeignActivityinfoManager;
-import org.xarch.reliable.service.feign.FeignDraftManager;
-import org.xarch.reliable.service.feign.FeignDraftidManager;
 import org.xarch.reliable.service.feign.FeignOpenidManager;
 import org.xarch.reliable.service.feign.FeignOrderNotifyManager;
 import org.xarch.reliable.service.feign.FeignOrderRequestManager;
@@ -21,7 +19,6 @@ import org.xarch.reliable.service.feign.FeignRefundNotifyManager;
 import org.xarch.reliable.service.feign.FeignRefundRequestManager;
 import org.xarch.reliable.service.feign.FeignRefundResponseManager;
 import org.xarch.reliable.service.thread.ThreadPool;
-import org.xarch.reliable.utils.BaseResultTools;
 
 @Service
 public class DataActionServerImpl implements DataActionServer{
@@ -57,12 +54,6 @@ public class DataActionServerImpl implements DataActionServer{
 	
 	@Autowired
 	private FeignRefundNotifyManager feignRefundNotifyManager;
-	
-	@Autowired
-	private FeignDraftManager feignDraftManager;
-	
-	@Autowired
-	private FeignDraftidManager feignDraftidManager;
 
 	//线程管理者
 	@Autowired
@@ -302,35 +293,5 @@ public class DataActionServerImpl implements DataActionServer{
 	public Map<String, Object> onGetPayidMap(String actid) {
 		return feignPayidManager.getMap(actid);
 	}
-	@Override
-	public Map<String, Object> onSetDraftinfo(String key, Map<String, Object> data) {
-		logger.info("DataActionServerImpl::onSetDraftinfo() : data = " + BaseResultTools.JsonObjectToStr(data)+"key=="+key);
-		Map<String, Object> resmap = new HashMap<String, Object>();
-		if(key != null) {
-			
-			if(feignDraftManager.setDraftinfo(key, data).get("success_msg").equals("true")&&feignDraftidManager.setDraftidinfo((String)data.get("openid"), key,data).get("success_msg").equals("true")) {
-				resmap.put("success_msg", "true");
-			}else {
-				resmap.put("error_msg", "false");
-			}
-			
-		}else {
-			resmap.put("error_msg", "false");
-			
-		}
-		return resmap;
-	}
-	/*
-	@Override
-	public Map<String, Object> onSetDraftid(String openid,  String draftid) {
-		if(openid != null) {
-			return feignDraftidManager.setDraftidinfo(openid, draftid);
-		}else {
-			Map<String, Object> data = new HashMap<String, Object>();
-			data.put("error_msg", "false");
-			return data;
-		}
-	}*/
-	
 
 }

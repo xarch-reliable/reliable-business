@@ -53,6 +53,7 @@ public class BusinessServer extends BusinessManager {
 	protected Map<String, Object> onCrete(String openid, Map<String, String> data) {
 		Map<String, Object> map = new HashMap<String, Object>();
 		String actid = openid + String.valueOf(System.currentTimeMillis());
+		
 		Map<String, Object> sendpayidmap = new HashMap<String, Object>();
 		Map<String, Object> datatmp = new HashMap<String, Object>();
 		datatmp.put("openid", openid);
@@ -328,28 +329,6 @@ public class BusinessServer extends BusinessManager {
 		}else {
 			resmap.put("alert_msg", "该活动已结算");
 		}
-		return resmap;
-	}
-
-	@SuppressWarnings("unchecked")
-	@Override
-	protected Map<String, Object> onDraft(String openid, Map<String, String> data) {
-		String draftid = String.valueOf(System.currentTimeMillis()) + openid;
-		
-		Map<String, Object> senddraftidmap = new HashMap<String, Object>();
-		data.put("draftid", draftid);
-		data.put("openid", openid);
-		senddraftidmap.put("xrdataction", "setDraftinfo");
-		senddraftidmap.put("data", data);
-		Map<String, String> draftmap = (Map<String, String>)feignDataManager.doSupport2DataCenter(senddraftidmap).get("body");
-		// TODO Auto-generated method stub
-		Map<String, Object> resmap = new HashMap<String, Object>();
-		if(draftmap.get("success_msg").equals("true")) {
-			resmap.put("alert_msg", "已存为草稿");
-		}else {
-			resmap.put("alert_msg", "存入草稿失败");
-		}
-		
 		return resmap;
 	}
 }
