@@ -298,6 +298,7 @@ public class DataActionServerImpl implements DataActionServer{
 		return feignPayidManager.getPayid2Map(actid, openid);
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 	}
 
 	@Override
@@ -327,11 +328,17 @@ public class DataActionServerImpl implements DataActionServer{
 =======
 	}
 >>>>>>> parent of c35622d... 修改payid获取方式
+=======
+	}
+>>>>>>> parent of c35622d... 修改payid获取方式
 
 	@Override
 	public Map<String, Object> onGetPayidMap(String actid) {
 		return feignPayidManager.getMap(actid);
 <<<<<<< HEAD
+<<<<<<< HEAD
+>>>>>>> parent of c35622d... 修改payid获取方式
+=======
 >>>>>>> parent of c35622d... 修改payid获取方式
 =======
 >>>>>>> parent of c35622d... 修改payid获取方式
