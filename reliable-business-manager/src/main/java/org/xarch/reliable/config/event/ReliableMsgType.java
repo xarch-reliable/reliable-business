@@ -9,7 +9,11 @@ public enum ReliableMsgType {
 	check, //签到
 	partuserinfo, //参与活动的用户信息
 	actinfo, //活动信息
+<<<<<<< HEAD
 	allactinfo, //个人所有活动信息
 	draftinfo
+=======
+	allactinfo //个人所有活动信息
+>>>>>>> parent of 3106bc4... draft
 	
 }

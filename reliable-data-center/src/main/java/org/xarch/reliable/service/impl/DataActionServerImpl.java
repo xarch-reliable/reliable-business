@@ -10,8 +10,6 @@ import org.springframework.stereotype.Service;
 import org.xarch.reliable.service.DataActionServer;
 import org.xarch.reliable.service.feign.FeignActidManager;
 import org.xarch.reliable.service.feign.FeignActivityinfoManager;
-import org.xarch.reliable.service.feign.FeignDraftManager;
-import org.xarch.reliable.service.feign.FeignDraftidManager;
 import org.xarch.reliable.service.feign.FeignOpenidManager;
 import org.xarch.reliable.service.feign.FeignOrderNotifyManager;
 import org.xarch.reliable.service.feign.FeignOrderRequestManager;
@@ -56,12 +54,15 @@ public class DataActionServerImpl implements DataActionServer{
 	
 	@Autowired
 	private FeignRefundNotifyManager feignRefundNotifyManager;
+<<<<<<< HEAD
 
 	@Autowired
 	private FeignDraftManager feignDraftManager;
 	
 	@Autowired
 	private FeignDraftidManager feignDraftidManager;
+=======
+>>>>>>> parent of 3106bc4... draft
 
 	//线程管理者
 	@Autowired
@@ -301,6 +302,7 @@ public class DataActionServerImpl implements DataActionServer{
 	public Map<String, Object> onGetPayidMap(String actid) {
 		return feignPayidManager.getMap(actid);
 	}
+<<<<<<< HEAD
 
 	@Override
 	public Map<String, Object> onSetDraftinfo(String key, Map<String, Object> data) {
@@ -319,5 +321,7 @@ public class DataActionServerImpl implements DataActionServer{
 		}
 		return resmap;
 	}
+=======
+>>>>>>> parent of 3106bc4... draft
 
 }

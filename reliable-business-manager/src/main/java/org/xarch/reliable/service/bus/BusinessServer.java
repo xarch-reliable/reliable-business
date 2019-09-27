@@ -331,6 +331,7 @@ public class BusinessServer extends BusinessManager {
 		}
 		return resmap;
 	}
+<<<<<<< HEAD
 	
 	@SuppressWarnings("unchecked")
 	@Override
@@ -353,4 +354,6 @@ public class BusinessServer extends BusinessManager {
 		
 		return resmap;
 	}
+=======
+>>>>>>> parent of 3106bc4... draft
 }
