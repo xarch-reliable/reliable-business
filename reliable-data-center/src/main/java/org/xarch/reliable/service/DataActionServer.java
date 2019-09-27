@@ -56,6 +56,12 @@ public interface DataActionServer {
 	
 	public Map<String, Object> onGetRefundNotify(String key);
 
+	public Map<String, Object> onSetDraftinfo(String key, Map<String, Object> data);
+	
 	public Map<String, Object> onDefault();
+
+	
+
+	/*public Map<String, Object> onSetDraftid(String openid,  String draftid);*/
 	
 }
