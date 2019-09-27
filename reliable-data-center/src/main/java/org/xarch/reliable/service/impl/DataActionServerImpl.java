@@ -10,6 +10,8 @@ import org.springframework.stereotype.Service;
 import org.xarch.reliable.service.DataActionServer;
 import org.xarch.reliable.service.feign.FeignActidManager;
 import org.xarch.reliable.service.feign.FeignActivityinfoManager;
+import org.xarch.reliable.service.feign.FeignDraftManager;
+import org.xarch.reliable.service.feign.FeignDraftidManager;
 import org.xarch.reliable.service.feign.FeignOpenidManager;
 import org.xarch.reliable.service.feign.FeignOrderNotifyManager;
 import org.xarch.reliable.service.feign.FeignOrderRequestManager;
@@ -54,6 +56,12 @@ public class DataActionServerImpl implements DataActionServer{
 	
 	@Autowired
 	private FeignRefundNotifyManager feignRefundNotifyManager;
+
+	@Autowired
+	private FeignDraftManager feignDraftManager;
+	
+	@Autowired
+	private FeignDraftidManager feignDraftidManager;
 
 	//线程管理者
 	@Autowired
@@ -292,6 +300,24 @@ public class DataActionServerImpl implements DataActionServer{
 	@Override
 	public Map<String, Object> onGetPayidMap(String actid) {
 		return feignPayidManager.getMap(actid);
+	}
+
+	@Override
+	public Map<String, Object> onSetDraftinfo(String key, Map<String, Object> data) {
+	
+		Map<String, Object> resmap = new HashMap<String, Object>();
+		if(key != null) {
+			if(feignDraftManager.setDraftinfo(key, data).get("success_msg").equals("true")&&feignDraftidManager.setDraftidinfo((String)data.get("openid"), key, data).get("success_msg").equals("true")) {
+				resmap.put("success_msg", "true");
+			}else {
+				resmap.put("error_msg", "false");
+			}
+		}else {
+			
+			resmap.put("error_msg", "false");
+			
+		}
+		return resmap;
 	}
 
 }
