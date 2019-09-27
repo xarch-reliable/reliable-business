@@ -296,6 +296,7 @@ public class DataActionServerImpl implements DataActionServer{
 	@Override
 	public Map<String, Object> onGetPayid(String actid, String openid) {
 		return feignPayidManager.getPayid2Map(actid, openid);
+<<<<<<< HEAD
 	}
 
 	@Override
@@ -320,6 +321,13 @@ public class DataActionServerImpl implements DataActionServer{
 			
 		}
 		return resmap;
+=======
+	}
+
+	@Override
+	public Map<String, Object> onGetPayidMap(String actid) {
+		return feignPayidManager.getMap(actid);
+>>>>>>> parent of c35622d... 修改payid获取方式
 	}
 =======
 >>>>>>> parent of 3106bc4... draft
