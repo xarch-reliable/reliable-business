@@ -9,6 +9,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.xarch.reliable.service.feign.FeignClearManager;
 import org.xarch.reliable.service.feign.FeignDataManager;
 import org.xarch.reliable.service.feign.FeignJsapiManager;
 import org.xarch.reliable.service.feign.FeignPayManager;
@@ -32,6 +33,9 @@ public class BusinessServer extends BusinessManager {
 	@Autowired
 	private FeignDataManager feignDataManager;
 
+	@Autowired
+	private FeignClearManager feignClearManager;
+	
 	@Autowired
 	private FeignPayManager feignPayManager;
 	
