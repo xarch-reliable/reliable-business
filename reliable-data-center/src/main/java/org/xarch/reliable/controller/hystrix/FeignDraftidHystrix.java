@@ -22,13 +22,14 @@ public class FeignDraftidHystrix implements FeignDraftidManager {
 	}
 	
 	@Override
-	public Set getDraftidinfo(String openid){
+	public  Map<String, Object> getDraftidinfo(String openid){
 		
-		/*
-		 * Map<String, Object> map = new HashMap<String, Object>(); map.put("error_msg",
-		 * "[FeignDraftidManager]发起getDraftidinfo请求失败"); return map;
-		 */
-		Set body = new HashSet();
+		
+		  Map<String, Object> map = new HashMap<String, Object>(); 
+		  map.put("error_msg","[FeignDraftidManager]发起getDraftidinfo请求失败"); 
+		  return map;
+		 
+		
 	}
 
 }

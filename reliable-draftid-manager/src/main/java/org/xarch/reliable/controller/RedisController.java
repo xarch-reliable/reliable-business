@@ -29,7 +29,7 @@ public class RedisController {
 		
 	}
 	@RequestMapping("/getdraftid")
-	public Set getMap(@RequestParam(value = "openid", required = true) String openid) {
+	public Map<String, Object> getMap(@RequestParam(value = "openid", required = true) String openid) {
 		logger.info("RedisController() :: getdraftid : openid="+openid);
 		return draftidinfoServer.getDraftidinfo(openid);
 	}

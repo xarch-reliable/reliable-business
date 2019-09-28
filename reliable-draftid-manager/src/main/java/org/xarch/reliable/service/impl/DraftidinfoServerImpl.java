@@ -44,11 +44,13 @@ public class DraftidinfoServerImpl implements DraftidinfoServer {
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public Set getDraftidinfo(String openid) {
+	public Map<String, Object> getDraftidinfo(String openid) {
 		// TODO Auto-generated method stub
+		Map<String, Object> draftidmap = new HashMap<String, Object>();
 		@SuppressWarnings("rawtypes")
-		Set draftidmap = redisUtil.sGet(openid);
-		logger.info("DraftidinfoServerImpl() :: getDraftidinfo : draftidmap="+draftidmap);
+		Set draftidset = redisUtil.sGet(openid);
+		logger.info("DraftidinfoServerImpl() :: getDraftidinfo : draftidmap="+draftidset);
+		draftidmap.put("draftmap", draftidset);
 		return draftidmap;
 		
 	}

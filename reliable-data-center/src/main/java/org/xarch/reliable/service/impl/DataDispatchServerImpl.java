@@ -8,16 +8,16 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.xarch.reliable.config.event.ReliableDataType;
-import org.xarch.reliable.service.DataActionServer;
-import org.xarch.reliable.service.DataDealServer;
+import org.xarch.reliable.service.DataWorkServer;
+import org.xarch.reliable.service.DataDispatchServer;
 
 @Service
-public class DataDealServerImpl implements DataDealServer {
+public class DataDispatchServerImpl implements DataDispatchServer {
 	
-	private static final Logger logger = LoggerFactory.getLogger(DataDealServerImpl.class);
+	private static final Logger logger = LoggerFactory.getLogger(DataDispatchServerImpl.class);
 	
 	@Autowired
-	private DataActionServer dataActionServer;
+	private DataWorkServer dataActionServer;
 
 	@SuppressWarnings({ "unchecked" })
 	@Override

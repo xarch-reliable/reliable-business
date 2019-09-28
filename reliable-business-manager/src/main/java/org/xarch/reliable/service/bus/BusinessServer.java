@@ -327,5 +327,49 @@ public class BusinessServer extends BusinessManager {
 		}
 		return resmap;
 	}
+	
+	@SuppressWarnings("unchecked")
+	@Override
+	protected Map<String, Object> onDraft(String openid, Map<String, String> data) {
+		String draftid = String.valueOf(System.currentTimeMillis()) + openid;
+		
+		Map<String, Object> senddraftidmap = new HashMap<String, Object>();
+		data.put("draftid", draftid);
+		data.put("openid", openid);
+		senddraftidmap.put("xrdataction", "setDraftinfo");
+		senddraftidmap.put("data", data);
+		Map<String, String> draftmap = (Map<String, String>)feignDataManager.doSupport2DataCenter(senddraftidmap).get("body");
+		// TODO Auto-generated method stub
+		Map<String, Object> resmap = new HashMap<String, Object>();
+		if(draftmap.get("success_msg").equals("true")) {
+			resmap.put("alert_msg", "已存为草稿");
+		}else {
+			resmap.put("alert_msg", "存入草稿失败");
+		}
+		
+		return resmap;
+	}
+	
+	@SuppressWarnings({ "unchecked", "null" })
+	@Override
+	protected Map<String, Object> onGetDraftidMap(String openid) {
+		
+		
+		Map<String, Object> senddraftidmap = new HashMap<String, Object>();
+		Map<String, Object> datatmp = new HashMap<String, Object>();
+		datatmp.put("openid", openid);
+		senddraftidmap.put("xrdataction", "getDraftidmap");
+		senddraftidmap.put("data", datatmp);
+		Map<String, Object> draftmap = (Map<String, Object>)feignDataManager.doSupport2DataCenter(senddraftidmap).get("body");
+		if(draftmap!=null) {
+			
+			return draftmap;
+		}else {
+			draftmap.put("alert_msg", "获取草稿失败");
+			return draftmap;
+		}
+		
+		
+	}
 
 }

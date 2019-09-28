@@ -3,7 +3,7 @@ package org.xarch.reliable.service;
 import java.util.Map;
 import java.util.Set;
 
-public interface DataActionServer {
+public interface DataWorkServer {
 	
 	public Map<String, Object> onGetActinfoListByOpenid(String openid);
 
@@ -61,7 +61,7 @@ public interface DataActionServer {
 	
 	public Map<String, Object> onSetDraftinfo(String key, Map<String, Object> data);
 	
-	public Set onGetDraftidmap(String openid);
+	public Map<String, Object> onGetDraftidmap(String openid);
 
 	public Map<String, Object> onDefault();
 	

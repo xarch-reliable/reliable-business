@@ -2,7 +2,7 @@ package org.xarch.reliable.service;
 
 import java.util.Map;
 
-public interface DataDealServer {
+public interface DataDispatchServer {
 	
 	public Map<String, Object> execute(Map<String, Object> data);
 	

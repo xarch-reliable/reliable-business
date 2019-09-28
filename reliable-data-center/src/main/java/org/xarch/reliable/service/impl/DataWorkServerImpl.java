@@ -6,7 +6,7 @@ import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.xarch.reliable.service.DataActionServer;
+import org.xarch.reliable.service.DataWorkServer;
 import org.xarch.reliable.service.feign.FeignActidManager;
 import org.xarch.reliable.service.feign.FeignActivityinfoManager;
 import org.xarch.reliable.service.feign.FeignDraftManager;
@@ -23,7 +23,7 @@ import org.xarch.reliable.service.feign.FeignRefundResponseManager;
 import org.xarch.reliable.service.thread.ThreadPool;
 
 @Service
-public class DataActionServerImpl implements DataActionServer{
+public class DataWorkServerImpl implements DataWorkServer{
 	
 	@Autowired
 	private FeignActivityinfoManager feignActInfoManager;
@@ -328,7 +328,7 @@ public class DataActionServerImpl implements DataActionServer{
 	}
 	
 	@Override
-	public Set onGetDraftidmap(String openid) {
+	public Map<String, Object> onGetDraftidmap(String openid) {
 		return feignDraftidManager.getDraftidinfo(openid);
 	}
 
