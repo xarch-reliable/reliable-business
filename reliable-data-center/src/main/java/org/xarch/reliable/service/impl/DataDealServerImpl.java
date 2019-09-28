@@ -125,6 +125,12 @@ public class DataDealServerImpl implements DataDealServer {
 		case getRefundNotify:
 			responseMap.put("body", dataActionServer.onGetRefundNotify((String)bodyMap.get("out_refund_no")));
 			break;
+		case setDraftinfo:
+			responseMap.put("body", dataActionServer.onSetDraftinfo((String)bodyMap.get("draftid"), bodyMap));
+			break;
+		case getDraftidmap:
+			responseMap.put("body", dataActionServer.onGetDraftidmap((String)bodyMap.get("openid")));
+			break;
 			
 		default:
 			responseMap.put("body", dataActionServer.onDefault());
