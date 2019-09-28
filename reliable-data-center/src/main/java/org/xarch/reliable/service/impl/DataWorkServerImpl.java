@@ -314,7 +314,7 @@ public class DataWorkServerImpl implements DataWorkServer{
 	
 		Map<String, Object> resmap = new HashMap<String, Object>();
 		if(key != null) {
-			if(feignDraftManager.setDraftinfo(key, data).get("success_msg").equals("true")&&feignDraftidManager.setDraftidinfo((String)data.get("openid"), key, data).get("success_msg").equals("true")) {
+			if(feignDraftManager.setDraftinfo(key, data).get("success_msg")!=null&&feignDraftidManager.setDraftidinfo((String)data.get("openid"), key, data).get("success_msg")!=null) {
 				resmap.put("success_msg", "true");
 			}else {
 				resmap.put("error_msg", "false");
