@@ -341,7 +341,7 @@ public class BusinessServer extends BusinessManager {
 		Map<String, String> draftmap = (Map<String, String>)feignDataManager.doSupport2DataCenter(senddraftidmap).get("body");
 		// TODO Auto-generated method stub
 		Map<String, Object> resmap = new HashMap<String, Object>();
-		if(draftmap.get("success_msg").equals("true")) {
+		if(draftmap.get("success_msg") != null) {
 			resmap.put("alert_msg", "已存为草稿");
 		}else {
 			resmap.put("alert_msg", "存入草稿失败");
