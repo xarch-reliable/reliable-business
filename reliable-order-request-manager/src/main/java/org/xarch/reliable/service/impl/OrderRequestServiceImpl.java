@@ -49,4 +49,15 @@ public class OrderRequestServiceImpl implements OrderRequestService{
 		return (Map<String, Object>)orderRequestMap;
 	}
 
+	@Override
+	public Map<String, Object> getOrderTotalFee(String out_trade_no) {
+		Map<String, Object> resmap = new HashMap<String, Object>();
+		String total_fee = (String)redisUtil.hget(out_trade_no, "total_fee");
+		if(total_fee == null) {
+			resmap.put("error_msg", "total_fee为空");
+		}
+		resmap.put("total_fee", total_fee);
+		return resmap;
+	}
+
 }

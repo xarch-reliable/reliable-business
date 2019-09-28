@@ -16,6 +16,6 @@ public interface OrderRequestService {
 	
 	public Map<String, Object> getOrderRequest(String out_trade_no);
 	
-	
+	public Map<String, Object> getOrderTotalFee(String out_trade_no);
 
 }

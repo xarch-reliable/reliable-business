@@ -16,4 +16,7 @@ public interface FeignOrderRequestManager {
 
 	@PostMapping("/order/request/info/get")
 	public Map<String, Object> getOrderRequest(@RequestParam(value = "out_trade_no", required = true) String out_trade_no);
+	
+	@PostMapping("/order/request/get/totalfee")
+	public Map<String, Object> getOrderTotalFee(@RequestParam(value = "out_trade_no", required = true) String out_trade_no);
 }

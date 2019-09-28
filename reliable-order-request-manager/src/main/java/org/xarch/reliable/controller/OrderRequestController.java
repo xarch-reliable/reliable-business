@@ -32,19 +32,20 @@ public class OrderRequestController {
 	@RequestMapping("/info/set")
 	public Map<String, Object> setMap(@RequestParam(value = "out_trade_no",required = true) String out_trade_no,
 			@RequestBody Map<String, Object> oRequestData) {
-		
-		logger.info("OrderRequestController() :: setMap : oRequestData="+BaseResultTools.JsonObjectToStr(oRequestData));
 		return oRequestService.setOrderRequest(out_trade_no, oRequestData);
 		
 	}
 	
 	@RequestMapping("/info/get")
 	public Map<String, Object> getMap(@RequestParam(value = "out_trade_no",required = true) String out_trade_no){
-		logger.info("OrderRequestController() :: getMap : out_trade_no="+out_trade_no);
 		return oRequestService.getOrderRequest(out_trade_no);
-		
-		}
 	}
+	
+	@RequestMapping("/get/totalfee")
+	public Map<String, Object> getTotalFee(@RequestParam(value = "out_trade_no",required = true) String out_trade_no){
+		return oRequestService.getOrderTotalFee(out_trade_no);
+	}
+}
 	
 	
 

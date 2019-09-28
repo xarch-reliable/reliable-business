@@ -152,6 +152,12 @@ public class DataWorkServerImpl implements DataWorkServer{
 		}
 		return resmap;
 	}
+	
+
+	@Override
+	public Map<String, Object> onGetOrderTotalFee(String out_trade_no) {
+		return feignOrderRequestManager.getOrderTotalFee(out_trade_no);
+	}
 
 	@Override
 	public Map<String, Object> onSetOrderRequest(String key, Map<String, Object> data) {

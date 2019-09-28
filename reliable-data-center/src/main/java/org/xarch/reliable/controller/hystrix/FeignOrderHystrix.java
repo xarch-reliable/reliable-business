@@ -38,4 +38,11 @@ public class FeignOrderHystrix implements FeignOrderRequestManager, FeignOrderRe
 		return map;
 	}
 
+	@Override
+	public Map<String, Object> getOrderTotalFee(String out_trade_no) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("error_msg", "[FeignOrderRequestManager]发起getOrderTotalFee请求失败");
+		return map;
+	}
+
 }

@@ -89,6 +89,9 @@ public class DataDispatchServerImpl implements DataDispatchServer {
 		case checkOAManagerList:
 			responseMap.put("body", dataActionServer.onCheckOAManagerList((String)bodyMap.get("openid"), (String)bodyMap.get("actid")));
 			break;
+		case getOrderTotalFee:
+			responseMap.put("body", dataActionServer.onGetOrderTotalFee((String)bodyMap.get("out_trade_no")));
+			break;
 		case setOrderRequest:
 			responseMap.put("body", dataActionServer.onSetOrderRequest((String)bodyMap.get("out_trade_no"), bodyMap));
 			break;

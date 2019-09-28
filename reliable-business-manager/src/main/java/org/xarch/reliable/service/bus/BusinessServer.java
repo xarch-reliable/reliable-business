@@ -9,7 +9,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.xarch.reliable.service.feign.FeignClearManager;
 import org.xarch.reliable.service.feign.FeignDataManager;
 import org.xarch.reliable.service.feign.FeignJsapiManager;
 import org.xarch.reliable.service.feign.FeignPayManager;
@@ -32,9 +31,6 @@ public class BusinessServer extends BusinessManager {
 
 	@Autowired
 	private FeignDataManager feignDataManager;
-
-	@Autowired
-	private FeignClearManager feignClearManager;
 	
 	@Autowired
 	private FeignPayManager feignPayManager;
@@ -315,12 +311,20 @@ public class BusinessServer extends BusinessManager {
 			sendpayidmap.put("data", payidtmp);
 			Map<String, String> payidmap = (Map<String, String>)feignDataManager.doSupport2DataCenter(sendpayidmap).get("body");
 			
+			Map<String, Object> clearMap = new HashMap<String, Object>();
+			Map<String, String> ReliableMap = new HashMap<String, String>();
+			Map<String, String> UnReliableMap = new HashMap<String, String>();
 			for (Entry<String, String> entry: actidmap.entrySet()) {
 				if(entry.getValue().equals("true")) {
-					String payid = payidmap.get(entry.getKey());
-					threadPool.RefundThread(payid);
+					ReliableMap.put(entry.getKey(), payidmap.get(entry.getKey()));
+				}else {
+					UnReliableMap.put(entry.getKey(), payidmap.get(entry.getKey()));
 				}
 			}
+			clearMap.put("ReliableMap", ReliableMap);
+			clearMap.put("UnReliableMap", UnReliableMap);
+			threadPool.ClearThread(clearMap);
+			
 			resmap.put("alert_msg", "结算完成");
 		}else {
 			resmap.put("alert_msg", "该活动已结算");
@@ -339,7 +343,6 @@ public class BusinessServer extends BusinessManager {
 		senddraftidmap.put("xrdataction", "setDraftinfo");
 		senddraftidmap.put("data", data);
 		Map<String, String> draftmap = (Map<String, String>)feignDataManager.doSupport2DataCenter(senddraftidmap).get("body");
-		// TODO Auto-generated method stub
 		Map<String, Object> resmap = new HashMap<String, Object>();
 		if(draftmap.get("success_msg") != null) {
 			resmap.put("alert_msg", "已存为草稿");

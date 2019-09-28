@@ -35,6 +35,8 @@ public interface DataWorkServer {
 
 	public Map<String, Object> onCheckOAManagerList(String openid, String actid);
 	
+	public Map<String, Object> onGetOrderTotalFee(String out_trade_no);
+	
 	public Map<String, Object> onSetOrderRequest(String key, Map<String, Object> data);
 	
 	public Map<String, Object> onGetOrderRequest(String key);

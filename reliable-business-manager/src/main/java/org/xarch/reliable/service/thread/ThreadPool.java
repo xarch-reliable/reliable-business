@@ -5,6 +5,7 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Component;
+import org.xarch.reliable.service.feign.FeignClearManager;
 import org.xarch.reliable.service.feign.FeignDataManager;
 import org.xarch.reliable.service.feign.FeignPayManager;
 
@@ -13,6 +14,9 @@ public class ThreadPool {
 
 	@Autowired
 	private FeignDataManager feignDataManager;
+	
+	@Autowired
+	private FeignClearManager feignClearManager;
 
 	@Autowired
 	private FeignPayManager feignPayManager;
@@ -27,4 +31,9 @@ public class ThreadPool {
 		feignPayManager.getPayRefund(payid);
 	}
 
+	@Async("asyncExecutor")
+	public void ClearThread(Map<String, Object> sendata) {
+		feignClearManager.doSupport2ClearCenter(sendata);
+	}
+	
 }
