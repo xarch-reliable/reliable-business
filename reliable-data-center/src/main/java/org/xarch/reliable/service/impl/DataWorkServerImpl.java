@@ -335,7 +335,9 @@ public class DataWorkServerImpl implements DataWorkServer{
 	
 	@Override
 	public Map<String, Object> onGetDraftidmap(String openid) {
-		return feignDraftidManager.getDraftidinfo(openid);
+		//Set draftidset = (Set)feignDraftidManager.getDraftidinfo(openid).get("draftmap");
+		return feignDraftManager.getDraftMap(feignDraftidManager.getDraftidinfo(openid));
+		
 	}
 
 }

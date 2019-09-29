@@ -305,6 +305,7 @@ public class RedisUtil {
 	            return null;
 	        }
 	    }
+	    
 
 	    /**
 	     * 根据value从一个set中查询,是否存在

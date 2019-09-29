@@ -1,6 +1,9 @@
 package org.xarch.reliable.controller;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -28,10 +31,14 @@ public class RedisController {
 		return draftinfoServer.setDraftinfo(draftid, draftdata);
 		
 	}
+	
+	@SuppressWarnings("unchecked")
 	@RequestMapping("/getdraft")
-	public Map<String, Object> getMap(@RequestParam(value = "openid", required = true) String openid) {
-		logger.info("RedisController() :: getMap : openid="+openid);
-		return draftinfoServer.getDraftinfo(openid);
+	public Map<String, Object> getMap(@RequestBody Map<String, Object> draftidlistmap) {
+		logger.info("RedisController() :: getMap : draftidlistmap="+draftidlistmap);
+		//Set<Object> draftidset = (Set<Object>) draftidlistmap.get("draftmap");
+		List<String> draftidlist = (List<String>) draftidlistmap.get("draftmap");
+		return draftinfoServer.getDraftinfo(draftidlist);
 	}
 	
 }

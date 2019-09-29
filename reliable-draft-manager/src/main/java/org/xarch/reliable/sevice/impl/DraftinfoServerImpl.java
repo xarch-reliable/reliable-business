@@ -1,7 +1,9 @@
 package org.xarch.reliable.sevice.impl;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -9,6 +11,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.xarch.reliable.sevice.DraftinfoServer;
 import org.xarch.reliable.util.RedisUtil;
+
+import com.google.common.collect.Lists;
 
 
 
@@ -32,27 +36,28 @@ public class DraftinfoServerImpl implements DraftinfoServer {
 
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	@Override
-	public Map<String, Object> getDraftinfo(String draftid) {
-		// TODO Auto-generated method stub
-		Map draftdata = redisUtil.hmget(draftid);
-		return (Map<String, Object>)draftdata;
+	public Map<String, Object> getDraftinfo(List<String> draftidset) {
+		Map<String, Object> resmap = new HashMap<String, Object>();
+		List<Map<String, Object>> draftlist = Lists.newArrayList();
+		// TODO Auto-generated method stubsss
+		logger.info("draftidset===="+draftidset);
+		for (String draftid : draftidset) {
+		      //System.out.println(draftid);
+			//Map draftmap = redisUtil.hmget(String.valueOf(draftid));
+			Map draftmap = redisUtil.hmget(draftid);
+			if( (draftmap)!=null){
+				draftlist.add(draftmap);
+			}else {
+				draftmap.put("error_msg", "草稿信息为空");
+				draftlist.add(draftmap);
+			}
+			
+			logger.info("DraftidinfoServerImpl() :: getDraftidinfo : draftid="+draftid);
+			
+		}
+		resmap.put("draftlist", draftlist);
+		return resmap;
 		
 	}
-
-	
-	/*
-	 * @Override public Map<String, Object> setDraftidinfo(String openid, String
-	 * draftid) { // TODO Auto-generated method stub Map<String, Object>
-	 * openid2draftidmap = new HashMap<String, Object>(); Map<String, Object> map =
-	 * new HashMap<String, Object>(); openid2draftidmap.put(draftid, null);
-	 * if(redisUtil.hmset(openid, openid2draftidmap)) { map.put("success_msg",
-	 * "true"); }else { map.put("error_msg", "false"); } return map; }
-	 * 
-	 * @SuppressWarnings({ "unchecked", "rawtypes" })
-	 * 
-	 * @Override public Map<String, Object> getDraftidinfo(String openid) { // TODO
-	 * Auto-generated method stub Map draftiddata = redisUtil.hmget(openid); return
-	 * (Map<String, Object>)draftiddata; }
-	 */
 	 
 }
