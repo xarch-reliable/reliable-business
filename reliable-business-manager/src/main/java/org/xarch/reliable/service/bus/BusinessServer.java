@@ -7,12 +7,14 @@ import java.util.Map.Entry;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.amqp.core.AmqpTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.xarch.reliable.service.feign.FeignDataManager;
 import org.xarch.reliable.service.feign.FeignJsapiManager;
 import org.xarch.reliable.service.feign.FeignPayManager;
 import org.xarch.reliable.service.thread.ThreadPool;
+import org.xarch.reliable.utils.BaseResultTools;
 
 import com.google.common.collect.Lists;
 
@@ -29,6 +31,9 @@ public class BusinessServer extends BusinessManager {
 
 	private static final Logger logger = LoggerFactory.getLogger(BusinessServer.class);
 
+	@Autowired
+	private AmqpTemplate rabbitTemplate;
+	
 	@Autowired
 	private FeignDataManager feignDataManager;
 	
@@ -323,7 +328,9 @@ public class BusinessServer extends BusinessManager {
 			}
 			clearMap.put("ReliableMap", ReliableMap);
 			clearMap.put("UnReliableMap", UnReliableMap);
-			threadPool.ClearThread(clearMap);
+			
+			rabbitTemplate.convertAndSend("pay.exchange", "clear.center.test", BaseResultTools.JsonObjectToStr(clearMap));
+			//threadPool.ClearThread(clearMap);
 			
 			resmap.put("alert_msg", "结算完成");
 		}else {
