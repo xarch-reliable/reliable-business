@@ -43,6 +43,11 @@ public class RedisController {
 		return activityInfoServer.getActClear(actid);
 	}
 	
+	@RequestMapping("/getbaozhenghb")
+	public Map<String, Object> getBaoZhengHB(@RequestParam(value = "actid", required = true) String actid) {
+		return activityInfoServer.getActTotalFee(actid);
+	}
+	
 	@RequestMapping("/getselfactlist")
 	public Map<String, Object> getActListByOpenid(@RequestParam(value = "openid", required = true) String openid) {
 		return activityInfoServer.getActInfoListByOpenid(openid);

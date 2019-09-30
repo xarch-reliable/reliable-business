@@ -12,6 +12,7 @@ public enum ReliableDataType {
 	setActinfoByBody,
 	setactclear,
 	getactclear,
+	getactBaoZhengHB,
 	setactstatus,
 	getpayid,
 	setpayidMap,

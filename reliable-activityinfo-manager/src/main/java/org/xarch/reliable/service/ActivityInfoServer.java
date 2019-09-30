@@ -14,6 +14,8 @@ public interface ActivityInfoServer {
 	
 	public Map<String, Object> getActClear(String actid);
 	
+	public Map<String, Object> getActTotalFee(String actid);
+	
 	public Map<String, Object> addActPartNumber(String actid);
 	
 	public Map<String, Object> setActStatus(String openid, String actid, String status);

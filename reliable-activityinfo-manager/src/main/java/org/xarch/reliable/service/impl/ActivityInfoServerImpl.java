@@ -117,4 +117,11 @@ public class ActivityInfoServerImpl implements ActivityInfoServer {
 		}
 	}
 
+	@Override
+	public Map<String, Object> getActTotalFee(String actid) {
+		Map<String, Object> resmap = new HashMap<String, Object>();
+		resmap.put("baozhenghb", (String)redisUtil.hget(actid, "baozhenghb"));
+		return resmap;
+	}
+
 }

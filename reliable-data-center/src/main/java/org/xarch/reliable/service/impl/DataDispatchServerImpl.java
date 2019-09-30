@@ -71,6 +71,9 @@ public class DataDispatchServerImpl implements DataDispatchServer {
 		case getactclear:
 			responseMap.put("body", dataActionServer.onGetActClear((String)bodyMap.get("actid")));
 			break;
+		case getactBaoZhengHB:
+			responseMap.put("body", dataActionServer.onGetActBaoZhengHB((String)bodyMap.get("actid")));
+			break;
 		case setactstatus:
 			responseMap.put("body", dataActionServer.onSetActStatus((String)bodyMap.get("openid"), (String)bodyMap.get("actid"), (String)bodyMap.get("status")));
 			break;

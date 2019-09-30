@@ -132,6 +132,11 @@ public class DataWorkServerImpl implements DataWorkServer{
 	}
 	
 	@Override
+	public Map<String, Object> onGetActBaoZhengHB(String actid) {
+		return feignActInfoManager.getActBaoZhengHB(actid);
+	}
+	
+	@Override
 	public Map<String, Object> onSetActStatus(String openid, String actid, String status) {
 		return feignActInfoManager.setActStatusByActidStatus(openid, actid, status);
 	}

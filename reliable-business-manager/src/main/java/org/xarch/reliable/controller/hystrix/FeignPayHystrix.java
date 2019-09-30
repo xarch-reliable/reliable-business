@@ -14,13 +14,10 @@ public class FeignPayHystrix implements FeignPayManager {
 	private static final Logger logger = LoggerFactory.getLogger(FeignPayHystrix.class);
 
 	@Override
-	public Map<String, Object> getPayMpOrder(String openid, String payid, String actid) {
+	public Map<String, Object> getPayMpOrder(Map<String, Object> data) {
 		Map<String, Object> map = new HashMap<String, Object>();
 		logger.info("[FeignPayManager]获取getPayMpOrder失败");
 		map.put("error_msg", "[FeignPayManager]获取getPayMpOrder失败");
-		map.put("openid", openid);
-		map.put("payid", payid);
-		map.put("actid", actid);
 		return map;
 	}
 

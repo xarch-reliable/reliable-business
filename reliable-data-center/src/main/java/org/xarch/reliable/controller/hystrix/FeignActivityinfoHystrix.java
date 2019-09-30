@@ -58,4 +58,11 @@ public class FeignActivityinfoHystrix implements FeignActivityinfoManager {
 		return map;
 	}
 
+	@Override
+	public Map<String, Object> getActBaoZhengHB(String actid) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("error_msg", "[FeignActivityinfoManager]发起getActBaoZhengHB请求失败");
+		return map;
+	}
+
 }

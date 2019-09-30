@@ -79,7 +79,15 @@ public class BusinessServer extends BusinessManager {
 		sendmap.put("xrdataction", "setActinfoByBody");
 		sendmap.put("data", data);
 		threadPool.StorageActInfoThread(sendmap);
-		Map<String, Object> paymap = feignPayManager.getPayMpOrder(openid, payid, actid);
+		
+		Map<String, Object> ordermap = new HashMap<String, Object>();
+		ordermap.put("body", "测试");
+		ordermap.put("detail", "保证红包");
+		ordermap.put("attach", actid);
+		ordermap.put("total_fee", (String)data.get("baozhenghb"));
+		ordermap.put("out_trade_no", payid);
+		ordermap.put("openid", openid);
+		Map<String, Object> paymap = feignPayManager.getPayMpOrder(ordermap);
 		map.put("actid", actid);
 		map.put("paybody", paymap);
 		return map;
@@ -197,7 +205,23 @@ public class BusinessServer extends BusinessManager {
 				
 				if(((Map<String, Object>)getOAMListmap.get("AMList")).get("error_msg") == null && 
 						((Map<String, Object>)getOAMListmap.get("OMList")).get("error_msg") == null) {
-					Map<String, Object> paymap = feignPayManager.getPayMpOrder(openid, payid, actid);
+					
+					Map<String, Object> sendtotalfeemap = new HashMap<String, Object>();
+					Map<String, Object> datatmp2 = new HashMap<String, Object>();
+					datatmp2.put("actid", actid);
+					sendtotalfeemap.put("xrdataction", "getactBaoZhengHB");
+					sendtotalfeemap.put("data", datatmp1);
+					Map<String, Object> totalfeemap = (Map<String, Object>)feignDataManager.doSupport2DataCenter(sendtotalfeemap).get("body");
+					
+					Map<String, Object> ordermap = new HashMap<String, Object>();
+					ordermap.put("body", "测试");
+					ordermap.put("detail", "保证红包");
+					ordermap.put("attach", actid);
+					ordermap.put("total_fee", totalfeemap.get("baozhenghb"));
+					ordermap.put("out_trade_no", payid);
+					ordermap.put("openid", openid);
+					Map<String, Object> paymap = feignPayManager.getPayMpOrder(ordermap);
+					
 					resmap.put("actid", actid);
 					resmap.put("paybody", paymap);
 					
