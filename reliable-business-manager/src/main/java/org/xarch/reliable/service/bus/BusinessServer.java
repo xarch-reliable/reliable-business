@@ -405,5 +405,47 @@ public class BusinessServer extends BusinessManager {
 		
 		
 	}
+	
+	@SuppressWarnings("unchecked")
+	@Override
+	protected Map<String, Object> onSetCollectinfo(String openid, Map<String, String> data) {
+
+		Map<String, Object> sendcollectmap = new HashMap<String, Object>();
+		data.put("actid", data.get("actid"));
+		data.put("openid", openid);
+		sendcollectmap.put("xrdataction", "setCollectinfo");
+		sendcollectmap.put("data", data);
+		Map<String, String> collectresmap = (Map<String, String>)feignDataManager.doSupport2DataCenter(sendcollectmap).get("body");
+		Map<String, Object> resmap = new HashMap<String, Object>();
+		if(collectresmap.get("success_msg") != null) {
+			resmap.put("alert_msg", "收藏成功");
+		}else {
+			resmap.put("alert_msg", "收藏失败");
+		}
+		
+		return resmap;
+	}
+	
+	@SuppressWarnings("unchecked")
+	@Override
+	protected Map<String, Object> onGetCollectinfo(String openid) {
+		
+		
+		Map<String, Object> sendcollectmap = new HashMap<String, Object>();
+		Map<String, Object> datatmp = new HashMap<String, Object>();
+		datatmp.put("openid", openid);
+		sendcollectmap.put("xrdataction", "getCollectmap");
+		sendcollectmap.put("data", datatmp);
+		Map<String, Object> collectmap = (Map<String, Object>)feignDataManager.doSupport2DataCenter(sendcollectmap).get("body");
+		if(collectmap!=null) {
+			
+			return collectmap;
+		}else {
+			collectmap.put("alert_msg", "获取草稿失败");
+			return collectmap;
+		}
+		
+		
+	}
 
 }

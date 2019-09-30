@@ -11,7 +11,9 @@ public enum ReliableMsgType {
 	actinfo, //活动信息
 	allactinfo, //个人所有活动信息
 	setdraft,
-	getdraftidmap
+	getdraftidmap,
+	setcollectinfo,
+	getcollectmap
 
 	
 }

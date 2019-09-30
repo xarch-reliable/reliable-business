@@ -52,6 +52,12 @@ public abstract class ActionMnager {
 		case getdraftidmap:
 			responseMap.put("body", onGetDraftidMap(openid));
 			break;
+		case setcollectinfo:
+			responseMap.put("body", onSetCollectinfo(openid, (Map<String, String>)bodyMap.get("data")));
+			break;
+		case getcollectmap:
+			responseMap.put("body", onGetCollectinfo(openid));
+			break;
 		default:
 			responseMap.put("body", onDefault());
 			break;
@@ -59,6 +65,10 @@ public abstract class ActionMnager {
 		responseMap.put("xraction", msgType);
 		return responseMap;
 	};
+	
+	protected abstract Map<String, Object> onGetCollectinfo(String openid);
+	
+	protected abstract Map<String, Object> onSetCollectinfo(String openid,Map<String, String> data );
 	
 	protected abstract Map<String, Object> onGetDraftidMap(String openid);
 

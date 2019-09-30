@@ -1,5 +1,6 @@
 package org.xarch.reliable.controller;
 
+import java.util.List;
 import java.util.Map;
 
 import org.slf4j.Logger;
@@ -51,6 +52,11 @@ public class RedisController {
 	@RequestMapping("/getselfactlist")
 	public Map<String, Object> getActListByOpenid(@RequestParam(value = "openid", required = true) String openid) {
 		return activityInfoServer.getActInfoListByOpenid(openid);
+	}
+	///////////////////////////////////////////////////////
+	@RequestMapping("/getactlist")
+	public Map<String, Object> getActmapByActidlist(@RequestBody List<Object> actidlist) {
+		return activityInfoServer.getActInfoListByActidlist(actidlist);
 	}
 	
 	@RequestMapping("/addnumber")

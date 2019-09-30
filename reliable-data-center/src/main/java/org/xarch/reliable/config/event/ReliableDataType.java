@@ -32,6 +32,8 @@ public enum ReliableDataType {
 	getRefundNotify,
 	setDraftinfo, 
 	getDraftidmap,
-	getOrderTotalFee
+	getOrderTotalFee,
+	setCollectinfo,
+	getCollectmap
 	
 }

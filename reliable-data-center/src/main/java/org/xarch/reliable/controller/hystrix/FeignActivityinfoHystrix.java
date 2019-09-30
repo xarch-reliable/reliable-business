@@ -1,9 +1,12 @@
 package org.xarch.reliable.controller.hystrix;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.xarch.reliable.service.feign.FeignActivityinfoManager;
 
 @Service
@@ -65,4 +68,10 @@ public class FeignActivityinfoHystrix implements FeignActivityinfoManager {
 		return map;
 	}
 
+	@Override
+	public Map<String, Object> getActInfo(@RequestBody List<Object> actidlist){
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("error_msg", "[FeignActivityinfoManager]发起getActInfo请求失败");
+		return map;
+	}
 }

@@ -1,5 +1,6 @@
 package org.xarch.reliable.service.feign;
 
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.cloud.openfeign.FeignClient;
@@ -17,6 +18,10 @@ public interface FeignActivityinfoManager {
 	
 	@GetMapping("/activity/info/getselfactlist")
 	public Map<String, Object> getAllActInfo(@RequestParam(value = "openid", required = true) String openid);
+	
+	/////////////////////////////////////////////////////////////////////
+	@GetMapping("/activity/info/getactlist")
+	public Map<String, Object> getActInfo(@RequestBody List<Object> actidlist);
 	
 	@GetMapping("/activity/info/get")
 	public Map<String, Object> getActInfoByActid(@RequestParam(value = "actid", required = true) String actid);

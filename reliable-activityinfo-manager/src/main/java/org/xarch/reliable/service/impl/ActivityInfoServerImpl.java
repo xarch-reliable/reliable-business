@@ -70,6 +70,24 @@ public class ActivityInfoServerImpl implements ActivityInfoServer {
 		resmap.put("activityUnDoneList", activityUnDoneList);
 		return resmap;
 	}
+	//////////////////////////////////////////////
+	@SuppressWarnings({ "unchecked", "rawtypes", "unused" })
+	@Override
+	public Map<String, Object> getActInfoListByActidlist(List<Object> actlist) {
+		
+		List<String> actList = (List<String>)(List)actlist;
+		Map<String, Object> resmap = new HashMap<String, Object>();
+		List<Map<String, Object>> ActList = Lists.newArrayList();
+		logger.info("[actlist]"+actlist);
+		for (String actid : actList) {
+			
+			//Map maptmp = redisUtil.hmget(String.valueOf(actid));
+			Map maptmp = redisUtil.hmget(actid);
+				ActList.add(maptmp);
+		}
+		resmap.put("ActList", ActList);
+		return resmap;
+	}
 
 	@Override
 	public Map<String, Object> setActClear(String actid) {

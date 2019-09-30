@@ -1,14 +1,19 @@
 package org.xarch.reliable.service.impl;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.xarch.reliable.service.DataWorkServer;
 import org.xarch.reliable.service.feign.FeignActidManager;
 import org.xarch.reliable.service.feign.FeignActivityinfoManager;
+import org.xarch.reliable.service.feign.FeignCollectinfoManager;
 import org.xarch.reliable.service.feign.FeignDraftManager;
 import org.xarch.reliable.service.feign.FeignDraftidManager;
 import org.xarch.reliable.service.feign.FeignGetPayidProvider;
@@ -24,6 +29,8 @@ import org.xarch.reliable.service.thread.ThreadPool;
 
 @Service
 public class DataWorkServerImpl implements DataWorkServer{
+	
+	private static final Logger logger = LoggerFactory.getLogger(DataWorkServerImpl.class);
 	
 	@Autowired
 	private FeignActivityinfoManager feignActInfoManager;
@@ -63,6 +70,9 @@ public class DataWorkServerImpl implements DataWorkServer{
 	
 	@Autowired
 	private FeignDraftidManager feignDraftidManager;
+	
+	@Autowired
+	private FeignCollectinfoManager feignCollectinfoManager;
 
 	//线程管理者
 	@Autowired
@@ -342,6 +352,37 @@ public class DataWorkServerImpl implements DataWorkServer{
 	public Map<String, Object> onGetDraftidmap(String openid) {
 		//Set draftidset = (Set)feignDraftidManager.getDraftidinfo(openid).get("draftmap");
 		return feignDraftManager.getDraftMap(feignDraftidManager.getDraftidinfo(openid));
+		
+	}
+	
+	@Override
+	public Map<String, Object> onSetCollectinfo(String openid, String actid) {
+		
+		logger.info("DataWorkServerImpl::onSetCollectinfo() : openid = " + openid+"actid=="+actid);
+	
+		Map<String, Object> resmap = new HashMap<String, Object>();
+		if(openid != null) {
+			
+			if(feignCollectinfoManager.setCollectinfo(openid, actid).get("success_msg")!=null) {
+				resmap.put("success_msg", "true");
+			}else {
+				resmap.put("error_msg", "false");
+			}
+			
+		}else {
+			logger.info("DataWorkServerImpl::onSetCollectinfo() : openid = null");
+			resmap.put("error_msg", "false");
+			
+		}
+		return resmap;
+	}
+	
+	@SuppressWarnings("unchecked")
+	@Override
+	public Map<String, Object> onGetCollectmap(String openid) {
+		//Set draftidset = (Set)feignDraftidManager.getDraftidinfo(openid).get("draftmap");
+		List<Object> CollectList = (List<Object>)feignCollectinfoManager.getCollectinfo(openid).get("CollectList");
+		return feignActInfoManager.getActInfo(CollectList);
 		
 	}
 

@@ -66,6 +66,10 @@ public interface DataWorkServer {
 	public Map<String, Object> onSetDraftinfo(String key, Map<String, Object> data);
 	
 	public Map<String, Object> onGetDraftidmap(String openid);
+	
+	public Map<String, Object> onSetCollectinfo(String key, String actid);
+	
+	public Map<String, Object> onGetCollectmap(String openid);
 
 	public Map<String, Object> onDefault();
 	
