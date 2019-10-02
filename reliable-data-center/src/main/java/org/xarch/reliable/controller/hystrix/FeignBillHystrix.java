@@ -3,8 +3,10 @@ package org.xarch.reliable.controller.hystrix;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.springframework.stereotype.Service;
 import org.xarch.reliable.service.feign.FeignBillManager;
 
+@Service
 public class FeignBillHystrix implements FeignBillManager {
 
 	@Override
