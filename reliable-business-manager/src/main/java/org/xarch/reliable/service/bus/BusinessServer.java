@@ -283,6 +283,19 @@ public class BusinessServer extends BusinessManager {
 		}
 		resmap.put("actid", actid);
 		
+		
+		Map<String, Object> sengetclearmap = new HashMap<String, Object>();
+		Map<String, Object> getcleartmpmap = new HashMap<String, Object>();
+		getcleartmpmap.put("actid", actid);
+		sengetclearmap.put("xrdataction", "getactclear");
+		sengetclearmap.put("data", getcleartmpmap);
+		Map<String, Object> getclearmap = (Map<String, Object>)feignDataManager.doSupport2DataCenter(sengetclearmap).get("body");
+		String clear = (String)getclearmap.get("clear");
+		if(clear.equals("true")) {
+			resmap.put("alert_msg", "该活动已结算，无法加入");
+			return resmap;
+		}
+		
 		Map<String, Object> sendmap = new HashMap<String, Object>();
 		Map<String, Object> datatmp = new HashMap<String, Object>();
 		datatmp.put("openid", openid);
@@ -446,6 +459,18 @@ public class BusinessServer extends BusinessManager {
 		}
 		
 		
+	}
+
+	@Override
+	protected Map<String, Object> onPushCheckQrCode(String openid, Map<String, String> data) {
+		String actid = data.get("actid");
+		if(actid != null) {
+			return feignJsapiManager.pushCheckQrCode(actid, openid);
+		}else {
+			Map<String, Object> resmap = new HashMap<String, Object>();
+			resmap.put("error_msg", "false");
+			return resmap;
+		}
 	}
 
 }

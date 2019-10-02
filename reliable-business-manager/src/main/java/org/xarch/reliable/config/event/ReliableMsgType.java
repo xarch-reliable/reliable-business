@@ -13,7 +13,8 @@ public enum ReliableMsgType {
 	setdraft,
 	getdraftidmap,
 	setcollectinfo,
-	getcollectmap
+	getcollectmap,
+	checkqrcode
 
 	
 }
