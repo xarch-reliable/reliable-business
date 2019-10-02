@@ -1,0 +1,22 @@
+server:
+  port: 8890
+eureka:
+  instance:
+    prefer-ip-address: true 
+    #ip-address: 47.104.82.217
+    ip-address: localhost
+  client:
+    service-url:
+      defaultZone: http://47.92.98.17:8000/eureka/
+spring:
+  application:
+    name: reliable-draft-manager
+  cloud:
+    config:
+      name: rabbitmq-bus,async-thread,logback-web-debug,feign,ribbon-eager-load-business,redis-15-bill
+      profile: dev
+      label: master
+      discovery:
+        enabled: true
+        service-id: reliable-config
+
