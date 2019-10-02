@@ -391,7 +391,7 @@ public class DataWorkServerImpl implements DataWorkServer{
 	}
 	
 	@Override
-	public Map<String, Object> onSetBillinfo(String openid, String actid) {
+	public Map<String, Object> onSetBillinfo(String openid, String actid, String reliableMoney) {
 		
 		logger.info("DataWorkServerImpl::onSetBillinfo() : openid = " + openid+"actid=="+actid);
 		
@@ -401,7 +401,7 @@ public class DataWorkServerImpl implements DataWorkServer{
 	
 		Map<String, Object> resmap = new HashMap<String, Object>();
 		if(billdata != null) {
-			
+			billdata.put("reliableMoney", reliableMoney);
 			if(feignBillManager.setBillinfo(openid, billdata).get("success_msg")!=null) {
 				resmap.put("success_msg", "true");
 			}else {
