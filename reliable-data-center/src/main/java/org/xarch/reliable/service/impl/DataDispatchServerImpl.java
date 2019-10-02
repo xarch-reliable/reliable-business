@@ -143,6 +143,12 @@ public class DataDispatchServerImpl implements DataDispatchServer {
 		case getCollectmap:
 			responseMap.put("body", dataActionServer.onGetCollectmap((String)bodyMap.get("openid")));
 			break;
+		case setBillinfo:
+			responseMap.put("body", dataActionServer.onSetBillinfo((String)bodyMap.get("openid"), (String)bodyMap.get("actid")));
+			break;
+		case getBillinfo:
+			responseMap.put("body", dataActionServer.onGetBillinfo((String)bodyMap.get("openid")));
+			break;
 		default:
 			responseMap.put("body", dataActionServer.onDefault());
 			break;

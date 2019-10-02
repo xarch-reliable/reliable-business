@@ -34,6 +34,8 @@ public enum ReliableDataType {
 	getDraftidmap,
 	getOrderTotalFee,
 	setCollectinfo,
-	getCollectmap
+	getCollectmap,
+	setBillinfo,
+	getBillinfo
 	
 }

@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.xarch.reliable.service.DataWorkServer;
 import org.xarch.reliable.service.feign.FeignActidManager;
 import org.xarch.reliable.service.feign.FeignActivityinfoManager;
+import org.xarch.reliable.service.feign.FeignBillManager;
 import org.xarch.reliable.service.feign.FeignCollectinfoManager;
 import org.xarch.reliable.service.feign.FeignDraftManager;
 import org.xarch.reliable.service.feign.FeignDraftidManager;
@@ -74,6 +75,9 @@ public class DataWorkServerImpl implements DataWorkServer{
 	@Autowired
 	private FeignCollectinfoManager feignCollectinfoManager;
 
+	@Autowired
+	private FeignBillManager feignBillManager;
+	
 	//线程管理者
 	@Autowired
 	private ThreadPool threadPool;
@@ -383,6 +387,41 @@ public class DataWorkServerImpl implements DataWorkServer{
 		//Set draftidset = (Set)feignDraftidManager.getDraftidinfo(openid).get("draftmap");
 		List<Object> CollectList = (List<Object>)feignCollectinfoManager.getCollectinfo(openid).get("CollectList");
 		return feignActInfoManager.getActInfo(CollectList);
+		
+	}
+	
+	@Override
+	public Map<String, Object> onSetBillinfo(String openid, String actid) {
+		
+		logger.info("DataWorkServerImpl::onSetBillinfo() : openid = " + openid+"actid=="+actid);
+		
+		Map<String, Object> billdata = feignActInfoManager.getActInfoByActid(actid);
+		
+		logger.info("DataWorkServerImpl::onSetBillinfo() : billdata = " + billdata);
+	
+		Map<String, Object> resmap = new HashMap<String, Object>();
+		if(billdata != null) {
+			
+			if(feignBillManager.setBillinfo(openid, billdata).get("success_msg")!=null) {
+				resmap.put("success_msg", "true");
+			}else {
+				resmap.put("error_msg", "false");
+			}
+			
+		}else {
+			logger.info("DataWorkServerImpl::onSetBillinfo() : billdata = null");
+			resmap.put("error_msg", "false");
+			
+		}
+		return resmap;
+	}
+	
+	@Override
+	public Map<String, Object> onGetBillinfo(String openid) {
+		//Set draftidset = (Set)feignDraftidManager.getDraftidinfo(openid).get("draftmap");
+		//List<Object> CollectList = (List<Object>)feignCollectinfoManager.getCollectinfo(openid).get("CollectList");
+		//return feignActInfoManager.getActInfo(CollectList);
+		return feignBillManager.getBillinfo(openid);
 		
 	}
 

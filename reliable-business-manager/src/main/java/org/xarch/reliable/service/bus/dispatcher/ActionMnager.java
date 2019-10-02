@@ -61,6 +61,9 @@ public abstract class ActionMnager {
 		case checkqrcode:
 			responseMap.put("body", onPushCheckQrCode(openid, (Map<String, String>)bodyMap.get("data")));
 			break;
+		case getBillinfo:
+			responseMap.put("body", onGetBillinfo(openid));
+			break;
 		default:
 			responseMap.put("body", onDefault());
 			break;
@@ -68,6 +71,8 @@ public abstract class ActionMnager {
 		responseMap.put("xraction", msgType);
 		return responseMap;
 	};
+	
+	protected abstract Map<String, Object> onGetBillinfo(String openid);
 	
 	protected abstract Map<String, Object> onPushCheckQrCode(String openid, Map<String, String> data);
 	

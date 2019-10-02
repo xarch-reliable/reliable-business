@@ -473,4 +473,26 @@ public class BusinessServer extends BusinessManager {
 		}
 	}
 
+	@SuppressWarnings("unchecked")
+	@Override
+	protected Map<String, Object> onGetBillinfo(String openid) {
+		
+		
+		Map<String, Object> sendbillmap = new HashMap<String, Object>();
+		Map<String, Object> datatmp = new HashMap<String, Object>();
+		datatmp.put("openid", openid);
+		sendbillmap.put("xrdataction", "getBillinfo");
+		sendbillmap.put("data", datatmp);
+		Map<String, Object> billmap = (Map<String, Object>)feignDataManager.doSupport2DataCenter(sendbillmap).get("body");
+		if(billmap!=null) {
+			
+			return billmap;
+		}else {
+			billmap.put("alert_msg", "获取账单失败");
+			return billmap;
+		}
+		
+		
+	}
+
 }
