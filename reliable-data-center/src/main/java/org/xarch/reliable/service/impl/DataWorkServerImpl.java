@@ -393,7 +393,7 @@ public class DataWorkServerImpl implements DataWorkServer{
 	@Override
 	public Map<String, Object> onSetBillinfo(String openid, String actid, String reliableMoney) {
 		
-		logger.info("DataWorkServerImpl::onSetBillinfo() : openid = " + openid+"actid=="+actid);
+		logger.info("DataWorkServerImpl::onSetBillinfo() : openid = " + openid+"actid=="+actid+"reliableMoney"+reliableMoney);
 		
 		Map<String, Object> billdata = feignActInfoManager.getActInfoByActid(actid);
 		
