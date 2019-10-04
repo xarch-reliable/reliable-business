@@ -64,6 +64,9 @@ public abstract class ActionMnager {
 		case getBillinfo:
 			responseMap.put("body", onGetBillinfo(openid));
 			break;
+		case fallback:
+			responseMap.put("body", onSetFallback(openid, (Map<String, String>)bodyMap.get("data")));
+			break;
 		default:
 			responseMap.put("body", onDefault());
 			break;
@@ -71,6 +74,8 @@ public abstract class ActionMnager {
 		responseMap.put("xraction", msgType);
 		return responseMap;
 	};
+	
+	protected abstract Map<String, Object> onSetFallback(String openid, Map<String, String> data);
 	
 	protected abstract Map<String, Object> onGetBillinfo(String openid);
 	

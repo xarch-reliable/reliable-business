@@ -17,6 +17,7 @@ import org.xarch.reliable.service.feign.FeignBillManager;
 import org.xarch.reliable.service.feign.FeignCollectinfoManager;
 import org.xarch.reliable.service.feign.FeignDraftManager;
 import org.xarch.reliable.service.feign.FeignDraftidManager;
+import org.xarch.reliable.service.feign.FeignFallbackManager;
 import org.xarch.reliable.service.feign.FeignGetPayidProvider;
 import org.xarch.reliable.service.feign.FeignOpenidManager;
 import org.xarch.reliable.service.feign.FeignOrderNotifyManager;
@@ -77,6 +78,9 @@ public class DataWorkServerImpl implements DataWorkServer{
 
 	@Autowired
 	private FeignBillManager feignBillManager;
+	
+	@Autowired
+	private FeignFallbackManager feignFallbackManager;
 	
 	//线程管理者
 	@Autowired
@@ -354,7 +358,7 @@ public class DataWorkServerImpl implements DataWorkServer{
 	
 	@Override
 	public Map<String, Object> onGetDraftidmap(String openid) {
-		//Set draftidset = (Set)feignDraftidManager.getDraftidinfo(openid).get("draftmap");
+		
 		return feignDraftManager.getDraftMap(feignDraftidManager.getDraftidinfo(openid));
 		
 	}
@@ -384,7 +388,7 @@ public class DataWorkServerImpl implements DataWorkServer{
 	@SuppressWarnings("unchecked")
 	@Override
 	public Map<String, Object> onGetCollectmap(String openid) {
-		//Set draftidset = (Set)feignDraftidManager.getDraftidinfo(openid).get("draftmap");
+		
 		List<Object> CollectList = (List<Object>)feignCollectinfoManager.getCollectinfo(openid).get("CollectList");
 		return feignActInfoManager.getActInfo(CollectList);
 		
@@ -418,11 +422,27 @@ public class DataWorkServerImpl implements DataWorkServer{
 	
 	@Override
 	public Map<String, Object> onGetBillinfo(String openid) {
-		//Set draftidset = (Set)feignDraftidManager.getDraftidinfo(openid).get("draftmap");
-		//List<Object> CollectList = (List<Object>)feignCollectinfoManager.getCollectinfo(openid).get("CollectList");
-		//return feignActInfoManager.getActInfo(CollectList);
+		
 		return feignBillManager.getBillinfo(openid);
 		
+	}
+	
+	@Override
+	public Map<String, Object> onSetFallback(String openid, Map<String, Object> data) {
+	
+		Map<String, Object> resmap = new HashMap<String, Object>();
+		if(openid != null) {
+			if(feignFallbackManager.onSetFallback(openid, data).get("success_msg")!=null) {
+				resmap.put("success_msg", "true");
+			}else {
+				resmap.put("error_msg", "false");
+			}
+		}else {
+			
+			resmap.put("error_msg", "false");
+			
+		}
+		return resmap;
 	}
 
 }

@@ -494,5 +494,24 @@ public class BusinessServer extends BusinessManager {
 		
 		
 	}
+	
+	@SuppressWarnings("unchecked")
+	@Override
+	protected Map<String, Object> onSetFallback(String openid, Map<String, String> data) {
+
+		Map<String, Object> fallbackdata = new HashMap<String, Object>();
+		data.put("openid", openid);
+		fallbackdata.put("xrdataction", "fallback");
+		fallbackdata.put("data", data);
+		Map<String, String> fallbackmap = (Map<String, String>)feignDataManager.doSupport2DataCenter(fallbackdata).get("body");
+		Map<String, Object> resmap = new HashMap<String, Object>();
+		if(fallbackmap.get("success_msg") != null) {
+			resmap.put("alert_msg", "反馈成功");
+		}else {
+			resmap.put("alert_msg", "反馈失败");
+		}
+		
+		return resmap;
+	}
 
 }

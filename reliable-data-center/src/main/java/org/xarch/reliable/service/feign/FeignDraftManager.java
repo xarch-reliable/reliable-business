@@ -21,10 +21,5 @@ public interface FeignDraftManager {
 	@RequestMapping("/draft/info/getdraft")
 	public Map<String, Object> getDraftMap(@RequestBody Map<String, Object> draftidlistmap);
 	
-	/*
-	 * @PostMapping("/draft/info/setdraftid") public Map<String, Object>
-	 * setDraftidinfo(@RequestParam(value = "openid", required = true) String
-	 * openid, @RequestParam(value = "draftid", required = true) String draftid);
-	 */
-	 
+
 }
