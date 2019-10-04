@@ -40,4 +40,7 @@ public interface FeignActivityinfoManager {
 	
 	@GetMapping("/activity/info/setstatus")
 	public Map<String, Object> setActStatusByActidStatus(@RequestParam(value = "openid", required = true) String openid, @RequestParam(value = "actid", required = true) String actid, @RequestParam(value = "status", required = true) String status);
+	
+	@GetMapping("/activity/info/getlist")
+	public Map<String, Object> getAllactid();
 }

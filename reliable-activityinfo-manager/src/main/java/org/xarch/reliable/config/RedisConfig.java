@@ -57,6 +57,7 @@ public class RedisConfig extends CachingConfigurerSupport {
         return template;
     }
 
+
     /**
      * hash类型的数据操作
      *

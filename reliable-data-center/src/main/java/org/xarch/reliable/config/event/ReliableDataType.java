@@ -37,6 +37,7 @@ public enum ReliableDataType {
 	getCollectmap,
 	setBillinfo,
 	getBillinfo,
-	fallback
+	fallback,
+	getAllactid
 	
 }

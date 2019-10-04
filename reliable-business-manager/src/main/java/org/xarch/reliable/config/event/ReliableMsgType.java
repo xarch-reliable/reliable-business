@@ -16,7 +16,8 @@ public enum ReliableMsgType {
 	getcollectmap,
 	checkqrcode,
 	getBillinfo,
-	fallback
+	fallback,
+	All
 
 	
 }

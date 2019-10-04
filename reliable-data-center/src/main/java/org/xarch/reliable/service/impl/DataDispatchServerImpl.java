@@ -152,6 +152,9 @@ public class DataDispatchServerImpl implements DataDispatchServer {
 		case fallback:
 			responseMap.put("body", dataActionServer.onSetFallback((String)bodyMap.get("openid"), bodyMap));
 			break;
+		case getAllactid:
+			responseMap.put("body", dataActionServer.getAllactid());
+			break;
 		default:
 			responseMap.put("body", dataActionServer.onDefault());
 			break;

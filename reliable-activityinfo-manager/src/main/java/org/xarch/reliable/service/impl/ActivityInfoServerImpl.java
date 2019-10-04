@@ -1,8 +1,10 @@
 package org.xarch.reliable.service.impl;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -10,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.xarch.reliable.service.ActivityInfoServer;
 import org.xarch.reliable.service.feign.FeignActidManager;
+import org.xarch.reliable.service.feign.FeignDataManager;
 //import org.xarch.reliable.service.feign.FeignActidManager;
 import org.xarch.reliable.service.feign.FeignOpenidManager;
 import org.xarch.reliable.util.BaseResultTools;
@@ -28,6 +31,8 @@ public class ActivityInfoServerImpl implements ActivityInfoServer {
 	@Autowired
 	private FeignOpenidManager feignOpenidManager;
 	
+	@Autowired
+	private FeignDataManager feignDataManager;
 	@Autowired
     private RedisUtil redisUtil;
 	
@@ -142,4 +147,78 @@ public class ActivityInfoServerImpl implements ActivityInfoServer {
 		return resmap;
 	}
 
+	
+	@SuppressWarnings({ "unchecked", "rawtypes" })
+	@Override
+	public Map<String, Object> getAllactid() {
+		logger.info("[getAllactid]"+redisUtil.myhmget());
+		List list = new ArrayList(redisUtil.myhmget());
+		
+		List<String> actList = (List<String>)list;
+		Map<String, Object> resmap = new HashMap<String, Object>();
+		List<Object> ActList = Lists.newArrayList();
+		
+		int size = actList.size();//活动总数
+		int u_size = 0;//未完成活动数
+		int d_size = 0;//已完成活动数
+		int bzj = 0;//保证金总额
+		int d_bzj = 0;//已完成保证金
+		int ud_bzj = 0;//未完成保证金，资金沉淀
+		int ur_bzj = 0;//违约金总额
+		int r_bzj = 0;//退回金额
+		for (String actid : actList) {
+			Map maptmp = redisUtil.hmget(actid);
+			Map<String, Object> map =(Map<String, Object>)maptmp;
+			if( (map.get("clear")).equals("false") ) {
+				ud_bzj = ud_bzj + Integer.parseInt((String)map.get("baozhenghb"))*Integer.parseInt((String)map.get("part_number"));
+				u_size = u_size +1;
+			}else {
+				
+				Map<String, Object> sendpayidmap = new HashMap<String, Object>();
+				Map<String, Object> payidtmp = new HashMap<String, Object>();
+				payidtmp.put("actid", actid);
+				sendpayidmap.put("xrdataction", "getpayidMap");
+				sendpayidmap.put("data", payidtmp);
+				Map<String, String> payidmap = (Map<String, String>)feignDataManager.doSupport2DataCenter(sendpayidmap).get("body");
+				
+				
+				Map<String, Object> sendmap1 = new HashMap<String, Object>();
+				Map<String, Object> datatmp1 = new HashMap<String, Object>();
+				datatmp1.put("actid", actid);
+				sendmap1.put("xrdataction", "getAMList");
+				sendmap1.put("data", datatmp1);
+				Map<String, String> actidmap = (Map<String, String>)feignDataManager.doSupport2DataCenter(sendmap1).get("body");
+				
+								
+				Map<String, String> ReliableMap = new HashMap<String, String>();
+				Map<String, String> UnReliableMap = new HashMap<String, String>();
+				for (Entry<String, String> entry: actidmap.entrySet()) {
+					if(entry.getValue().equals("true")) {
+						ReliableMap.put(entry.getKey(), payidmap.get(entry.getKey()));
+					}else {
+						UnReliableMap.put(entry.getKey(), payidmap.get(entry.getKey()));
+					}
+				}
+				r_bzj = r_bzj + ReliableMap.size()*Integer.parseInt((String)map.get("baozhenghb"));
+				ur_bzj = ur_bzj + UnReliableMap.size()*Integer.parseInt((String)map.get("baozhenghb"));
+				d_bzj = d_bzj +Integer.parseInt((String)map.get("baozhenghb"))*Integer.parseInt((String)map.get("part_number"));
+				
+				d_size = d_size +1;
+				
+			}
+				ActList.add(map);
+		}
+		bzj = ud_bzj + d_bzj;
+		resmap.put("size", size);//活动总数
+		resmap.put("u_size", u_size);//未完成活动数
+		resmap.put("d_size", d_size);//已完成活动数
+		resmap.put("bzj", bzj);//保证金总额
+		resmap.put("ud_bzj", ud_bzj);//未完成保证金，资金沉淀
+		resmap.put("d_bzj", d_bzj);//已完成保证金
+		resmap.put("r_bzj", r_bzj);//退回金额
+		resmap.put("ur_bzj", ur_bzj);//违约金总额
+		logger.info("[getAllactid]"+resmap);
+		return resmap;
+		
+	}
 }

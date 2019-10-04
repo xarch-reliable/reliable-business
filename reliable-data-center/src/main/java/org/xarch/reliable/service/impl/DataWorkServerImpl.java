@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.Map.Entry;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -443,6 +444,14 @@ public class DataWorkServerImpl implements DataWorkServer{
 			
 		}
 		return resmap;
+	}
+	
+	@SuppressWarnings({ "unchecked", "rawtypes" })
+	@Override
+	public Map<String, Object> getAllactid() {
+		//Integer.parseInt((String))
+		logger.info("feignActInfoManager.getAllactid()==="+feignActInfoManager.getAllactid());
+		return feignActInfoManager.getAllactid();
 	}
 
 }

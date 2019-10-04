@@ -514,4 +514,22 @@ public class BusinessServer extends BusinessManager {
 		return resmap;
 	}
 
+	@SuppressWarnings({ "unchecked", "null" })
+	@Override
+	protected Map<String, Object> onAll() {
+
+		Map<String, Object> alldata = new HashMap<String, Object>();
+		
+		alldata.put("xrdataction", "getAllactid");
+		Map<String, Object> all = (Map<String, Object>) feignDataManager.doSupport2DataCenter(alldata).get("body");
+		
+		if(all!=null) {
+			
+			return all;
+		}else {
+			all.put("alert_msg", "获取账单失败");
+			return all;
+		}
+		
+	}
 }

@@ -76,7 +76,10 @@ public interface DataWorkServer {
 	public Map<String, Object> onGetBillinfo(String openid);
 	
 	public Map<String, Object> onSetFallback(String key, Map<String, Object> data);
+	
+	public Map<String, Object> getAllactid();
 
 	public Map<String, Object> onDefault();
+
 	
 }

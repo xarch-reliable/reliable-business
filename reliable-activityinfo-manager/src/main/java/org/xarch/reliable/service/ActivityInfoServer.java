@@ -23,5 +23,7 @@ public interface ActivityInfoServer {
 	public Map<String, Object> addActPartNumber(String actid);
 	
 	public Map<String, Object> setActStatus(String openid, String actid, String status);
+//////////////////
+	public Map<String, Object> getAllactid();
 	
 }

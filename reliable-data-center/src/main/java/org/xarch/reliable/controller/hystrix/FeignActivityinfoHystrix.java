@@ -74,4 +74,13 @@ public class FeignActivityinfoHystrix implements FeignActivityinfoManager {
 		map.put("error_msg", "[FeignActivityinfoManager]发起getActInfo请求失败");
 		return map;
 	}
+	
+	@Override
+	public Map<String, Object> getAllactid(){
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("error_msg", "[FeignActivityinfoManager]发起getAllactid请求失败");
+		return map;
+		
+	}
 }

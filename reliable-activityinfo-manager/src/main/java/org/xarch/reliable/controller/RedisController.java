@@ -71,5 +71,9 @@ public class RedisController {
 		logger.info("RedisController() :: setStatus :  openid="+openid+"  actid="+actid+"  status="+status);
 		return activityInfoServer.setActStatus(openid, actid, status);
 	}
-	
+	///////////////////////////////////////////////////////
+	@RequestMapping("/getlist")
+	public Map<String, Object> getAllactid() {
+	return activityInfoServer.getAllactid();
+	}
 }
