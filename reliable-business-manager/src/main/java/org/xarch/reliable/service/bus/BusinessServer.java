@@ -472,6 +472,18 @@ public class BusinessServer extends BusinessManager {
 			return resmap;
 		}
 	}
+	
+	@Override
+	protected Map<String, Object> onPushJoinQrCode(String openid, Map<String, String> data) {
+		String actid = data.get("actid");
+		if(actid != null) {
+			return feignJsapiManager.pushJoinQrCode(actid, openid);
+		}else {
+			Map<String, Object> resmap = new HashMap<String, Object>();
+			resmap.put("error_msg", "false");
+			return resmap;
+		}
+	}
 
 	@SuppressWarnings("unchecked")
 	@Override
