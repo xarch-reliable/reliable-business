@@ -78,6 +78,12 @@ public class RedisController {
 		return activityInfoServer.addActPartNumber(actid);
 	}
 	
+	@GetMapping("/getstatus")
+	public Map<String, Object> getStatus(@RequestParam(value = "actid", required = true) String actid){
+		
+		return activityInfoServer.getActStatus(actid);
+	}
+	
 	@RequestMapping("/setstatus")
 	public Map<String, Object> setStatus(@RequestParam(value = "openid", required = true) String openid,
 			@RequestParam(value = "actid", required = true) String actid,

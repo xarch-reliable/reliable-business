@@ -13,6 +13,7 @@ public enum ReliableDataType {
 	setactclear,
 	getactclear,
 	getactBaoZhengHB,
+	getactstatus,
 	setactstatus,
 	getpayid,
 	setpayidMap,

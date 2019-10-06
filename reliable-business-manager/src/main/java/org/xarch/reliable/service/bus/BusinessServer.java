@@ -74,7 +74,6 @@ public class BusinessServer extends BusinessManager {
 		data.put("clear", "false");
 		data.put("part_number", "0");
 		data.put("status", "1");	// 活动生成  活动发布  活动签到  活动结算
-		data.put("check_staus", "flase");
 		
 		Map<String, Object> sendmap = new HashMap<String, Object>();
 		sendmap.put("xrdataction", "setActinfoByBody");
@@ -299,11 +298,11 @@ public class BusinessServer extends BusinessManager {
 		Map<String, Object> sendcheckmap = new HashMap<String, Object>();
 		Map<String, Object> getchecktmpmap = new HashMap<String, Object>();
 		getchecktmpmap.put("actid", actid);
-		sendcheckmap.put("xrdataction", "getCheck");
+		sendcheckmap.put("xrdataction", "getactstatus");
 		sendcheckmap.put("data", getchecktmpmap);
 		Map<String, Object> getcheckmap = (Map<String, Object>)feignDataManager.doSupport2DataCenter(sendcheckmap).get("body");
-		String check_staus = (String)getcheckmap.get("check_staus");
-		if(check_staus.equals("false")) {
+		String status = (String)getcheckmap.get("status");
+		if(Integer.parseInt(status)<3) {
 			
 			resmap.put("alert_msg", "该活动尚未开始签到，请您等待");
 			return resmap;
@@ -541,6 +540,27 @@ public class BusinessServer extends BusinessManager {
 			resmap.put("alert_msg", "反馈成功");
 		}else {
 			resmap.put("alert_msg", "反馈失败");
+		}
+		
+		return resmap;
+	}
+	
+	@SuppressWarnings("unchecked")
+	@Override
+	protected Map<String, Object> onSetStatus(String openid, Map<String, String> data) {
+
+		Map<String, Object> statusdata = new HashMap<String, Object>();
+		data.put("openid", openid);
+		data.put("actid", data.get("actid"));
+		data.put("status", data.get("status"));
+		statusdata.put("xrdataction", "setactstatus");
+		statusdata.put("data", data);
+		Map<String, String> statusmap = (Map<String, String>)feignDataManager.doSupport2DataCenter(statusdata).get("body");
+		Map<String, Object> resmap = new HashMap<String, Object>();
+		if(statusmap.get("success_msg") != null) {
+			resmap.put("alert_msg", "活动现在可开始签到");
+		}else {
+			resmap.put("alert_msg", "您已经点过开始签到啦");
 		}
 		
 		return resmap;

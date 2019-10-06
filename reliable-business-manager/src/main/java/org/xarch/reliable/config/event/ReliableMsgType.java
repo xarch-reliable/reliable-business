@@ -19,6 +19,7 @@ public enum ReliableMsgType {
 	setcheck,
 	getBillinfo,
 	fallback,
+	setstatus,
 	All
 
 	

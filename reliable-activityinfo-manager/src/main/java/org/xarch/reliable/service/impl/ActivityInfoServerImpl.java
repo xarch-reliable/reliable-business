@@ -146,6 +146,13 @@ public class ActivityInfoServerImpl implements ActivityInfoServer {
 	}
 
 	@Override
+	public Map<String, Object> getActStatus(String actid) {
+		Map<String, Object> resmap = new HashMap<String, Object>();
+		resmap.put("status", (String)redisUtil.hget(actid, "status"));
+		return resmap;
+	}
+	
+	@Override
 	public Map<String, Object> setActStatus(String openid, String actid, String status) {
 		
 		Map<String, Object> maptmp = getActivityInfo(actid);

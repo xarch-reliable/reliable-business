@@ -25,6 +25,8 @@ public interface DataWorkServer {
 	
 	public Map<String, Object> onGetActBaoZhengHB(String actid);
 	
+	public Map<String, Object> onGetActStatus(String actid);
+	
 	public Map<String, Object> onSetActStatus(String openid, String actid, String status);
 	
 	public Map<String, Object> onAddActPartNumber(String actid);

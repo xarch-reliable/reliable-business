@@ -67,6 +67,14 @@ public class FeignActivityinfoHystrix implements FeignActivityinfoManager {
 		map.put("error_msg", "[FeignActivityinfoManager]发起addActParNumberByActid请求失败");
 		return map;
 	}
+	
+	@Override
+	public Map<String, Object> getStatus(String actid) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("error_msg", "[FeignActivityinfoManager]发起getStatus请求失败");
+		return map;
+	}
+	
 
 	@Override
 	public Map<String, Object> setActStatusByActidStatus(String openid, String actid, String status) {
