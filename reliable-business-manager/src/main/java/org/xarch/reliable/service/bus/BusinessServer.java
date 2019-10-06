@@ -561,7 +561,7 @@ public class BusinessServer extends BusinessManager {
 		Map<String, Object> statusdata = new HashMap<String, Object>();
 		data.put("openid", openid);
 		data.put("actid", data.get("actid"));
-		data.put("status", data.get("status"));
+		data.put("status", "3");
 		statusdata.put("xrdataction", "setactstatus");
 		statusdata.put("data", data);
 		Map<String, String> statusmap = (Map<String, String>)feignDataManager.doSupport2DataCenter(statusdata).get("body");
