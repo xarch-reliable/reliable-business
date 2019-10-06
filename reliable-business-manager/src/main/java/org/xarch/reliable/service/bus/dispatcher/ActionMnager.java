@@ -100,6 +100,8 @@ public abstract class ActionMnager {
 	protected abstract Map<String, Object> onDraft(String openid, Map<String, String> data);
 	
 	protected abstract Map<String, Object> onFinish(String openid, Map<String, String> data);
+	
+	protected abstract Map<String, Object> onSetCheck(Map<String, String> data);
 
 	protected abstract Map<String, Object> onCheck(String openid, Map<String, String> data);
 

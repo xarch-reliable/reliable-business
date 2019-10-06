@@ -32,6 +32,12 @@ public interface FeignActivityinfoManager {
 	@GetMapping("/activity/info/getclear")
 	public Map<String, Object> getActFinishByActid(@RequestParam(value = "actid", required = true) String actid);
 	
+	@GetMapping("/activity/info/getcheck")
+	public Map<String, Object> getActCheckByActid(@RequestParam(value = "actid", required = true) String actid);
+	
+	@GetMapping("/activity/info/setcheck")
+	public Map<String, Object> setActCheckByActid(@RequestParam(value = "actid", required = true) String actid);
+	
 	@GetMapping("/activity/info/getbaozhenghb")
 	public Map<String, Object> getActBaoZhengHB(@RequestParam(value = "actid", required = true) String actid);
 	

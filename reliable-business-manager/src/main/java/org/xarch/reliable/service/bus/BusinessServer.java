@@ -74,6 +74,7 @@ public class BusinessServer extends BusinessManager {
 		data.put("clear", "false");
 		data.put("part_number", "0");
 		data.put("status", "1");	// 活动生成  活动发布  活动签到  活动结算
+		data.put("check_staus", "flase");
 		
 		Map<String, Object> sendmap = new HashMap<String, Object>();
 		sendmap.put("xrdataction", "setActinfoByBody");
@@ -295,7 +296,18 @@ public class BusinessServer extends BusinessManager {
 			resmap.put("alert_msg", "该活动已结算，无法加入");
 			return resmap;
 		}
-		
+		Map<String, Object> sendcheckmap = new HashMap<String, Object>();
+		Map<String, Object> getchecktmpmap = new HashMap<String, Object>();
+		getchecktmpmap.put("actid", actid);
+		sendcheckmap.put("xrdataction", "getCheck");
+		sendcheckmap.put("data", getchecktmpmap);
+		Map<String, Object> getcheckmap = (Map<String, Object>)feignDataManager.doSupport2DataCenter(sendcheckmap).get("body");
+		String check_staus = (String)getcheckmap.get("check_staus");
+		if(check_staus.equals("false")) {
+			
+			resmap.put("alert_msg", "该活动尚未开始签到，请您等待");
+			return resmap;
+		}
 		Map<String, Object> sendmap = new HashMap<String, Object>();
 		Map<String, Object> datatmp = new HashMap<String, Object>();
 		datatmp.put("openid", openid);
@@ -366,7 +378,6 @@ public class BusinessServer extends BusinessManager {
 			clearMap.put("ReliableMap", ReliableMap);
 			clearMap.put("UnReliableMap", UnReliableMap);
 			clearMap.put("actid", actid);
-			clearMap.put("distribution", "random");
 			rabbitTemplate.convertAndSend("pay.exchange", "clear.center.test", BaseResultTools.JsonObjectToStr(clearMap));
 			//threadPool.ClearThread(clearMap);
 			
@@ -473,18 +484,6 @@ public class BusinessServer extends BusinessManager {
 			return resmap;
 		}
 	}
-	
-	@Override
-	protected Map<String, Object> onPushJoinQrCode(String openid, Map<String, String> data) {
-		String actid = data.get("actid");
-		if(actid != null) {
-			return feignJsapiManager.pushJoinQrCode(actid, openid);
-		}else {
-			Map<String, Object> resmap = new HashMap<String, Object>();
-			resmap.put("error_msg", "false");
-			return resmap;
-		}
-	}
 
 	@SuppressWarnings("unchecked")
 	@Override
@@ -506,6 +505,26 @@ public class BusinessServer extends BusinessManager {
 		}
 		
 		
+	}
+	
+	@SuppressWarnings("unchecked")
+	@Override
+	protected Map<String, Object> onSetCheck(Map<String, String> data) {
+
+		Map<String, Object> resmap = new HashMap<String, Object>();
+		Map<String, Object> sendmap = new HashMap<String, Object>();
+		Map<String, Object> datatmp = new HashMap<String, Object>();
+		datatmp.put("actid", data.get("actid"));
+		sendmap.put("xrdataction", "setCheck");
+		sendmap.put("data", datatmp);
+		Map<String, Object> getOAMListmap = (Map<String, Object>)feignDataManager.doSupport2DataCenter(sendmap).get("body");
+		
+		if(getOAMListmap.get("error_msg") == null) {
+			resmap.put("alert_msg", "活动已开始签到");
+		}else {
+			resmap.put("alert_msg", "您已经点过开始签到啦");
+		}
+		return resmap;
 	}
 	
 	@SuppressWarnings("unchecked")
@@ -544,5 +563,17 @@ public class BusinessServer extends BusinessManager {
 			return all;
 		}
 		
+	}
+
+	@Override
+	protected Map<String, Object> onPushJoinQrCode(String openid, Map<String, String> data) {
+		String actid = data.get("actid");
+		if(actid != null) {
+			return feignJsapiManager.pushJoinQrCode(actid, openid);
+		}else {
+			Map<String, Object> resmap = new HashMap<String, Object>();
+			resmap.put("error_msg", "false");
+			return resmap;
+		}
 	}
 }

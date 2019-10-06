@@ -6,6 +6,7 @@ import java.util.Map;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -43,6 +44,19 @@ public class RedisController {
 	public Map<String, Object> getClear(@RequestParam(value = "actid", required = true) String actid) {
 		return activityInfoServer.getActClear(actid);
 	}
+	
+	@GetMapping("/getcheck")
+	public Map<String, Object> getActCheckByActid(@RequestParam(value = "actid", required = true) String actid){
+		
+		return activityInfoServer.getcheck(actid);
+	}
+	
+	@GetMapping("/setcheck")
+	public Map<String, Object> setActCheckByActid(@RequestParam(value = "actid", required = true) String actid){
+		
+		return activityInfoServer.setcheck(actid);
+	}
+	
 	
 	@RequestMapping("/getbaozhenghb")
 	public Map<String, Object> getBaoZhengHB(@RequestParam(value = "actid", required = true) String actid) {
