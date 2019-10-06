@@ -366,6 +366,7 @@ public class BusinessServer extends BusinessManager {
 			clearMap.put("ReliableMap", ReliableMap);
 			clearMap.put("UnReliableMap", UnReliableMap);
 			clearMap.put("actid", actid);
+			clearMap.put("distribution", "separate");
 			rabbitTemplate.convertAndSend("pay.exchange", "clear.center.test", BaseResultTools.JsonObjectToStr(clearMap));
 			//threadPool.ClearThread(clearMap);
 			
