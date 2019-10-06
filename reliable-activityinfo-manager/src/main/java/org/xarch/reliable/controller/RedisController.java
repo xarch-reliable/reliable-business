@@ -45,18 +45,10 @@ public class RedisController {
 		return activityInfoServer.getActClear(actid);
 	}
 	
-	@GetMapping("/getcheck")
+	@GetMapping("/getdistribution")
 	public Map<String, Object> getActCheckByActid(@RequestParam(value = "actid", required = true) String actid){
-		
-		return activityInfoServer.getcheck(actid);
+		return activityInfoServer.getdistribution(actid);
 	}
-	
-	@GetMapping("/setcheck")
-	public Map<String, Object> setActCheckByActid(@RequestParam(value = "actid", required = true) String actid){
-		
-		return activityInfoServer.setcheck(actid);
-	}
-	
 	
 	@RequestMapping("/getbaozhenghb")
 	public Map<String, Object> getBaoZhengHB(@RequestParam(value = "actid", required = true) String actid) {

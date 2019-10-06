@@ -115,23 +115,10 @@ public class ActivityInfoServerImpl implements ActivityInfoServer {
 	}
 	
 	@Override
-	public Map<String, Object> getcheck(String actid) {
+	public Map<String, Object> getdistribution(String actid) {
 		Map<String, Object> resmap = new HashMap<String, Object>();
-		resmap.put("check_staus", (String)redisUtil.hget(actid, "check_staus"));
+		resmap.put("distribution_method", (String)redisUtil.hget(actid, "distribution_method"));
 		return resmap;
-	}
-	
-	@Override
-	public Map<String, Object> setcheck(String actid) {
-		if( ((String)redisUtil.hget(actid, "check_staus")).equals("true") ) {
-			Map<String, Object> resmap = new HashMap<String, Object>();
-			resmap.put("error_msg", "false");
-			return resmap;
-		}else {
-			Map<String, Object> maptmp = getActivityInfo(actid);
-			maptmp.put("check_staus", "true");
-			return setActivityInfo(actid, maptmp);
-		}
 	}
 
 	@Override

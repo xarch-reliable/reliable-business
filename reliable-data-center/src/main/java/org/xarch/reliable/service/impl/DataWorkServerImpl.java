@@ -434,18 +434,6 @@ public class DataWorkServerImpl implements DataWorkServer{
 	}
 	
 	@Override
-	public Map<String, Object> onGetCheck(String actid){
-		
-		return feignActInfoManager.getActCheckByActid(actid);
-	}
-	
-	@Override
-	public Map<String, Object> onSetCheck(String actid){
-		
-		return feignActInfoManager.setActCheckByActid(actid);
-	}
-	
-	@Override
 	public Map<String, Object> onSetFallback(String openid, Map<String, Object> data) {
 	
 		Map<String, Object> resmap = new HashMap<String, Object>();
@@ -463,12 +451,16 @@ public class DataWorkServerImpl implements DataWorkServer{
 		return resmap;
 	}
 	
-	@SuppressWarnings({ "unchecked", "rawtypes" })
 	@Override
 	public Map<String, Object> getAllactid() {
 		//Integer.parseInt((String))
 		logger.info("feignActInfoManager.getAllactid()==="+feignActInfoManager.getAllactid());
 		return feignActInfoManager.getAllactid();
+	}
+
+	@Override
+	public Map<String, Object> onGetDistribution(String actid) {
+		return feignActInfoManager.getActDistributionMethod(actid);
 	}
 
 }

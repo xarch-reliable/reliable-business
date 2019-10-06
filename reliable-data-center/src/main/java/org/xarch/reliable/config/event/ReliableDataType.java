@@ -15,6 +15,7 @@ public enum ReliableDataType {
 	getactBaoZhengHB,
 	getactstatus,
 	setactstatus,
+	getActDistributionMethod,
 	getpayid,
 	setpayidMap,
 	getpayidMap,

@@ -152,11 +152,8 @@ public class DataDispatchServerImpl implements DataDispatchServer {
 		case getBillinfo:
 			responseMap.put("body", dataActionServer.onGetBillinfo((String)bodyMap.get("openid")));
 			break;
-		case getCheck:
-			responseMap.put("body", dataActionServer.onGetCheck((String)bodyMap.get("actid")));
-			break;
-		case setCheck:
-			responseMap.put("body", dataActionServer.onSetCheck((String)bodyMap.get("actid")));
+		case getActDistributionMethod:
+			responseMap.put("body", dataActionServer.onGetDistribution((String)bodyMap.get("actid")));
 			break;
 		case fallback:
 			responseMap.put("body", dataActionServer.onSetFallback((String)bodyMap.get("openid"), bodyMap));
