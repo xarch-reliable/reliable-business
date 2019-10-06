@@ -557,22 +557,37 @@ public class BusinessServer extends BusinessManager {
 	@SuppressWarnings("unchecked")
 	@Override
 	protected Map<String, Object> onSetStatus(String openid, Map<String, String> data) {
-
+		
+		Map<String, Object> resmap = new HashMap<String, Object>();
+		Map<String, Object> sendmap = new HashMap<String, Object>();
+		data.put("openid", openid);
+		data.put("actid", data.get("actid"));
+		sendmap.put("xrdataction", "getactstatus");
+		sendmap.put("data", data);
+		Map<String, String> statusmap = (Map<String, String>)feignDataManager.doSupport2DataCenter(sendmap).get("body");
+		String status = (String)statusmap.get("status");
+		if(Integer.parseInt(status)>2) {
+			
+			resmap.put("alert_msg", "您已经点过开始签到啦");
+			return resmap;
+		}
 		Map<String, Object> statusdata = new HashMap<String, Object>();
 		data.put("openid", openid);
 		data.put("actid", data.get("actid"));
 		data.put("status", "3");
 		statusdata.put("xrdataction", "setactstatus");
 		statusdata.put("data", data);
-		Map<String, String> statusmap = (Map<String, String>)feignDataManager.doSupport2DataCenter(statusdata).get("body");
-		Map<String, Object> resmap = new HashMap<String, Object>();
+		statusmap = (Map<String, String>)feignDataManager.doSupport2DataCenter(statusdata).get("body");
+		
 		if(statusmap.get("success_msg") != null) {
 			resmap.put("alert_msg", "活动现在可开始签到");
+			return resmap;
 		}else {
 			resmap.put("alert_msg", "您已经点过开始签到啦");
+			return resmap;
 		}
 		
-		return resmap;
+		
 	}
 
 	@SuppressWarnings({ "unchecked", "null" })
