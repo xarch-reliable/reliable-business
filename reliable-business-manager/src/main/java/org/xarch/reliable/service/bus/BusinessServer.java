@@ -377,8 +377,17 @@ public class BusinessServer extends BusinessManager {
 			clearMap.put("ReliableMap", ReliableMap);
 			clearMap.put("UnReliableMap", UnReliableMap);
 			clearMap.put("actid", actid);
+			
+			Map<String, Object> sendmap2 = new HashMap<String, Object>();
+			Map<String, Object> datatmp2 = new HashMap<String, Object>();
+			datatmp2.put("actid", actid);
+			sendmap2.put("xrdataction", "getActDistributionMethod");
+			sendmap2.put("data", datatmp2);
+			Map<String, String> distributionMethodmap = (Map<String, String>)feignDataManager.doSupport2DataCenter(sendmap2).get("body");
+			String distribution_method = distributionMethodmap.get("distribution_method");
+			clearMap.put("distribution", distribution_method);
+			
 			rabbitTemplate.convertAndSend("pay.exchange", "clear.center.test", BaseResultTools.JsonObjectToStr(clearMap));
-			//threadPool.ClearThread(clearMap);
 			
 			resmap.put("alert_msg", "结算完成");
 		}else {
