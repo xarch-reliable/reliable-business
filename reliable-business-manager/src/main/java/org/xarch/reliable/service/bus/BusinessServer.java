@@ -304,7 +304,7 @@ public class BusinessServer extends BusinessManager {
 		String status = (String)getcheckmap.get("status");
 		if(Integer.parseInt(status)<3) {
 			
-			resmap.put("alert_msg", "该活动尚未开始签到，请您等待");
+			resmap.put("alert_msg", "请在创建者允许签到后进行签到");
 			return resmap;
 		}
 		Map<String, Object> sendmap = new HashMap<String, Object>();
@@ -338,6 +338,18 @@ public class BusinessServer extends BusinessManager {
 			resmap.put("alert_msg", "actid为空，请重新加载页面");
 			return resmap;
 		}
+		Map<String, Object> sendcheckmap = new HashMap<String, Object>();
+		Map<String, Object> getchecktmpmap = new HashMap<String, Object>();
+		getchecktmpmap.put("actid", actid);
+		sendcheckmap.put("xrdataction", "getactstatus");
+		sendcheckmap.put("data", getchecktmpmap);
+		Map<String, Object> getcheckmap = (Map<String, Object>)feignDataManager.doSupport2DataCenter(sendcheckmap).get("body");
+		String status = (String)getcheckmap.get("status");
+		if(Integer.parseInt(status)<3) {
+			
+			resmap.put("alert_msg", "您尚未点击开始签到，无法进行结算");
+			return resmap;
+		}
 		resmap.put("actid", actid);
 		
 		
@@ -350,12 +362,21 @@ public class BusinessServer extends BusinessManager {
 		
 		if(finishactmap.get("success_msg") != null) {
 			
+			Map<String, Object> statusdata = new HashMap<String, Object>();
+			data.put("openid", openid);
+			data.put("actid", data.get("actid"));
+			data.put("status", "4");
+			statusdata.put("xrdataction", "setactstatus");
+			statusdata.put("data", data);
+			feignDataManager.doSupport2DataCenter(statusdata).get("body");
+			
 			Map<String, Object> sendmap1 = new HashMap<String, Object>();
 			Map<String, Object> datatmp1 = new HashMap<String, Object>();
 			datatmp1.put("actid", actid);
 			sendmap1.put("xrdataction", "getAMList");
 			sendmap1.put("data", datatmp1);
 			Map<String, String> actidmap = (Map<String, String>)feignDataManager.doSupport2DataCenter(sendmap1).get("body");
+			
 			
 			Map<String, Object> sendpayidmap = new HashMap<String, Object>();
 			Map<String, Object> payidtmp = new HashMap<String, Object>();
