@@ -18,14 +18,14 @@ public class FeignJsapiHystrix implements FeignJsapiManager {
 	}
 
 	@Override
-	public Map<String, Object> pushCheckQrCode(String actid, String openid) {
+	public Map<String, Object> pushCheckQrCode(String actid) {
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("error_msg", "[FeignJsapiManager]获取pushCheckQrCode失败");
 		return map;
 	}
 
 	@Override
-	public Map<String, Object> pushJoinQrCode(String actid, String openid) {
+	public Map<String, Object> pushJoinQrCode(String actid) {
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("error_msg", "[FeignJsapiManager]获取pushCheckQrCode失败");
 		return map;

@@ -58,12 +58,6 @@ public abstract class ActionMnager {
 		case getcollectmap:
 			responseMap.put("body", onGetCollectinfo(openid));
 			break;
-		case checkqrcode:
-			responseMap.put("body", onPushCheckQrCode(openid, (Map<String, String>)bodyMap.get("data")));
-			break;
-		case joinqrcode:
-			responseMap.put("body", onPushJoinQrCode(openid, (Map<String, String>)bodyMap.get("data")));
-			break;
 		case getBillinfo:
 			responseMap.put("body", onGetBillinfo(openid));
 			break;
@@ -91,10 +85,6 @@ public abstract class ActionMnager {
 	protected abstract Map<String, Object> onSetFallback(String openid, Map<String, String> data);
 	
 	protected abstract Map<String, Object> onGetBillinfo(String openid);
-	
-	protected abstract Map<String, Object> onPushCheckQrCode(String openid, Map<String, String> data);
-	
-	protected abstract Map<String, Object> onPushJoinQrCode(String openid, Map<String, String> data);
 	
 	protected abstract Map<String, Object> onGetCollectinfo(String openid);
 	

@@ -13,11 +13,9 @@ public interface FeignJsapiManager {
 	@GetMapping("jsapi/share/signature")
 	public Map<String, Object> getShareInfo(@RequestParam(value = "url", required = true) String url);
 	
-	@GetMapping("/push/qrcode/to/user")
-	public Map<String, Object> pushCheckQrCode(@RequestParam(value = "actid", required = true) String actid,
-			  @RequestParam(value = "openid", required = true) String openid);
+	@GetMapping("/push/check/qrcode/to/user")
+	public Map<String, Object> pushCheckQrCode(@RequestParam(value = "actid", required = true) String actid);
 	
-	@GetMapping("/push/join/qrcode/to/user")
-	public Map<String, Object> pushJoinQrCode(@RequestParam(value = "actid", required = true) String actid,
-			  @RequestParam(value = "openid", required = true) String openid);
+	@GetMapping("/push/share/qrcode/to/user")
+	public Map<String, Object> pushJoinQrCode(@RequestParam(value = "actid", required = true) String actid);
 }

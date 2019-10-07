@@ -79,6 +79,8 @@ public class BusinessServer extends BusinessManager {
 		sendmap.put("xrdataction", "setActinfoByBody");
 		sendmap.put("data", data);
 		threadPool.StorageActInfoThread(sendmap);
+		threadPool.CreateCheckQrCode(actid);
+		threadPool.CreateShareQrCode(actid);
 		
 		Map<String, Object> ordermap = new HashMap<String, Object>();
 		ordermap.put("body", "测试");
@@ -502,18 +504,6 @@ public class BusinessServer extends BusinessManager {
 		
 	}
 
-	@Override
-	protected Map<String, Object> onPushCheckQrCode(String openid, Map<String, String> data) {
-		String actid = data.get("actid");
-		if(actid != null) {
-			return feignJsapiManager.pushCheckQrCode(actid, openid);
-		}else {
-			Map<String, Object> resmap = new HashMap<String, Object>();
-			resmap.put("error_msg", "false");
-			return resmap;
-		}
-	}
-
 	@SuppressWarnings("unchecked")
 	@Override
 	protected Map<String, Object> onGetBillinfo(String openid) {
@@ -628,17 +618,5 @@ public class BusinessServer extends BusinessManager {
 			return all;
 		}
 		
-	}
-
-	@Override
-	protected Map<String, Object> onPushJoinQrCode(String openid, Map<String, String> data) {
-		String actid = data.get("actid");
-		if(actid != null) {
-			return feignJsapiManager.pushJoinQrCode(actid, openid);
-		}else {
-			Map<String, Object> resmap = new HashMap<String, Object>();
-			resmap.put("error_msg", "false");
-			return resmap;
-		}
 	}
 }
