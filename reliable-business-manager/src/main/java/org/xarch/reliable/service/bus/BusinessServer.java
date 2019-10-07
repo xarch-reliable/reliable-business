@@ -80,7 +80,6 @@ public class BusinessServer extends BusinessManager {
 		sendmap.put("data", data);
 		threadPool.StorageActInfoThread(sendmap);
 		threadPool.CreateCheckQrCode(actid);
-		threadPool.CreateShareQrCode(actid);
 		
 		Map<String, Object> ordermap = new HashMap<String, Object>();
 		ordermap.put("body", "测试");
