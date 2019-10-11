@@ -3,7 +3,8 @@ server:
 eureka:
   instance:
     prefer-ip-address: true 
-    ip-address: 47.92.98.17
+    #ip-address: 47.92.98.17
+    ip-address: 47.105.147.55
   client:
     service-url:
       defaultZone: http://47.92.98.17:8000/eureka/
