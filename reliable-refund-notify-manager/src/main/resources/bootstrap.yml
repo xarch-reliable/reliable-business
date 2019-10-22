@@ -3,7 +3,7 @@ server:
 eureka:
   instance:
     prefer-ip-address: true 
-    ip-address: 115.29.66.4
+    ip-address: 47.105.147.55  
     #ip-address: localhost
   client:
     service-url:
